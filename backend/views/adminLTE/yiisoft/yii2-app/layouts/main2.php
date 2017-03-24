@@ -23,7 +23,7 @@ AppAsset::register($this);
     <link rel="stylesheet" type="text/css" href="http://flwebsites.biz/jAlert/src/jAlert-v3.css">
     <script src='https://code.jquery.com/jquery-2.0.3.min.js'></script>
     <script src='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js'></script>
-    
+
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
@@ -33,7 +33,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'PPGI',
+        'brandLabel' => 'ICOMP',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -62,7 +62,7 @@ AppAsset::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        
+
     <section class="content">
         <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
         <input id="timesession" type="hidden" value= <?= ini_get('session.gc_maxlifetime');?> />
