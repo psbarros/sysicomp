@@ -1,4 +1,3 @@
-<<<<<<< ICOMP
 Sistema de Gerenciamento do Instituto de Computação
 ===================================================
 
