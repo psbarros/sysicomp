@@ -40,7 +40,7 @@ class CandidatosController extends Controller
                         }
                     ],
                 ],
-            ], 
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -206,7 +206,7 @@ class CandidatosController extends Controller
             readfile("uploads/".$zipFile);
             unlink("uploads/".$zipFile);
 
-    }	
+    }
 
     public function actionAprovar($id,$idEdital){
 
@@ -285,7 +285,7 @@ class CandidatosController extends Controller
 
 
 
-    
+
     //public function actionAprovar1($id,$idEdital,$id_usuario){
 	public function actionAprovar1($id,$idEdital){
 
@@ -297,11 +297,11 @@ class CandidatosController extends Controller
         $model_aluno->endereco  = $model_candidato->endereco;
         $model_aluno->bairro  = $model_candidato->bairro;
         $model_aluno->cidade  = $model_candidato->cidade;
-        $model_aluno->uf  = $model_candidato->uf; 
+        $model_aluno->uf  = $model_candidato->uf;
         $model_aluno->cep  = $model_candidato->cep;
         $model_aluno->email  = $model_candidato->email;
         $model_aluno->datanascimento  = $model_candidato->datanascimento;
-        $model_aluno->cpf  = $model_candidato->cpf; 
+        $model_aluno->cpf  = $model_candidato->cpf;
         $model_aluno->sexo  = $model_candidato->sexo;
         $model_aluno->telresidencial  = $model_candidato->telresidencial;
         $model_aluno->telcelular  = $model_candidato->telcelular;
@@ -331,14 +331,14 @@ class CandidatosController extends Controller
         return $this->render('/aluno/create', [
             'model' => $model_aluno,
             'linhasPesquisas' => $linhasPesquisas,
-            'orientadores' => $orientadores, 
+            'orientadores' => $orientadores,
         ]);
         }
 
     }
 
     public function actionReprovar($id,$idEdital)
-    {   
+    {
         $model = $this->findModel($id);
 
         $cartas_respondidas = new Recomendacoes();
@@ -452,7 +452,7 @@ class CandidatosController extends Controller
                                        ,array('Atributos do Candidato'=>'Capacidade de expressão escrita','Nível'=>$pontos[$recomendacao[$i]->expressao])
                                        ,array('Atributos do Candidato'=>'Conhecimento em Inglês','Nível'=>$pontos[$recomendacao[$i]->ingles])
             );
-            
+
 
             $pdf->writeHTML('
 
@@ -462,7 +462,7 @@ class CandidatosController extends Controller
                 <div style ="text-align:left"> <b>Nome do Candidato:</b> '.$candidato->nome.' </div>
                 <div style ="text-align:left"> <b>Graduado em: </b> '.$candidato->cursograd.' - '.$candidato->instituicaograd.' </div>
                 </p>
-                
+
                 <hr>
                 <div style ="text-align:center;"> <b>AVALIADOR DO CANDIDATO</b> </div>
 
@@ -494,7 +494,7 @@ class CandidatosController extends Controller
                         </th>
                     </tr>
                     <tr style="background-color:#F2F5A9">
-                        <td style="text-align:left"> Domínio em sua área de conhecimento científico </td> 
+                        <td style="text-align:left"> Domínio em sua área de conhecimento científico </td>
                         <td> '.$pontos[$recomendacao[$i]->dominio].'</td>
                     <tr style="background-color:#D8D8D8">
                         <td style="text-align:left"> Facilidade de aprendizado capacidade intelectual </td>
@@ -549,7 +549,7 @@ class CandidatosController extends Controller
     public function actionReenviarcartas($id, $idEdital){
         $recomendacoesArray = Recomendacoes::findAll(['idCandidato' => $id, 'dataResposta' => '0000-00-00 00:00:00']);
 
-        for ($i=0; $i < count($recomendacoesArray); $i++) { 
+        for ($i=0; $i < count($recomendacoesArray); $i++) {
             $recomendacoesArray[$i]->prazo = date("Y-m-d", strtotime('+1 days'));
             if(!$recomendacoesArray[$i]->save()){
                 $this->mensagens('danger', 'Erro ao Reenviar Cartas', 'As cartas de Recomendações não poderam ser enviadas.');
@@ -598,7 +598,7 @@ class CandidatosController extends Controller
             }
         }
     }
-    
+
     /**
      * Finds the Candidato model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

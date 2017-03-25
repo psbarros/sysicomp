@@ -42,28 +42,22 @@ class CandidatosSearch extends Candidato
     public function search($params)
     {
         $idEdital = $params['id'];
-        $query = Candidato::find()->select("j17_edital.cartarecomendacao as carta_recomendacao ,j17_linhaspesquisa.sigla as siglaLinhaPesquisa, candidato1.*, qtd_cartas, cartas_pendentes, (qtd_cartas-cartas_pendentes) as cartas_respondidas
-
-            ")->leftJoin("j17_linhaspesquisa","candidato1.idLinhaPesquisa =   j17_linhaspesquisa.id")->innerJoin("j17_edital", "j17_edital.numero = candidato1.idEdital")
+        Yii::$app->db->createCommand('SET SESSION wait_timeout = 28800;')->execute();
+        $query = Candidato::find()->select("j17_edital.cartarecomendacao as carta_recomendacao ,j17_linhaspesquisa.sigla as siglaLinhaPesquisa, candidato1.*, qtd_cartas, cartas_pendentes, (qtd_cartas-cartas_pendentes) as cartas_respondidas")
+        ->leftJoin("j17_linhaspesquisa","candidato1.idLinhaPesquisa =   j17_linhaspesquisa.id")
+        ->innerJoin("j17_edital", "j17_edital.numero = candidato1.idEdital")
         ->leftJoin("j17_recomendacoes","j17_recomendacoes.idCandidato = candidato1.id")->alias('candidato1')
-
         ->leftJoin("(SELECT idCandidato, if(dataResposta = '0000-00-00 00:00:00', count(dataResposta),0) as cartas_pendentes from j17_recomendacoes group by idCandidato, dataResposta) recomendacao1"," candidato1.id = recomendacao1.idCandidato")
-
         ->leftJoin("(SELECT idCandidato, count(idCandidato) as qtd_cartas from j17_recomendacoes group by idCandidato) recomendacao2 "," candidato1.id = recomendacao2.idCandidato")
+        ->where('idEdital ="'.$idEdital.'" AND candidato1.passoatual = 4')
+        ->groupBy('id');
 
-        ->where('idEdital ="'.$idEdital.'" AND candidato1.passoatual = 4')->groupBy("id");
-
-
-
-        //$query2 = Candidato::find()->leftJoin(" (select * FROM j17_recomendacoes ) as rec ", "rec.idCandidato = j17_candidatos.id ");
-
-        
-        // add conditions that should always apply here
+        // Para que o comando acima funcione, é importante dar o seguinte comando no banco de dados:
+        // SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
 
         $dataProvider->sort->attributes['siglaLinhaPesquisa'] = [
         'asc' => ['siglaLinhaPesquisa' => SORT_ASC],
@@ -74,6 +68,7 @@ class CandidatosSearch extends Candidato
         'asc' => ['qtd_cartas' => SORT_ASC],
         'desc' => ['qtd_cartas' => SORT_DESC],
         ];
+
         $dataProvider->sort->attributes['cartas_respondidas'] = [
         'asc' => ['cartas_respondidas' => SORT_ASC],
         'desc' => ['cartas_respondidas' => SORT_DESC],
@@ -145,8 +140,6 @@ class CandidatosSearch extends Candidato
             ->andFilterWhere(['like', 'dataformaturapos', $this->dataformaturapos])
             ->andFilterWhere(['like', 'periodo', $this->periodo]);
 
-            //
-
         return $dataProvider;
     }
 
@@ -154,20 +147,21 @@ class CandidatosSearch extends Candidato
 public function search2($params)
     {
         $idEdital = $params['id'];
-        $query = Candidato::find()->select("j17_edital.cartarecomendacao as carta_recomendacao ,j17_linhaspesquisa.sigla as siglaLinhaPesquisa, candidato1.*, qtd_cartas, cartas_pendentes, (qtd_cartas-cartas_pendentes) as cartas_respondidas
-
-            ")->leftJoin("j17_linhaspesquisa","candidato1.idLinhaPesquisa = j17_linhaspesquisa.id")->innerJoin("j17_edital", "j17_edital.numero = candidato1.idEdital")
+        $query = Candidato::find()->select("j17_edital.cartarecomendacao as carta_recomendacao ,j17_linhaspesquisa.sigla as siglaLinhaPesquisa, candidato1.*, qtd_cartas, cartas_pendentes, (qtd_cartas-cartas_pendentes) as cartas_respondidas")
+        ->leftJoin("j17_linhaspesquisa","candidato1.idLinhaPesquisa = j17_linhaspesquisa.id")
+        ->innerJoin("j17_edital", "j17_edital.numero = candidato1.idEdital")
         ->leftJoin("j17_recomendacoes","j17_recomendacoes.idCandidato = candidato1.id")->alias('candidato1')
-
         ->leftJoin("(SELECT idCandidato, if(dataResposta = '0000-00-00 00:00:00', count(dataResposta),0) as cartas_pendentes from j17_recomendacoes group by idCandidato, dataResposta) recomendacao1"," candidato1.id = recomendacao1.idCandidato")
-
         ->leftJoin("(SELECT idCandidato, count(idCandidato) as qtd_cartas from j17_recomendacoes group by idCandidato) recomendacao2 "," candidato1.id = recomendacao2.idCandidato")
+        ->where('idEdital ="'.$idEdital.'" AND candidato1.passoatual != 4')
+        ->groupBy('id');
 
-        ->where('idEdital ="'.$idEdital.'" AND candidato1.passoatual != 4')->groupBy("id");
+        // Para que o comando acima funcione, é importante dar o seguinte comando no banco de dados:
+        // SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
         //$query2 = Candidato::find()->leftJoin(" (select * FROM j17_recomendacoes ) as rec ", "rec.idCandidato = j17_candidatos.id ");
 
-        
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

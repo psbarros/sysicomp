@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Edital */
 
-$this->title = 'Alterar Edital: ' . ' ' . $model->numero;
+$this->title = 'Alterar Edital do PPGI ' . ' ' . $model->numero;
 $this->params['breadcrumbs'][] = ['label' => 'Editais', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->numero, 'url' => ['view', 'id' => $model->numero]];
 $this->params['breadcrumbs'][] = 'Update';

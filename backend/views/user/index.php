@@ -11,11 +11,12 @@ BootboxAsset::registerWithOverride($this);
 /* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Professores e Técnicos Administrativos';
+$this->title = 'Lista de Usuários (Professores e Técnicos Administrativos)';
 ?>
 <div class="user-index">
     <p>
-        <?= Html::a('<span class="fa fa-plus"></span> Adicionar Professor ou Técnico Administrativo', ['site/signup'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Voltar','#',['class' => 'btn btn-warning','onclick'=>"history.go(-1);"]); ?>
+        <?= Html::a('<span class="fa fa-user-plus"></span>&nbsp;&nbsp;Adicionar Usuário', ['site/signup'], ['class' => 'btn btn-primary']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

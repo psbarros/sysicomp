@@ -38,7 +38,7 @@ class EditalController extends Controller
                         }
                     ],
                 ],
-            ], 
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -107,7 +107,7 @@ class EditalController extends Controller
         $objPHPExcel->getActiveSheet()->getStyle( $intervalo_tamanho )->getAlignment()->setVertical(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
     //auto break line
-        
+
         $objPHPExcel->getActiveSheet()
             ->getStyle($intervalo_tamanho)
             ->getAlignment()
@@ -137,11 +137,11 @@ class EditalController extends Controller
     $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(40);
 
     }
-    
+
     //método responsável por preencher na planilha os títulos: NOME/INSCRIÇÃO/LINHA/NÍVEL/COMPROVANTE/ ETC.
-    
+
     public function planilhaHeaderCandidato ($objPHPExcel,$arrayColunas,$curso,$intervaloHeader){
-    
+
         // Criamos as colunas
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue($arrayColunas[0], $curso )
@@ -176,7 +176,7 @@ class EditalController extends Controller
         $objPHPExcel->getActiveSheet()->getStyle($intervaloHeader)->getFont()->getColor()->setRGB('FFFFFF');
 
 
-                
+
     }
 
     //método responsável por preencher na planilha dados provenientes do banco: NOME/INSCRIÇÃO/LINHA/NÍVEL
@@ -186,13 +186,13 @@ class EditalController extends Controller
 
         for($j=0; $j<count($model_candidato); $j++){
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $i+3, $model_candidato[$j]->nome);
-            
+
             $objPHPExcel->getActiveSheet()
                 ->setCellValueByColumnAndRow(1, $i+3, ($model_candidato[$j]->idEdital.'-'.str_pad($model_candidato[$j]->posicaoEdital, 3, "0", STR_PAD_LEFT)));
-            
+
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, $i+3, $linhasPesquisas[$model_candidato[$j]->idLinhaPesquisa]);
 
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $i+3, $arrayCurso[$model_candidato[$j]->cursodesejado]);   
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $i+3, $arrayCurso[$model_candidato[$j]->cursodesejado]);
 
             $i++;
         }
@@ -255,7 +255,7 @@ class EditalController extends Controller
         if($linhaAtual == 0){
             $intervalo = "A".($i+2).":C".($i+2);
             $this->linhaNaoHaCandidatos($objWorkSheet,$linhaAtual, $intervalo);
-        } 
+        }
 
 
         $i = $i+4;
@@ -302,7 +302,7 @@ class EditalController extends Controller
         if($i+1 == $ultimaLinha+3){
             $intervalo = "A".($i).":C".($i+1);
             $this->linhaNaoHaCandidatos($objWorkSheet,$ultimaLinha, $intervalo);
-        } 
+        }
 
         //Write cells
         for ($i=$i+1; $i< $ultimaLinha+3; $i++){
@@ -316,7 +316,7 @@ class EditalController extends Controller
         $qtd_linhas = $objWorkSheet->getHighestRow();
         for ($k=1; $k<=$qtd_linhas; $k++){
             $objWorkSheet->getRowDimension(''.$k.'')->setRowHeight(20);
-            
+
         }
 
         //definindo altura da linha do header
@@ -387,7 +387,7 @@ class EditalController extends Controller
         if($linhaAtual == 0){
             $intervalo = "A".($i+2).":E".($i+2);
             $this->linhaNaoHaCandidatos($planilhaPropostas,$linhaAtual, $intervalo);
-        } 
+        }
 
 
         $i = $i+4;
@@ -434,7 +434,7 @@ class EditalController extends Controller
         if($i+1 == $ultimaLinha+3){
             $intervalo = "A".($i).":E".($i+1);
             $this->linhaNaoHaCandidatos($planilhaPropostas,$ultimaLinha, $intervalo);
-        } 
+        }
 
         //Write cells
         for ($i=$i+1; $i< $ultimaLinha+3; $i++){
@@ -474,7 +474,7 @@ class EditalController extends Controller
         $planilhaTitulos->getStyle( $intervalo_tamanho )->getAlignment()->setVertical(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
         //auto break line
-        
+
         $planilhaTitulos
             ->getStyle( $intervalo_tamanho )
             ->getAlignment()
@@ -540,7 +540,7 @@ class EditalController extends Controller
         if($linhaAtual == 0){
             $intervalo = "A".($i+2).":J".($i+3);
             $this->linhaNaoHaCandidatos($planilhaTitulos,$linhaAtual, $intervalo);
-        } 
+        }
 
         $i = $i+5;
 
@@ -571,7 +571,7 @@ class EditalController extends Controller
 
         $planilhaTitulos->mergeCells("B".($i).":E".($i));
 
-        $planilhaTitulos->mergeCells("F".($i).":H".($i)); 
+        $planilhaTitulos->mergeCells("F".($i).":H".($i));
 
         //definindo qual linha da planilha se encontra o proximo header
 
@@ -605,7 +605,7 @@ class EditalController extends Controller
         if($i == $ultimaLinha+3){
             $intervalo = "A".($i).":J".($i+1);
             $this->linhaNaoHaCandidatos($planilhaTitulos,$ultimaLinha+1, $intervalo);
-        } 
+        }
 
         //Write cells
         for ($i; $i< $ultimaLinha+3; $i++){
@@ -621,7 +621,7 @@ class EditalController extends Controller
 
         $qtd_linhas = $planilhaTitulos->getHighestRow();
 
-       
+
         for ($k=1; $k<=$qtd_linhas; $k++){
             $planilhaTitulos->getRowDimension(''.$k.'')->setRowHeight(20);
         }
@@ -811,7 +811,7 @@ class EditalController extends Controller
         if($linhaAtual == 0){
             $intervalo = "A".($i+2).":W".($i+2);
             $this->linhaNaoHaCandidatos($planilhaCartas,$linhaAtual, $intervalo);
-        } 
+        }
 
 
         $i = $i+4;
@@ -905,7 +905,7 @@ class EditalController extends Controller
         if( ($i+1) == $ultimaLinha+3){
             $intervalo = "A".($i).":W".($i);
             $this->linhaNaoHaCandidatos($planilhaCartas,$ultimaLinha, $intervalo);
-        } 
+        }
 
         //Write cells
         for ($i=0; $i< $qtd_linhas-2; $i++){
@@ -1046,7 +1046,7 @@ class EditalController extends Controller
         if($linhaAtual == 0){
             $intervalo = "A".($i+2).":E".($i+2);
             $this->linhaNaoHaCandidatos($planilhaMediaFinal,$linhaAtual, $intervalo);
-        } 
+        }
 
 
         $i = $i+4;
@@ -1099,7 +1099,7 @@ class EditalController extends Controller
         if($i+1 == $ultimaLinha+3){
             $intervalo = "A".($i).":E".($i);
             $this->linhaNaoHaCandidatos($planilhaMediaFinal,$ultimaLinha, $intervalo);
-        } 
+        }
 
 
         //INSERINDO VALORES NAS CÉLULAS
@@ -1120,7 +1120,7 @@ class EditalController extends Controller
                 ->setCellValue('C'.($i), "='Propostas'!E".($i))
                 ->setCellValue('D'.($i), $formulaTitulosEcartas)
                 ->setCellValue('E'.($i), "=AVERAGE(B".($i).",D".($i).")");
-          
+
 
 
         }
@@ -1145,14 +1145,14 @@ class EditalController extends Controller
 
 
     }
-    
-   
+
+
     public function actionGerarplanilha($idEdital){
 
         $arrayCurso = array(1 => "Mestrado", 2 => "Doutorado");
         $arrayColunas = array(
-            0 => "A1", 1 => "A2", 2 => "B2", 3 => "C2", 4 => "D2", 
-            5 => "E2", 6 => "F2", 7 => "G2", 8 => "H2", 9 => "I2", 
+            0 => "A1", 1 => "A2", 2 => "B2", 3 => "C2", 4 => "D2",
+            5 => "E2", 6 => "F2", 7 => "G2", 8 => "H2", 9 => "I2",
             10 => "J2", 11 => "K2");
 
         $linhasPesquisas = ArrayHelper::map(LinhaPesquisa::find()->orderBy('sigla')->all(), 'id', 'sigla');
@@ -1190,10 +1190,10 @@ class EditalController extends Controller
             $intervaloHeader = 'A'.($j+3).':K'.($j+3).'';
 
             $arrayColunas = array(
-                0 => "A".($j+3), 1 => "A".($j+4), 2 => "B".($j+4), 3 => "C".($j+4), 4 => "D".($j+4), 
-                5 => "E".($j+4), 6 => "F".($j+4), 7 => "G".($j+4), 8 => "H".($j+4), 9 => "I".($j+4), 
+                0 => "A".($j+3), 1 => "A".($j+4), 2 => "B".($j+4), 3 => "C".($j+4), 4 => "D".($j+4),
+                5 => "E".($j+4), 6 => "F".($j+4), 7 => "G".($j+4), 8 => "H".($j+4), 9 => "I".($j+4),
                 10 => "J".($j+4), 11 => "K".($j+4));
-                
+
             $this->planilhaHeaderCandidato($objPHPExcel,$arrayColunas,$arrayCurso[2],$intervaloHeader);
 
             $j= $this->planilhaCandidatoPreencherDados($objPHPExcel,$model_candidato_doutorado,$linhasPesquisas,$arrayCurso,$i+2,$j);
@@ -1213,7 +1213,7 @@ class EditalController extends Controller
         $objPHPExcel->getActiveSheet()->getRowDimension("2")->setRowHeight(40);
         $objPHPExcel->getActiveSheet()->getRowDimension($i+4)->setRowHeight(40);
 
-        
+
         //cria planilha de PROVAS
         $planilhaProvas = $objPHPExcel->createSheet(1);
         $this->planilhaProvas($planilhaProvas,$i,$j);
@@ -1257,7 +1257,7 @@ class EditalController extends Controller
 
         // Acessamos o 'Writer' para poder salvar o arquivo
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        
+
         // Salva diretamente no output, poderíamos mudar arqui para um nome de arquivo em um diretório ,caso não quisessemos jogar na tela
 
             header('Content-type: application/vnd.ms-excel');
@@ -1267,17 +1267,17 @@ class EditalController extends Controller
             $objWriter->save('php://output');
             $objWriter->save('ARQUIVO.xls');
 
-        
+
         echo "ok";
-        
-        
+
+
     }
 
 
 
 //funções responsáveis pelas notificações de novas INSCRIÇÕES
     public function actionListacandidatos()
-    {       
+    {
 
             $ultima_visualizacao = Yii::$app->user->identity->visualizacao_candidatos;
             $candidato = Candidato::find()->where("inicio > '".$ultima_visualizacao."'")->orderBy("inicio DESC")->all();
@@ -1295,7 +1295,7 @@ class EditalController extends Controller
     }
 
     public function actionQuantidadecandidatos()
-    {       
+    {
 
             $ultima_visualizacao = Yii::$app->user->identity->visualizacao_candidatos;
             $candidato = Candidato::find()->where("inicio > '".$ultima_visualizacao."'")->all();
@@ -1305,20 +1305,20 @@ class EditalController extends Controller
     }
 
     public function actionZerarnotificacaoinscricoes()
-    {       
+    {
             $usuario = new User();
             $usuario = $usuario->findIdentity(Yii::$app->user->identity->id);
             $usuario->visualizacao_candidatos = date("Y-m-d H:i:s");
             $usuario->save();
     }
-    
+
 //fim das funções responsáveis pelas notificações de novas INSCRIÇÕES
 
 //inicio das funcoes responsáveis pelas notificações de ENCERRAMENTO de novas inscrições:
 
 
     public function actionListaencerrados()
-    {       
+    {
 
             $ultima_visualizacao = Yii::$app->user->identity->visualizacao_candidatos_finalizados;
             $candidato = Candidato::find()->where("fim > '".$ultima_visualizacao."'")->orderBy("fim DESC")->all();
@@ -1336,17 +1336,17 @@ class EditalController extends Controller
     }
 
     public function actionQuantidadeencerrados()
-    {       
+    {
 
             $ultima_visualizacao = Yii::$app->user->identity->visualizacao_candidatos_finalizados;
-            $candidato = Candidato::find()->where("fim > '".$ultima_visualizacao."'")->all(); 
+            $candidato = Candidato::find()->where("fim > '".$ultima_visualizacao."'")->all();
 
             echo count($candidato);
 
     }
 
     public function actionZerarnotificacaoencerrados()
-    {       
+    {
             $usuario = new User();
             $usuario = $usuario->findIdentity(Yii::$app->user->identity->id);
             $usuario->visualizacao_candidatos_finalizados = date("Y-m-d H:i:s");
@@ -1358,7 +1358,7 @@ class EditalController extends Controller
 
 
     public function actionCartasrespondidas()
-    {       
+    {
 
             $ultima_visualizacao = Yii::$app->user->identity->visualizacao_cartas_respondidas;
             $recomendacao = Recomendacoes::find()->innerJoin('j17_candidatos','j17_candidatos.id = j17_recomendacoes.idCandidato')->
@@ -1378,7 +1378,7 @@ class EditalController extends Controller
     }
 
     public function actionQuantidadecartasrecebidas()
-    {       
+    {
 
             $ultima_visualizacao = Yii::$app->user->identity->visualizacao_cartas_respondidas;
             $recomendacao = Recomendacoes::find()->innerJoin('j17_candidatos','j17_candidatos.id = j17_recomendacoes.idCandidato')->
@@ -1389,7 +1389,7 @@ class EditalController extends Controller
     }
 
     public function actionZerarnotificacaocartas()
-    {       
+    {
             $usuario = new User();
             $usuario = $usuario->findIdentity(Yii::$app->user->identity->id);
             $usuario->visualizacao_cartas_respondidas = date("Y-m-d H:i:s");
@@ -1423,10 +1423,10 @@ class EditalController extends Controller
             else if($model->mestrado == 0 && $model->doutorado == 1){
 
                     $model->vagas_mestrado = 0;
-                    $model->cotas_mestrado = 0;   
+                    $model->cotas_mestrado = 0;
             }
 
-           
+
             if($model->mestrado == 1 && $model->doutorado == 1)
                 $model->curso = '3';
             else if($model->mestrado == 1)
@@ -1465,8 +1465,8 @@ class EditalController extends Controller
     {
         $model = $this->findModel($id);
 
-        $datainicioBanco = $model->datainicio = date('d-m-Y', strtotime($model->datainicio));
-        $datafimBanco = $model->datafim =  date('d-m-Y', strtotime($model->datafim));
+        $datainicioBanco = $model->datainicio = date('d/m/Y', strtotime($model->datainicio));
+        $datafimBanco = $model->datafim =  date('d/m/Y', strtotime($model->datafim));
 
         if ($model->load(Yii::$app->request->post())) {
             if($model->mestrado == 1 && $model->doutorado == 1)
@@ -1510,8 +1510,8 @@ class EditalController extends Controller
         if($this->findModel($id)->delete())
 			$this->mensagens('success', 'Sucesso', 'Edital excluído com sucesso.');
 		else
-			$this->mensagens('danger', 'Erro ao excluir', 'O sistema não permitiu a exclusão do edital.');			
-		
+			$this->mensagens('danger', 'Erro ao excluir', 'O sistema não permitiu a exclusão do edital.');
+
         return $this->redirect(['index']);
     }
 
@@ -1523,7 +1523,7 @@ class EditalController extends Controller
         $model->status = 0;
 
         $model->salve();
-		return $this->redirect(['index']);			
+		return $this->redirect(['index']);
     }
 
     /**

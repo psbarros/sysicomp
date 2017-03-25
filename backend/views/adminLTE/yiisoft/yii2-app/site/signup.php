@@ -11,14 +11,14 @@ use kartik\widgets\SwitchInput;
 
 $perfis = ['1' => 'Administrador', '2' => 'Coordenador', '3' => 'Secretaria', '4' => 'Professor', '5' => 'Aluno'];
 
-$this->title = 'Cadastro de Novos Professores ou Técnicos Administrativos';
+$this->title = 'Adicionar Usuário (Professor ou Técnico Administrativo)';
 ?>
 
 <div class="site-signup">
-
-<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['index'], ['class' => 'btn btn-warning']) ?>
-    <br><br>
-
+    <p>
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Voltar','#',['class' => 'btn btn-warning','onclick'=>"history.go(-1);"]); ?>
+        <?= Html::a('<span class="fa fa-list"></span>&nbsp;&nbsp;Listar Usuários', ['user/index'], ['class' => 'btn btn-success']) ?>
+    </p>
         <div style= "text-align:left">
             <font color='#FF0000'>*</font> Campos Obrigatórios
         </div>

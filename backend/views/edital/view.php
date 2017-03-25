@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="edital-view">
 
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['edital/index', 'id' => $model->numero], ['class' => 'btn btn-warning']) ?>    
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['edital/index', 'id' => $model->numero], ['class' => 'btn btn-warning']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-edit"></span> Editar', ['update', 'id' => $model->numero], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-remove-sign"></span> Excluir', ['delete', 'id' => $model->numero], [
             'class' => 'btn btn-danger',
@@ -39,13 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Data início',
                 'attribute' => 'datainicio',
-                'value' => date("d-m-Y", strtotime($model->datainicio)),
+                'value' => date("d/m/Y", strtotime($model->datainicio)),
 
             ],
             [
                 'label' => 'Data fim',
                 'attribute' => 'datafim',
-                'value' => date("d-m-Y", strtotime($model->datafim)),
+                'value' => date("d/m/Y", strtotime($model->datafim)),
 
             ],
                 [
@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                      'attribute' => 'datacriacao',
                      'format'=>'raw',
                      'label' => 'Data da Criação no sistema',
-                     'value' => date('d-m-Y',strtotime($model->datacriacao))." às ".date('H:m:s',strtotime($model->datacriacao))
+                     'value' => date('d/m/Y',strtotime($model->datacriacao))." às ".date('H:m:s',strtotime($model->datacriacao))
                 ],
                 [
                      'attribute' => 'documento',

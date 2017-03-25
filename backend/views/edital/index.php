@@ -11,7 +11,7 @@ BootboxAsset::registerWithOverride($this);
 /* @var $searchModel app\models\SearchEdital */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Editais';
+$this->title = 'Editais de Seleção do PPGI';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -42,7 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </table>
 
 
-    <?= Html::a('<span class="fa fa-plus"></span> Novo Edital', ['create'], ['class' => 'btn btn-success']) ?>
+	<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Voltar','#',['class' => 'btn btn-warning','onclick'=>"history.go(-1);"]); ?>
+    <?= Html::a('<span class="fa fa-plus"></span>&nbsp;&nbsp;Novo Edital', ['create'], ['class' => 'btn btn-primary']) ?>
 
 
     <?= GridView::widget([
@@ -55,14 +56,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Início inscrições',
                 'attribute' => 'datainicio',
                 'value' => function ($model) {
-                        return date("d-m-Y", strtotime($model->datainicio));
+                        return date("d/m/Y", strtotime($model->datainicio));
                 },
             ],
             [
                 'label' => 'Término inscrições',
                 'attribute' => 'datafim',
                 'value' => function ($model) {
-                        return date("d-m-Y", strtotime($model->datafim));
+                        return date("d/m/Y", strtotime($model->datafim));
                 },
             ],
             [
@@ -88,11 +89,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'vagasdoutorado' ,
 
             ],
-        
+
             ['class' => 'yii\grid\ActionColumn',
               'template'=>'{download} {view} {delete} {update}',
                 'buttons'=>[
-                  'download' => function ($url, $model) { 
+                  'download' => function ($url, $model) {
                     return Html::a('<span class="glyphicon glyphicon-download"></span>', $model->documento, [
                             'target' => '_blank','title' => Yii::t('yii', 'Download do Edital'),
                     ]);
@@ -104,12 +105,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'method' => 'post',
                             ],
                             'title' => Yii::t('yii', 'Remover Edital'),
-                    ]);   
+                    ]);
                   }
-              ]                            
+              ]
                 ],
         ],
     ]); ?>
 </div>
-
-

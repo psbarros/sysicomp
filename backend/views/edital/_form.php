@@ -35,7 +35,7 @@ if(isset($model->documento))
 	                'language' => Yii::$app->language,
 	                'options' => ['placeholder' => 'Selecione a Data de Início ...',],
 				    'pluginOptions' => [
-				        'format' => 'dd-mm-yyyy',
+				        'format' => 'dd/mm/yyyy',
 				        'todayHighlight' => true
 				    ]
 		        ])->label("<font color='#FF0000'>*</font> <b>Data de Início das Inscrições:</b>")
@@ -44,7 +44,7 @@ if(isset($model->documento))
 	                'language' => Yii::$app->language,
 	                'options' => ['placeholder' => 'Selecione a Data de Término ...',],
 				    'pluginOptions' => [
-				        'format' => 'dd-mm-yyyy',
+				        'format' => 'dd/mm/yyyy',
 				        'todayHighlight' => true
 				    ]
 				])->label("<font color='#FF0000'>*</font> <b>Data de Término das Inscrições:</b>")
@@ -102,7 +102,7 @@ if(isset($model->documento))
         </div>
 
 	    <div class="form-group">
-	        <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-ok-sign"></span> Criar' : '<span class="glyphicon glyphicon-ok-sign"></span> Alterar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	        <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-ok-sign"></span> Criar Edital' : '<span class="glyphicon glyphicon-ok-sign"></span> Alterar Edital', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 	    </div>
 
 	    <?php ActiveForm::end(); ?>

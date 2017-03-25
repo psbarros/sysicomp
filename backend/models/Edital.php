@@ -81,15 +81,16 @@ class Edital extends \yii\db\ActiveRecord
 
     public function validarDataInicio($attribute, $params){
         if (!$this->hasErrors()) {
-            if (date("Y-m-d", strtotime($this->datainicio)) < date('Y-m-d')) {
-                $this->addError($attribute, 'Informe uma data igual ou posterior a '.date('d-m-Y'));
+            if (date("Y-m-d", strtotime(str_replace('/', '-', $this->datainicio))) < date('Y-m-d')) {
+                $this->addError($attribute, 'Informe uma data igual ou posterior ao dia atual ('.date('d/m/Y').').');
             }
         }
     }
+
     public function validarDataFim($attribute, $params){
         if (!$this->hasErrors()) {
-            if (date("Y-m-d", strtotime($this->datainicio)) > date("Y-m-d", strtotime($this->datafim))) {
-                $this->addError($attribute, 'Informe uma data igual ou posterior a '.date("d-m-Y", strtotime($this->datainicio))." ".date("d-m-Y", strtotime($this->datafim)));
+            if (date("Y-m-d", strtotime(str_replace('/', '-', $this->datainicio))) > date("Y-m-d", strtotime(str_replace('/', '-', $this->datafim)))) {
+                $this->addError($attribute, 'Informe uma data igual ou posterior a '.date("d/m/Y", strtotime(str_replace('/', '-', $this->datainicio))).'.');
             }
         }
     }
@@ -114,8 +115,8 @@ class Edital extends \yii\db\ActiveRecord
     public function beforeSave($insert){
 
         if (parent::beforeSave($insert)) {
-            $this->datainicio = date('Y-m-d', strtotime($this->datainicio));
-            $this->datafim =  date('Y-m-d', strtotime($this->datafim));
+            $this->datainicio = date('Y-m-d', strtotime(str_replace('/', '-', $this->datainicio)));
+            $this->datafim =  date('Y-m-d', strtotime(str_replace('/', '-', $this->datafim)));
             return true;
         } else {
             return false;
