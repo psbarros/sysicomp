@@ -13,7 +13,7 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'sourceLanguage' => 'en',
-    'language' => 'pt-br',
+    'language' => 'pt-BR',
     'timeZone' => 'America/Manaus',
 
 

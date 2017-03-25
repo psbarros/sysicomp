@@ -36,10 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'email:email',
             'perfis',
-            [
-                'attribute' => 'created_at',
-                 'value' => date('d-m-Y', strtotime($model->created_at)),
-            ],
+            'created_at',
             'endereco',
             'telcelular',
             'telresidencial',
@@ -55,11 +52,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ])
     ?>
-    <?php 
+    <?php
         }
         else{
     ?>
-    
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

@@ -11,15 +11,14 @@ use kartik\widgets\SwitchInput;
 
 $perfis = ['1' => 'Administrador', '2' => 'Coordenador', '3' => 'Secretaria', '4' => 'Professor', '5' => 'Aluno'];
 
-$this->title = 'Cadastro';
+$this->title = 'Cadastro de Novos Professores ou Técnicos Administrativos';
 ?>
 
 <div class="site-signup">
 
-<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['index'], ['class' => 'btn btn-warning']) ?>    
+<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['index'], ['class' => 'btn btn-warning']) ?>
     <br><br>
-    <p>Entre com os seguintes dados para alterar o cadastro no sistema do PPGI: </p>
-    
+
         <div style= "text-align:left">
             <font color='#FF0000'>*</font> Campos Obrigatórios
         </div>
@@ -34,33 +33,33 @@ $this->title = 'Cadastro';
                     </div>
                     <div class="panel-body">
                         <?= $form->field($model, 'nome')->label("<font color='#FF0000'>*</font> <b>Nome Completo:</b>") ?>
-                        <?= $form->field($model, 'username', ['options' => ['class' => 'col-md-6']])->widget(MaskedInput::className(), [
-                            'mask' => '999.999.999-99'])->label("<font color='#FF0000'>*</font> <b>CPF:</b>") ?>   
-                        <?= $form->field($model, 'email', ['options' => ['class' => 'col-md-6']])->label("<font color='#FF0000'>*</font> <b>E-mail:</b>") ?>
-                        <?= $form->field($model, 'password', ['options' => ['class' => 'col-md-6']])->passwordInput()->label("Senha:")  ?>
-                        <?= $form->field($model, 'password_repeat', ['options' => ['class' => 'col-md-6']])->passwordInput()->label("Repetir Senha:")  ?>
-                        <div style="margin-bottom: 20px;"><b><font color='#FF0000'>*</font> Escolha o(s) perfil(s) correspondente a este usuário</b></div>
+                        <?= $form->field($model, 'username', ['options' => ['class' => 'col-md-6 col-left']])->widget(MaskedInput::className(), [
+                            'mask' => '999.999.999-99'])->label("<font color='#FF0000'>*</font> <b>CPF:</b>") ?>
+                        <?= $form->field($model, 'email', ['options' => ['class' => 'col-md-6 col-right']])->label("<font color='#FF0000'>*</font> <b>E-mail:</b>") ?>
+                        <?= $form->field($model, 'password', ['options' => ['class' => 'col-md-6 col-left']])->passwordInput()->label("Senha:")  ?>
+                        <?= $form->field($model, 'password_repeat', ['options' => ['class' => 'col-md-6 col-right']])->passwordInput()->label("Repetir Senha:")  ?>
+                        <div style="margin-bottom: 20px;"><b><font color='#FF0000'>*</font> Escolha o(s) perfil(s) correspondente(s) a este usuário</b></div>
                 <div class = "row">
                     <?= $form->field($model, 'administrador', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
                         'pluginOptions' => [
                             'onText' => 'Sim',
                             'offText' => 'Não',
                     ]]) ?>
-            <?= $form->field($model, 'coordenador', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
-                        'pluginOptions' => [
-                            'onText' => 'Sim',
-                            'offText' => 'Não',
-                    ]]) ?>
-            <?= $form->field($model, 'secretaria', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
-                        'pluginOptions' => [
-                            'onText' => 'Sim',
-                            'offText' => 'Não',
-                    ]])?>
-            <?= $form->field($model, 'professor', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
-                        'pluginOptions' => [
-                            'onText' => 'Sim',
-                            'offText' => 'Não',
-                    ]])?>
+                    <?= $form->field($model, 'coordenador', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
+                                'pluginOptions' => [
+                                    'onText' => 'Sim',
+                                    'offText' => 'Não',
+                            ]]) ?>
+                    <?= $form->field($model, 'secretaria', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
+                                'pluginOptions' => [
+                                    'onText' => 'Sim',
+                                    'offText' => 'Não',
+                            ]])?>
+                    <?= $form->field($model, 'professor', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
+                                'pluginOptions' => [
+                                    'onText' => 'Sim',
+                                    'offText' => 'Não',
+                            ]])?>
                 </div>
 
             </div>
@@ -71,11 +70,11 @@ $this->title = 'Cadastro';
                     </div>
                     <div class="panel-body">
                         <?= $form->field($model, 'endereco')->textInput(['maxlength' => true])->label("<b>Endereço:</b>") ?>
-                        <?= $form->field($model, 'telresidencial', ['options' => ['class' => 'col-md-6']])->widget(\yii\widgets\MaskedInput::className(), [
-                            'mask' => '(99) 99999-9999'])->label("<b>Telefone Residencial:</b>") ?>
-                        <?= $form->field($model, 'telcelular', ['options' => ['class' => 'col-md-6']])->widget(MaskedInput::className(), [
+                        <?= $form->field($model, 'telresidencial', ['options' => ['class' => 'col-md-6 col-left']])->widget(\yii\widgets\MaskedInput::className(), [
+                            'mask' => ['(99) 9999-9999','(99) 99999-9999']])->label("<b>Telefone Residencial:</b>") ?>
+                        <?= $form->field($model, 'telcelular', ['options' => ['class' => 'col-md-6 col-right']])->widget(MaskedInput::className(), [
                             'mask' => '(99) 99999-9999'])->label("<b>Telefone Celular:</b>") ?>
-                        
+
                     </div>
                 </div>
                 <div class="panel panel-default">
@@ -83,11 +82,11 @@ $this->title = 'Cadastro';
                         <h3 class="panel-title"><b>Dados Profissionais<b></h3>
                     </div>
                     <div class="panel-body">
-                        <?= $form->field($model, 'siape', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true])->label("<b>SIAPE:</b>") ?>
-                        <?= $form->field($model, 'dataIngresso', ['options' => ['class' => 'col-md-6']])->widget(MaskedInput::className(), [
+                        <?= $form->field($model, 'siape', ['options' => ['class' => 'col-md-6 col-left']])->textInput(['maxlength' => true])->label("<b>SIAPE:</b>") ?>
+                        <?= $form->field($model, 'dataIngresso', ['options' => ['class' => 'col-md-6 col-right']])->widget(MaskedInput::className(), [
                         'clientOptions' => ['alias' =>  'date']])->label("<b>Data de Ingresso:</b>")?>
-                        <?= $form->field($model, 'unidade', ['options' => ['class' => 'col-md-6']])->textInput(['maxlength' => true])->label("<b>Unidade:</b>") ?>
-                        <?= $form->field($model, 'turno', ['options' => ['class' => 'col-md-6']])->dropDownList(['Matutino e Vespertino' => 'Matutino e Vespertino', 'Matutino e Noturno' => 'Matutino e Noturno', 'Vespertino e Noturno' => 'Vespertino e Noturno'], ['prompt' => 'Selecione o turno...']) ?>
+                        <?= $form->field($model, 'unidade', ['options' => ['class' => 'col-md-6 col-left']])->textInput(['maxlength' => true])->label("<b>Unidade:</b>") ?>
+                        <?= $form->field($model, 'turno', ['options' => ['class' => 'col-md-6 col-right']])->dropDownList(['Matutino e Vespertino' => 'Matutino e Vespertino', 'Matutino e Noturno' => 'Matutino e Noturno', 'Vespertino e Noturno' => 'Vespertino e Noturno'], ['prompt' => 'Selecione o turno...']) ?>
                         <div class="row" id="divSecretaria" style="margin-left: 15px; margin-right: 15px; <?php if(!$model->secretaria) echo 'display:none';?>">
                             <?= $form->field($model, 'cargo')->textInput(['maxlength' => true])->label("<b>Cargo:</b>") ?>
                         </div>
@@ -111,4 +110,3 @@ $this->title = 'Cadastro';
         </div>
     </div>
 </div>
-

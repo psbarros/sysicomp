@@ -11,11 +11,11 @@ BootboxAsset::registerWithOverride($this);
 /* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Usuários';
+$this->title = 'Professores e Técnicos Administrativos';
 ?>
 <div class="user-index">
     <p>
-        <?= Html::a('<span class="fa fa-plus"></span> Adicionar Usuário', ['site/signup'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="fa fa-plus"></span> Adicionar Professor ou Técnico Administrativo', ['site/signup'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -45,9 +45,9 @@ $this->title = 'Usuários';
                                 'method' => 'post',
                             ],
                             'title' => Yii::t('yii', 'Remover Edital'),
-                    ]);   
+                    ]);
                   }
-              ]                            
+              ]
             ],
         ],
     ]); ?>

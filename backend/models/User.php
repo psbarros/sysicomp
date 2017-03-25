@@ -100,20 +100,20 @@ class User extends \yii\db\ActiveRecord
     }
 
     public function getPerfis(){
-        $perfis = "";
+        $perfis = [];
 
         if($this->administrador)
-            $perfis .= "Administrador | ";
+            $perfis[] = "Administrador";
         if($this->secretaria)
-            $perfis .= "Secretaria | ";
+            $perfis[] = "Secretaria";
         if($this->coordenador)
-            $perfis .= "Coordenador | ";
+            $perfis[] = "Coordenador";
         if($this->professor)
-            $perfis .= "Professor | ";
+            $perfis[] = "Professor";
         if($this->aluno)
-            $perfis .= "Aluno";
+            $perfis[] = "Aluno";
 
-        return $perfis;
+        return implode($perfis,' | ');
     }
 
     public function feriasAno($idusuario,$ano,$tipo){

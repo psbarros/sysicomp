@@ -1,4 +1,4 @@
 Sistema de Gerenciamento do Instituto de Computação
 ===================================================
 
-Professor resnposável: David Fernandes de Oliveira
+Professor responsável: David Fernandes de Oliveira

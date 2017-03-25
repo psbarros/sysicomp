@@ -10,6 +10,15 @@ body {
     padding: 0 0 60px;
 }
 
+.col-left {
+    padding-left: 0px !important;
+}
+
+.col-right {
+    padding-right: 0px !important;
+}
+
+
 .wrap > .container {
     padding: 70px 15px 20px;
 }

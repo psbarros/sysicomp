@@ -7,7 +7,7 @@ return [
         ],
 		'formatter' => [
             'class' => 'yii\i18n\Formatter',
-            'dateFormat' => 'dd.MM.yyyy',
+            'dateFormat' => 'dd/MM/yyyy',
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             'currencyCode' => 'R$',
