@@ -106,7 +106,7 @@ class DefesaController extends Controller
     }
 
     public function actionLembretependencia($idDefesa, $aluno_id){
-        
+
         $model = $this->findModel($idDefesa, $aluno_id);
         if($this->enviaNotificacaoPendenciaDefesa($model))
             $this->mensagens('success', 'Lembretes Enviados', 'Os Lembretes de pendência de defesas foram enviados com sucesso.');
@@ -115,16 +115,16 @@ class DefesaController extends Controller
     }
 
     public function actionGerarrelatoriobanca()
-    {	
+    {
     	try{
 			//print_r(Yii::$app->request->Post());
 			$idProfessor = Yii::$app->request->Post('idProfessor');
 			$mDefesa = new Defesa;
 			$mDefesa->load(Yii::$app->request->Post());
-			$mDefesa->anoPesq = trim($mDefesa->anoPesq); 
+			$mDefesa->anoPesq = trim($mDefesa->anoPesq);
 			if($mDefesa->tipoRelat==1 && trim($mDefesa->anoPesq)==""){
 				$this->mensagens('warning', 'Preenchimento da busca', 'Preencha o Ano de Referência.');
-				if(Yii::$app->request->Post('listall') == 'listall')				
+				if(Yii::$app->request->Post('listall') == 'listall')
 					return $this->redirect(['defesa/bancasallmembro','idProfessor'=>$idProfessor]);
 				else
 					return $this->redirect(['defesa/bancasbymembro','idProfessor'=>$idProfessor]);
@@ -142,7 +142,7 @@ class DefesaController extends Controller
 				$this->mensagens('warning', 'Para gerar relatório:','Use o menu lateral "Gerar Relatório Bancas".');
 				return $this->redirect(['site/index']);
 			}
-			
+
 			//Gera Relatório de Bancas de um Professor ou Todas de um Professor no Ano especificado
 			return $this->generatePdfRelatorioBancas($mMembro, $mDefesa->anoPesq);
     	}catch (Exception $e){
@@ -166,7 +166,7 @@ class DefesaController extends Controller
 		foreach ($mMembro->bancas as $banca){
 			$bancasId[] = $banca->banca_id;
 		}
-	
+
 		$searchModel = new DefesaSearch();
 		//echo print_r(Yii::$app->request->queryParams);
         $dataProvider = $searchModel->searchByBancas(Yii::$app->request->queryParams, $bancasId);
@@ -177,10 +177,10 @@ class DefesaController extends Controller
         	'idProfessor' => $idProfessor,
         ]);
     }
-    
+
     public function actionBancasallmembro()
     {	//echo "Professor: ".$idProfessor;
-    
+
     //echo "-----".$idProfessor;/*Lembrar de colocar a expressao correta em left.php (User->idProfessor)*/
     //$mMembro = Membrosbanca::findOne($idProfessor);
     //if($mMembro === null){
@@ -197,28 +197,28 @@ class DefesaController extends Controller
     //	foreach ($mMembro->bancas as $banca){
     //		$bancasId[] = $banca->banca_id;
     //}
-    
+
     $searchModel = new DefesaSearch();
     $dataProvider = $searchModel->searchByBancas(Yii::$app->request->queryParams, $bancasId);
-    
+
     return $this->render('indexrelatorioallbancas', [
     		'searchModel' => $searchModel,
     		'dataProvider' => $dataProvider,
     		'idProfessor' => "",
     ]);
     }
-    
+
     public function actionAutocompletemembro($term){
     	$listaMembros = Membrosbanca::find()->where(["like","upper(nome)",strtoupper($term)])->all();
-    	
+
     	$codigos = [];
-    	
+
     	foreach ($listaMembros as $membro)
-    	{	
+    	{
     		$codigos[] = ['label'=>$membro['nome'],'value'=>$membro['nome'], 'id'=>$membro['id']
     		]; //build an array
     	}
-    	
+
     	echo json_encode($codigos);
     }
     /**
@@ -228,32 +228,32 @@ class DefesaController extends Controller
      */
     public function actionCreate($aluno_id)
     {
-        
+
         $membrosBancaInternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao = 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome','filiacao');
 
         $membrosBancaExternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao <> 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome','filiacao');
 
         $membrosBancaSuplentes = ArrayHelper::map(MembrosBanca::find()->orderBy('nome')->all(), 'id', 'nome','filiacao');
-        
+
         $membrosExternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao <> 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome');
-        
+
         $model = new Defesa();
-        
+
         $conceitoPendente = $model->ConceitoPendente($aluno_id);
-        
+
         if ($conceitoPendente == true){
 
                 $this->mensagens('danger', 'Defesas c/ Pendências', 'Existem defesas que estão pendentes de conceito ou Bancas pendentes de Deferimento pelo Coordenador.');
 
-                return $this->redirect(['aluno/orientandos',]);            
-            
+                return $this->redirect(['aluno/orientandos',]);
+
         }
-        
+
 
         $model->aluno_id = $aluno_id;
 
         $cont_Defesas = Defesa::find()->where("aluno_id = ".$aluno_id." AND conceito is NOT NULL")->count();
-        
+
         $curso = Aluno::find()->select("curso")->where("id =".$aluno_id)->one()->curso;
 
             if($cont_Defesas == 0 && $curso == 1){
@@ -284,9 +284,11 @@ class DefesaController extends Controller
             $model_ControleDefesas = new BancaControleDefesas();
             if($model->tipoDefesa == "Q1" && $curso == 2){
                 $model_ControleDefesas->status_banca = 1;
+                $model_ControleDefesas->justificativa = 'Sem justificativa';
             }
             else{
                 $model_ControleDefesas->status_banca = null;
+                $model_ControleDefesas->justificativa = 'Sem justificativa';
             }
             $model_ControleDefesas->save(false);
 
@@ -299,7 +301,7 @@ class DefesaController extends Controller
 
 
             try{
-                
+
                 if($model->tipoDefesa == "Q1" && $model->curso == "Doutorado"){
 
 
@@ -318,7 +320,7 @@ class DefesaController extends Controller
                     if($model->save()){
 
                         $this->mensagens('success', 'Defesa salva', 'A defesa foi salva com sucesso.');
-                        
+
                         return $this->redirect(['passagens', 'banca_id' => $model->banca_id]);
 
                     }else{
@@ -345,21 +347,21 @@ class DefesaController extends Controller
             'membrosBancaSuplentes' => $membrosBancaSuplentes,
         ]);
     }
-    
+
     public function actionPassagens($banca_id){
-        
+
 
         $banca = Banca::find()->select("j17_banca_has_membrosbanca.* , mb.nome as membro_nome, mb.filiacao as membro_filiacao, mb.*")->leftJoin("j17_membrosbanca as mb","mb.id = j17_banca_has_membrosbanca.membrosbanca_id")
         ->where(["banca_id" => $banca_id , "funcao" => "E"])->all();
-        
+
         return $this->render('passagens', [
             'model' => $banca,
         ]);
-    
-        
-        
+
+
+
     }
-    
+
     public function actionPassagens2(){
 
     $where = "";
@@ -377,7 +379,7 @@ class DefesaController extends Controller
                 $where = $where."membrosbanca_id = ".$arrayChecked[$i];
         }
 
-  
+
         if ($where != ""){
             $sqlSim = "UPDATE j17_banca_has_membrosbanca SET passagem = 'S' WHERE ($where) AND banca_id = ".$banca_id;
             //$sqlNao = "UPDATE j17_banca_has_membrosbanca SET passagem = 'N' WHERE $where";
@@ -403,7 +405,7 @@ class DefesaController extends Controller
         }
 
 
-        
+
     }
 
 
@@ -427,11 +429,11 @@ class DefesaController extends Controller
         $model->data = date('d-m-Y', strtotime($model->data));
 
         if ($model->load(Yii::$app->request->post())) {
-            
+
             $model->data = date('Y-m-d', strtotime($model->data));
             $model->save(false);
-           
-            
+
+
             return $this->redirect(['view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
         } else {
             return $this->render('update', [
@@ -579,17 +581,17 @@ class DefesaController extends Controller
 
 
              $pdf->WriteHTML('
-                <p> 
+                <p>
                     LOCAL: '.$model->local.'
                 </p>
-                <p> 
+                <p>
                     DATA: '.$model->data.'
                 </p>
-                <p> 
+                <p>
                     HORÁRIO: '.$model->horario.'
                 </p>
 				<br><br>
-                <div style="text-align:center"> 
+                <div style="text-align:center">
                     <p><font style="font-size:medium">'.$coordenadorppgi.'<br>
 					<font style="font-size:small"> Coordenador(a) do Programa de Pós-Graduação em Informática PPGI/UFAM </p>
 
@@ -687,8 +689,8 @@ class DefesaController extends Controller
                 (  &#32;&#32;&#32;  ) Aprovada <br>
                 (  &#32;&#32;&#32;  ) Suspensa <br>
                 (  &#32;&#32;&#32;  ) Reprovada <br>
-                <p style = "text-align: justify;"> 
-                Proclamados os resultados, foram encerrados os trabalhos e, para constar, eu, Elienai Nogueira, Secretária do Programa de Pós-Graduação em Informática, lavrei a presente ata, que assino juntamente com os Membros da Banca Examinadora. 
+                <p style = "text-align: justify;">
+                Proclamados os resultados, foram encerrados os trabalhos e, para constar, eu, Elienai Nogueira, Secretária do Programa de Pós-Graduação em Informática, lavrei a presente ata, que assino juntamente com os Membros da Banca Examinadora.
                 </p>
                 <br>
                 ');
@@ -914,7 +916,7 @@ class DefesaController extends Controller
                                 border-top:solid">
                             '.$rows->membro_nome.' - '.$funcao.'
 					</div>
-					
+
                 ');
 
              }
@@ -947,16 +949,16 @@ class DefesaController extends Controller
                 _________________________________________
                 </td>
                 <td>
-                _________________________________________  
-                </td>   
+                _________________________________________
+                </td>
             </tr>
             <tr>
                 <td>
-                Assinatura do(a) Orientador(a) 
+                Assinatura do(a) Orientador(a)
                 </td>
                 <td>
                 Assinatura do(a) Discente
-                </td>   
+                </td>
             </tr>
             <tr>
             <td colspan="2"> <br><br> <b> Obs.: Anexar PROPOSTA a ser apresentada  </b> </td>
@@ -1142,7 +1144,7 @@ class DefesaController extends Controller
                     AGRADECEMOS a participação do(a) <b>'.$banca->membro_nome.'</b> como
                     '.$participacao.'(a) da banca examinadora referente à apresentação da Defesa de '.$tipoDefesa.'
                     do(a) aluno(a), abaixo especificado(a), do curso de '.$curso.' em Informática do
-                    Programa de Pós-Graduação em Informática da Universidade Federal do Amazonas - realizada no dia 
+                    Programa de Pós-Graduação em Informática da Universidade Federal do Amazonas - realizada no dia
                     '.date("d", strtotime($model->data)).' de '.$arrayMes[$mes].' de '.date("Y", strtotime($model->data)).' às '.$model->horario.'.
                 </p>
             ');
@@ -1241,7 +1243,7 @@ class DefesaController extends Controller
                 <p style = "text-align: justify; line-height: 3.0; font-family: Times New Roman, Arial, serif; font-size: 120%;">
                     DECLARAMOS para os devidos fins que o(a) <b> Prof(a) '.$banca->membro_nome.' </b> fez
                     parte, na qualidade de '.$participacao.', da comissão julgadora da defesa de '.$tipoDefesa.'
-                    do(a) aluno(a) '.$model->nome.' , intitulada <b>"'.$model->titulo.'    "</b>, do curso de '.$curso.' em Informática do Programa de Pós-Graduação em Informática da Universidade Federal do Amazonas, realizada no dia 
+                    do(a) aluno(a) '.$model->nome.' , intitulada <b>"'.$model->titulo.'    "</b>, do curso de '.$curso.' em Informática do Programa de Pós-Graduação em Informática da Universidade Federal do Amazonas, realizada no dia
                     '.date("d", strtotime($model->data)).' de '.$arrayMes[$mes].' de '.date("Y", strtotime($model->data)).' às '.$model->horario.'.
                 </p>
             ');
@@ -1259,7 +1261,7 @@ class DefesaController extends Controller
 }
 
     public function actionGerar_portaria($idDefesa, $aluno_id) {
-        $model = $model = $this->findModel($idDefesa, $aluno_id);        
+        $model = $model = $this->findModel($idDefesa, $aluno_id);
 
         $model->scenario = 'gerar_portaria';
 
@@ -1334,22 +1336,22 @@ class DefesaController extends Controller
 
             $pdf = new Pdf([
             // set to use core fonts only
-            'mode' => Pdf::MODE_CORE, 
+            'mode' => Pdf::MODE_CORE,
             // A4 paper format
-            'format' => Pdf::FORMAT_A4, 
+            'format' => Pdf::FORMAT_A4,
             // portrait orientation
-            'orientation' => Pdf::ORIENT_PORTRAIT, 
+            'orientation' => Pdf::ORIENT_PORTRAIT,
             // stream to browser inline
             'destination' => Pdf::DEST_BROWSER,
             //'filename' => $filename,
             // your html content input
             'content' => $doc
-            ,  
-            //'cssInline' => '', 
+            ,
+            //'cssInline' => '',
              // set mPDF properties on the fly
             'options' => ['title' => 'ppgi_portaria'.$model->portariaID.'_'.$model->portariaAno],
              // call mPDF methods on the fly
-            'methods' => [ 
+            'methods' => [
                 'SetFooter'=>[
                 '
                     <p style="text-align: center;">&nbsp;</p>
@@ -1364,7 +1366,7 @@ class DefesaController extends Controller
         return $pdf->render();
         }
         else {
-            $model->portariaAno = date('Y'); 
+            $model->portariaAno = date('Y');
 
             return $this->render('_gerarPortaria', [
                 'model' => $model,
@@ -1427,7 +1429,7 @@ class DefesaController extends Controller
     }
 
     function enviaNotificacaoPendenciaDefesa($model){
-        
+
         if ($model->tipoDefesa == 'Q1'){
             $tipoexame = "Qualificação I";
         }
@@ -1442,20 +1444,20 @@ class DefesaController extends Controller
         }
 
         $message = "";
-                
+
         $nome_aluno = $model->modelAluno->nome;
-        $emailOrientador = $model->modelAluno->orientador1->email;    
+        $emailOrientador = $model->modelAluno->orientador1->email;
         $emailAluno = $model->modelAluno->email;
-        $nomeOrientador = $model->modelAluno->orientador1->nome; 
+        $nomeOrientador = $model->modelAluno->orientador1->nome;
         $emails[] = $emailOrientador;
         $emails[] = $emailAluno;
         //$emails[] = "secppgi@ufam.edu.br";
         //$emails[] = "coordenadorppgi@icomp.ufam.edu.br";
-        
-        
+
+
         // subject
         $subject  = "[IComp/UFAM] Pendência em relação à Defesa";
-        
+
         // message
         $message .= "Informamos que há uma pendência de defesa do aluno abaixo relacionado: \r\n\n";
         $message .= "CANDIDATO: ".$nome_aluno."\r\n";
@@ -1476,7 +1478,7 @@ class DefesaController extends Controller
                 Tente novamente ou contate o adminstrador do sistema');
             return false;
         }
-        
+
         return true;
     }
 
@@ -1500,8 +1502,8 @@ class DefesaController extends Controller
                             <p class="western" align="center">&nbsp;</p>
     						<p class="western" align="center">&nbsp;</p>
                             <p class="western" align="center" style="margin-top:6em; margin-bottom:4em;"><span style="font-family: Arial, sans-serif;"><span style="font-size: large;"><strong>DECLARA&Ccedil;&Atilde;O</strong></span></span></p>
-                            
-                            
+
+
 			    			<p class="western" style="padding-left:4em;"><span style="font-size: medium;"><span style="font-family: Arial, sans-serif;">DECLARAMOS para os devidos fins que '.((preg_match ("/^Profa/", $mMembro->nome)?"a":"o")).' <b>'.$mMembro->nome.'</b> participou como membro'.(($ano!=null)?", no ano de ".$ano.",":"").' das seguintes bancas:</span></span></p>
 							'.
 			    			(($cont[]=count($mMembro->getBancasbytipo("Q1", "Mestrado", $ano))>0 )? "<p class=\"western\" align=\"center\"><b><br></br>Qualificação de Mestrado Q1</b></p>":"")
@@ -1561,14 +1563,14 @@ class DefesaController extends Controller
     						</td>
                             </tr>
                             </tbody>
-                            </table>		
+                            </table>
     					'],
     			]
     	]);
-    
+
     	return $pdf->render();
     }
-    
+
             /* Envio de mensagens para views
        Tipo: success, danger, warning*/
     protected function mensagens($tipo, $titulo, $mensagem){

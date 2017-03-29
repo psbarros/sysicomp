@@ -36,7 +36,7 @@ class Aluno extends \yii\db\ActiveRecord
             [['financiadorbolsa', 'dataimplementacaobolsa'], 'required', 'when' => function ($model) { return $model->bolsista; }, 'whenClient' => "function (attribute, value) {
                     return $('#form_bolsista').val() == '1';
                 }"],
-            [['area', 'curso', 'regime', 'status', 'egressograd', 'idUser', 'orientador'], 'integer'],
+            [['area', 'curso', 'regime', 'status', 'egressograd', 'orientador'], 'integer'],
             [['nome'], 'string', 'max' => 60],
             [['email'],'email'],
             [['cidade'], 'string', 'max' => 40],

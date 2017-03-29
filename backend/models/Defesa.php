@@ -38,11 +38,11 @@ class Defesa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['resumo', 'banca_id', 'aluno_id', 'titulo', 'data', 'horario','resumo', 'local', 'previa'], 'required'],
+            [['resumo', 'banca_id', 'aluno_id', 'titulo', 'data', 'horario','resumo', 'local'], 'required'],
             [['portariaID', 'portariaAno'], 'required', 'on' => 'gerar_portaria'],
            [['membrosBancaInternos', 'membrosBancaExternos', 'membrosBancaSuplentes', 'presidente'] , 'required',
-           
-            
+
+
             'when' => function ($model) {
                      return $model->auxiliarTipoDefesa != 2;
                  },
@@ -51,12 +51,12 @@ class Defesa extends \yii\db\ActiveRecord
                 return $('#membrosObrigatorios').val() == 1;
             }"],
 
-           [ ['examinador', 'emailExaminador'] , 'required', 
+           [ ['examinador', 'emailExaminador'] , 'required',
             'when' => function ($model) {
                      return $model->auxiliarTipoDefesa == 2;
                  },
             'whenClient' => "function (attribute, value) {
-               
+
                 return $('#membrosObrigatorios').val() == 0;
             }"],
 
@@ -149,13 +149,13 @@ class Defesa extends \yii\db\ActiveRecord
     }
 
     public function getMembrosBanca(){
-    	return $this->hasMany(Banca::className(), ['banca_id'=>'banca_id']);	 
+    	return $this->hasMany(Banca::className(), ['banca_id'=>'banca_id']);
     }
-    
+
     public function getIdProfessor(){
     	return $this->idProfessor;
     }
-    
+
     public function getTipoDefesa(){
 
         if ($this->tipoDefesa == "Q1"){
@@ -183,7 +183,7 @@ class Defesa extends \yii\db\ActiveRecord
 
         $sql = "INSERT INTO j17_banca_has_membrosbanca (banca_id, membrosbanca_id, funcao) VALUES ('$this->banca_id', '".$this->presidente."', 'P');";
         Yii::$app->db->createCommand($sql)->execute();
-        
+
         for ($i = 0; $i < count($this->membrosBancaExternos); $i++) {
             $sql = "INSERT INTO j17_banca_has_membrosbanca (banca_id, membrosbanca_id, funcao) VALUES ('$this->banca_id', '".$this->membrosBancaExternos[$i]."', 'E');";
             Yii::$app->db->createCommand($sql)->execute();
@@ -209,7 +209,7 @@ class Defesa extends \yii\db\ActiveRecord
         } catch (ErrorException $e){
              return false;
         }
-        
+
         return true;
     }
 
@@ -217,7 +217,7 @@ class Defesa extends \yii\db\ActiveRecord
 
         return $this->conceito == null ? "<div style = \"color:red \"><b>Não Julgado</b></div>" : $this->conceito;
     }
-    
+
     public function conceitoPendente($aluno_id){
         $conceitos = Defesa::find()->select("cd.status_banca as status_banca, j17_defesa.*")
         ->leftJoin("j17_banca_controledefesas as cd","cd.id = j17_defesa.banca_id")->Where(["j17_defesa.aluno_id" => $aluno_id , "conceito" => null, "status_banca" => 1])->count();
@@ -237,5 +237,5 @@ class Defesa extends \yii\db\ActiveRecord
         return $user->nome;
 
     }
-    
+
 }

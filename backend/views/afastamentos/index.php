@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         //      'filter' => \yii\jui\DatePicker::widget(['language' => 'pt', 'dateFormat' => 'dd-MM-yyyy']),
                 'attribute' => 'dataenvio',
                 'value' => function ($model) {
-                     return date("d-m-Y", strtotime($model->dataenvio));
+                     return date("d/m/Y", strtotime($model->dataenvio));
                 },
             ],
         'nomeusuario',
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
         //      'filter' => \yii\jui\DatePicker::widget(['language' => 'pt', 'dateFormat' => 'dd-MM-yyyy']),
                 'value' => function ($model) {
-                     return date("d-m-Y", strtotime($model->dataretorno));
+                     return date("d/m/Y", strtotime($model->dataretorno));
                 },
             ],
             [   'label' => 'Tipo de Viagem',
@@ -61,17 +61,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
               'template'=>'{print} {view} {delete}',
                 'buttons'=>[
-                  'print' => function ($url, $model) {     
+                  'print' => function ($url, $model) {
                     return Html::a('<span class="glyphicon glyphicon-print"></span>', ['print', 'id' => $model->id], [
                             'target' => '_blank','title' => Yii::t('yii', 'Imprimir Solcitação de Afastamento'),
                     ]);
                   },
-                
-                  'view' => function ($url, $model) {  
+
+                  'view' => function ($url, $model) {
 
                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id' => $model->id], [
                             'title' => Yii::t('yii', 'Visualizar Detalhes'),
-                    ]);                                
+                    ]);
 
                   },
                   'delete' => function ($url, $model) {
@@ -81,11 +81,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'method' => 'post',
                             ],
                             'title' => Yii::t('yii', 'Remover Afastamento'),
-                    ]);   
+                    ]);
                   }
-              ]                            
+              ]
             ],
         ],
     ]); ?>
-    
+
 </div>

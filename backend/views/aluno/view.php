@@ -6,9 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Aluno */
 
-$this->title = "Dados do Aluno: ".$model->nome;
+$this->title = $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Alunos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = "Aluno: ".$model->nome;
+$this->params['breadcrumbs'][] = $model->nome;
 
 $statusAluno = array(0 => 'Aluno Corrente',1 => 'Aluno Egresso',2 => 'Aluno Desistente',3 => 'Aluno Desligado',4 => 'Aluno Jubilado',5 => 'Aluno com Matrícula Trancada');
 
@@ -18,7 +18,8 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
 <div class="aluno-view">
 
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar', ['index'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Voltar','#',['class' => 'btn btn-warning','onclick'=>"history.go(-1);"]); ?>
+        <?= Html::a('<span class="fa fa-list"></span>&nbsp;&nbsp;Listar Alunos', ['index'], ['class' => 'btn btn-success']) ?>
 		<?= Html::a('<span class="glyphicon glyphicon-edit"></span> Editar  ', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('<span class="fa fa-trash-o"></span> Excluir', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -27,7 +28,7 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('<span class="fa fa-graduation-cap"></span> Pedir Banca', ['defesa/create', 'aluno_id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="fa fa-graduation-cap"></span> Cadastrar Defesa', ['defesa/create', 'aluno_id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="fa fa-comments"></span> Exame de Proeficiência', ['aluno/exame', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
 		<?= Html::a('<span class="fa fa-lock"></span> Registrar Trancamento', ['trancamento/create', 'idAluno' => $model->id], ['class' => 'btn btn-danger']) ?>
 		<?= Html::a('<span class="fa fa-clock-o"></span> Registrar Prorrogação', ['prorrogacao/create', 'idAluno' => $model->id], ['class' => 'btn btn-warning']) ?>
@@ -56,7 +57,7 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
             'instituicaograd',
             'egressograd',
         ],
-        ]) ?>           
+        ]) ?>
         </div>
     </div>
 
@@ -86,7 +87,7 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
             ],
             [   'label' => 'Status',
                 'attribute' => 'status',
-                'value' => $model->status == 0 ? 'Aluno Corrente': 'Aluno Egresso' 
+                'value' => $model->status == 0 ? 'Aluno Corrente': 'Aluno Egresso'
             ],
             [
                 'label' => 'Data de Ingresso',
@@ -95,7 +96,7 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
 
             ],
         ],
-        ]) ?>           
+        ]) ?>
         </div>
     </div>
 
@@ -115,8 +116,8 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
                 'value' => date("d/m/Y", strtotime($model->dataExameProf)),
 
             ],
-        ], 
-        ]) ?>           
+        ],
+        ]) ?>
         </div>
     </div>
 	<!--<div class="panel panel-default">
@@ -136,19 +137,19 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
               //  'label' => 'Data de Início',
 //                'attribute' => 'dataInicio',
   //              'value' => date("d/m/Y", strtotime($model->dataInicio)),
-    //        ],			
+    //        ],
 		//	[
           //      'label' => 'Previsão de Término',
                 //'attribute' => 'prevTermino',
                 //'value' => date("d/m/Y", strtotime($model->prevTermino)),
-            //],	
+            //],
 			//[
                 //'label' => 'Data de Término',
                 //'attribute' => 'dataTermino',
                 //'value' => date("d/m/Y", strtotime($model->dataTermino)),
-            //],				
-        ], 
-        ]) ?>           
+            //],
+        ],
+        ]) ?>
         </div>
     </div>
 </div>

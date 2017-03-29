@@ -18,7 +18,7 @@ class AlunoSearch extends Aluno
     public function rules()
     {
         return [
-            [['id', 'area', 'curso',  'regime', 'status', 'egressograd', 'idUser', 'orientador'], 'integer'],
+            [['id', 'area', 'curso',  'regime', 'status', 'egressograd', 'orientador'], 'integer'],
             [['nome', 'email', 'senha', 'matricula', 'endereco', 'bairro', 'cidade', 'uf', 'cep', 'siglaLinhaPesquisa', 'nomeOrientador', 'datanascimento', 'sexo', 'cpf', 'telresidencial', 'telcelular', 'bolsista', 'dataingresso', 'idiomaExameProf', 'conceitoExameProf', 'dataExameProf', 'cursograd', 'instituicaograd', 'anoconclusao', 'sede'], 'safe'],
         ];
     }
@@ -39,12 +39,12 @@ class AlunoSearch extends Aluno
      *
      * @return ActiveDataProvider
      */
-    
+
     public function search($params)
     {
         $idUsuario = Yii::$app->user->identity->id;
-       
-        $query = Aluno::find()->select("j17_linhaspesquisa.sigla as siglaLinhaPesquisa, 
+
+        $query = Aluno::find()->select("j17_linhaspesquisa.sigla as siglaLinhaPesquisa,
         j17_linhaspesquisa.icone as icone, j17_linhaspesquisa.cor as corLinhaPesquisa, j17_user.nome as nomeOrientador, j17_aluno.*")
         ->leftJoin("j17_linhaspesquisa","j17_aluno.area = j17_linhaspesquisa.id")->leftJoin("j17_user","j17_aluno.orientador = j17_user.id");
 
@@ -87,7 +87,6 @@ class AlunoSearch extends Aluno
             'j17_aluno.status' => $this->status,
             'area' => $this->siglaLinhaPesquisa,
             'egressograd' => $this->egressograd,
-            'idUser' => $this->idUser,
             'orientador' => $this->orientador,
             'anoconclusao' => $this->anoconclusao,
         ]);
@@ -118,11 +117,11 @@ class AlunoSearch extends Aluno
 
         return $dataProvider;
     }
-	
+
 	public function searchOrientandos($params)
     {
         $idUsuario = Yii::$app->user->identity->id;
-       
+
         $query = Aluno::find()->select("j17_linhaspesquisa.sigla as siglaLinhaPesquisa, j17_linhaspesquisa.cor as corLinhaPesquisa, j17_aluno.*")->leftJoin("j17_linhaspesquisa","j17_aluno.area = j17_linhaspesquisa.id")
            ->where('orientador = '.$idUsuario);
 
@@ -181,11 +180,11 @@ class AlunoSearch extends Aluno
             ->andFilterWhere(['like', 'sede', $this->sede]);
 
         return $dataProvider;
-    }	
-    
+    }
+
     public function getAlunos($idUsuario)
     {
-       
+
         $query = Aluno::find()->select("j17_aluno.*")->where('orientador = '.$idUsuario);
 
         // add conditions that should always apply here
@@ -219,7 +218,6 @@ class AlunoSearch extends Aluno
             'regime' => $this->regime,
             'status' => $this->status,
             'egressograd' => $this->egressograd,
-            'idUser' => $this->idUser,
             'orientador' => $this->orientador,
             'anoconclusao' => $this->anoconclusao,
         ]);

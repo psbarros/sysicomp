@@ -79,9 +79,9 @@ class AlunoController extends Controller
 
     /**
      * Lists all Aluno models (for stop out).
-     * 
+     *
      * @author Pedro Frota <pvmf@icomp.ufam.edu.br>
-     * 
+     *
      * @return mixed
      */
     public function actionTrancamento()
@@ -97,9 +97,9 @@ class AlunoController extends Controller
 
     /**
      * Lists all Aluno models.
-     * 
+     *
      * @author Pedro Frota <pvmf@icomp.ufam.edu.br>
-     * 
+     *
      * @return mixed
      */
     public function actionProrrogacao()
@@ -112,7 +112,7 @@ class AlunoController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    
+
     /**
      * Lists all Aluno models of a Professor.
      * @return mixed
@@ -140,7 +140,7 @@ class AlunoController extends Controller
 
         $linhaPesquisa = new LinhaPesquisa();
         $linhaPesquisa = $linhaPesquisa->getLinhaPesquisaNome($model->area);
-        
+
         if ($linhaPesquisa != null){
             $model->area = $linhaPesquisa->nome;
         }
@@ -155,7 +155,7 @@ class AlunoController extends Controller
     }
 
     public function actionExame($id){
-        
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -194,7 +194,7 @@ class AlunoController extends Controller
 
             try{
                 if($model_usuario->save()){
-                    $model->idUser = $model_usuario->id;
+
                     if($model->save()){
                         $this->mensagens('success', 'Aluno Adicionado', 'O aluno \''.$model->nome.'\' foi adicionado com sucesso.');
                         return $this->redirect(['view', 'id' => $model->id]);
@@ -208,14 +208,14 @@ class AlunoController extends Controller
                 $this->mensagens('danger', 'Usuário não Adicionado', 'Ocorreu um erro ao adicionar aluno aos usuários. Verifique os campos e tente novamente.');
             }
         }
-            
+
         $linhasPesquisas = ArrayHelper::map(LinhaPesquisa::find()->orderBy('nome')->all(), 'id', 'nome');
         $orientadores = ArrayHelper::map(User::find()->where(['professor' => '1'])->orderBy('nome')->all(), 'id', 'nome');
-        
+
         return $this->render('create', [
             'model' => $model,
             'linhasPesquisas' => $linhasPesquisas,
-            'orientadores' => $orientadores, 
+            'orientadores' => $orientadores,
         ]);
     }
 
@@ -227,15 +227,15 @@ class AlunoController extends Controller
         //obtendo o nome linha de pesquisa através do id da linha de pesquisa
         $linhaPesquisa = new LinhaPesquisa();
         $linhaPesquisa = $linhaPesquisa->getLinhaPesquisaNome($model->area);
-        
+
         if ($linhaPesquisa != null){
             $model->area = $linhaPesquisa->nome;
         }
-        
+
         $orientador = User::findOne($model->orientador);
         if ($orientador != null)
             $model->orientador= $orientador->nome;
-        
+
         return $this->render('view_orientado', [
             'model' =>  $model,
         ]);
@@ -249,7 +249,7 @@ class AlunoController extends Controller
 		if($model->datanascimento) $model->datanascimento = date('d-m-Y', strtotime($model->datanascimento));
         if($model->dataExameProf) $model->dataExameProf =  date('d-m-Y', strtotime($model->dataExameProf));
 		if($model->dataimplementacaobolsa) $model->dataimplementacaobolsa =  date('d-m-Y', strtotime($model->dataimplementacaobolsa));
-		
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -259,7 +259,7 @@ class AlunoController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'linhasPesquisas' => $linhasPesquisas,
-                'orientadores' => $orientadores, 
+                'orientadores' => $orientadores,
             ]);
         }
     }
@@ -310,15 +310,15 @@ class AlunoController extends Controller
             'showProgressbar' => true,
         ]);
     }
-	
+
 	public function actionRelatorio($status)
     {
-        		
+
 		$id = Yii::$app->user->identity->id;
 		$orientador = User::findOne($id);
 		$curso = array(1 => "Mestrado", 2 => "Doutorado");
 		$mes = array("01" => "Janeiro", "02" => "Fevereiro", "03" => "Março", "04" => "Abril", "05" => "Maio", "06" => "Junho", "07" => "Julho", "08" => "Agosto", "09" => "Setembro", "10" => "Outubro", "11" => "Novembro", "12" => "Dezembro");
-		
+
 		if($status == 0){
 			$orientandos = Aluno::find()->select("*")->where("orientador = $id AND status = $status")->orderBy("dataingresso")->all();
 			$texto = "Previsão de conclusão";
@@ -329,7 +329,7 @@ class AlunoController extends Controller
 			$texto = "Data de conclusão";
 			$texto2 = "orientou ";
 		}
-        
+
 		$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Orientandos.docx');
         $templateProcessor->setValue('orientador', $orientador->nome);
 		$templateProcessor->setValue('texto', $texto);
@@ -337,8 +337,8 @@ class AlunoController extends Controller
         $templateProcessor->setValue('dia', date("d"));
         $templateProcessor->setValue('mes', $mes[date("m")]);
 		$templateProcessor->setValue('ano', date("Y"));
-		
-        
+
+
         $tamanho = count($orientandos);
         $templateProcessor->cloneRow('aluno', $tamanho);
         for ($i = 0; $i < $tamanho; $i++) {
@@ -350,7 +350,7 @@ class AlunoController extends Controller
 
         header('Content-Disposition: attachment; filename="Orientandos.docx"');
         $templateProcessor->saveAs('php://output');
-		
+
     }
 
     public function actionPrazo_vencido(){
@@ -381,12 +381,12 @@ class AlunoController extends Controller
         $query = Aluno::find()->where("j17_aluno.id IN (".implode($idPV,',').")")->all();
 
         $html= "
-        
+
         ";
 
         $html.= "<h2>Lista de alunos com prazo vencido<h2><br>";
 
-        $html.= 
+        $html.=
         "
         <table border='1'>
         <tr>
@@ -395,7 +395,7 @@ class AlunoController extends Controller
         <th>Nome</th>
         <th>Data Ingresso</th>
         <th>Dias Passados</th>
-        </tr>        
+        </tr>
         ";
         foreach($query as $aln){
             $curso= 0;
@@ -404,7 +404,7 @@ class AlunoController extends Controller
             }else{
                 $curso= 'Doutorado';
             }
-            $html.= 
+            $html.=
             "
             <tr>
             <td>".$aln->matricula."</td>
@@ -457,12 +457,12 @@ class AlunoController extends Controller
                                 $html.='<td><b>'.date('d/m/Y', strtotime($aluno->dataingresso)).'</b></td>';
                                 $html.='<td><b>'.$aluno->orientador1->nome.'</b></td>';
                                 $html.='<td><b>'.$aluno->linhaPesquisa->nome.'</b></td>';
-                                
+
                                 if ($defesa != null) {
                                     $html.='<td><b>'.$defesa->titulo.'</b></td>';
                                     $html.='<td><b>'.$defesa->data.'</b></td>';
                                 }
-                               
+
                             $html.='</tr>';
                         }
 
@@ -481,24 +481,24 @@ class AlunoController extends Controller
         header ("Content-type: application/x-msexcel");
         header ("Content-Disposition: attachment; filename=\"{$filename}\"" );
         header ("Content-Description: Planilha de Alunos - Sistema PPGI UFAM" );
-        
+
         // Sends file content to browser
         echo $html;
     }
-    
+
     public function actionAutocompletealuno($term){
     	$listaAlunos = Aluno::find()->where(["like","upper(nome)",strtoupper($term)])->all();
-    	 
+
     	$codigos = [];
-    	 
+
     	foreach ($listaAlunos as $aluno)
     	{
     		$codigos[] = ['label'=>$aluno['nome'],'value'=>$aluno['nome'],'nome'=>$aluno['nome'],
     				'id'=>$aluno['id']
     		]; //build an array
     	}
-    	 
-    	echo json_encode($codigos);    	
+
+    	echo json_encode($codigos);
     }
 
 }

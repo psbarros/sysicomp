@@ -147,7 +147,7 @@ if(!Yii::$app->user->isGuest){
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg" style="padding-top:3px">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo','style' => 'height: 55px;']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 

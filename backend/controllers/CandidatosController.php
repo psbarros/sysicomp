@@ -219,10 +219,11 @@ class CandidatosController extends Controller
         $edital_carta_recomendacao = new Edital();
         $edital_carta_recomendacao = $edital_carta_recomendacao->getCartaRecomendacao($idEdital);
 
-        if($cartas_respondidas <2 && $edital_carta_recomendacao == 1){
-            $this->mensagens('danger', 'Cartas de Recomendação', 'Não foi possível avaliar o candidato, pois faltam cartas a serem respondidas.');
-            return $this->redirect(['candidatos/index','id'=>$idEdital]);
-        }
+        // A Helen pediu para permitir a aprovação mesmo sem cartas.
+        //if($cartas_respondidas <2 && $edital_carta_recomendacao == 1){
+        //    $this->mensagens('danger', 'Cartas de Recomendação', 'Não foi possível avaliar o candidato, pois faltam cartas a serem respondidas.');
+        //    return $this->redirect(['candidatos/index','id'=>$idEdital]);
+        //}
 
         if($model->resultado === 1 || $model->resultado === 2 ){
             $this->mensagens('danger', 'Candidato Reprovado', 'Este Candidato já foi Avaliado');
@@ -317,7 +318,6 @@ class CandidatosController extends Controller
         //mudança de atributos
         $model_aluno->area  = $model_candidato->idLinhaPesquisa;
         $model_aluno->curso  = $model_candidato->cursodesejado;
-        //$model_aluno->idUser = $id_usuario;
 
         if ($model_aluno->load(Yii::$app->request->post()) && $model_aluno->save()) {
                 $model_candidato->save();

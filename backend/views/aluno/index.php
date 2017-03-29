@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [   'label' => 'Ingresso',
                 'attribute' => 'dataingresso',
                 'value' => function ($model) {
-                    return date("m-Y", strtotime($model->dataingresso));
+                    return date("m/Y", strtotime($model->dataingresso));
                     },
             ],
             'nomeOrientador',
@@ -73,9 +73,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'method' => 'post',
                             ],
                             'title' => Yii::t('yii', 'Remover Aluno'),
-                    ]);   
+                    ]);
                   }
-              ]                            
+              ]
             ],
         ],
     ]); ?>

@@ -27,7 +27,7 @@ $sedes = ['RR' => 'Boa Vista/RR', 'AM' => 'Manaus/AM', 'AC' => 'Rio Branco/AC'];
 <div class="aluno-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    
+
         <input type="hidden" id = "form_bolsista" value = '<?= $model->bolsista?>'/>
         <div class="panel panel-default" style="width:80%">
             <div class="panel-heading">
@@ -50,10 +50,10 @@ $sedes = ['RR' => 'Boa Vista/RR', 'AM' => 'Manaus/AM', 'AC' => 'Rio Branco/AC'];
                 <?= $form->field($model, 'cep', ['options' => ['class' => 'col-md-4']])->widget(MaskedInput::className(), [
     'mask' => '99999-999'])->label("<font color='#FF0000'>*</font> <b>CEP:</b>"); ?>
                 <?= $form->field($model, 'cpf', ['options' => ['class' => 'col-md-3']])->widget(MaskedInput::className(), [
-                    'mask' => '999.999.999-99'])->label("<font color='#FF0000'>*</font> <div style='display:inline;' id = 'corCPF'><b>CPF:</b> </div>") ?> 
+                    'mask' => '999.999.999-99'])->label("<font color='#FF0000'>*</font> <div style='display:inline;' id = 'corCPF'><b>CPF:</b> </div>") ?>
 				</div>
 				<div class="row">
-                <?= 
+                <?=
                 $form->field($model, 'datanascimento', ['options' => ['class' => 'col-md-4']])->widget(DatePicker::classname(), [
                     'language' => Yii::$app->language,
                     'options' => ['placeholder' => 'Selecione a Data de Nascimento...',],
@@ -72,12 +72,12 @@ $sedes = ['RR' => 'Boa Vista/RR', 'AM' => 'Manaus/AM', 'AC' => 'Rio Branco/AC'];
 				</div>
             </div>
         </div>
-				
+
 		<div class="panel panel-default" style="width:80%">
             <div class="panel-heading">
                 <h3 class="panel-title"><b>Dados da Graduação</b></h3>
             </div>
-            <div class="panel-body">				
+            <div class="panel-body">
 				<div class="row">
                 <?= $form->field($model, 'cursograd' , ['options' => ['class' => 'col-md-7']])->textInput(['maxlength' => true])->label(" <div style='display:inline;' id = 'corCPF'><b>Curso:</b> </div>"); ?>
 				</div>
@@ -103,7 +103,7 @@ $sedes = ['RR' => 'Boa Vista/RR', 'AM' => 'Manaus/AM', 'AC' => 'Rio Branco/AC'];
                     'pluginOptions' => [
                     'allowClear' => true
                     ],
-                ])->label("<font color='#FF0000'>*</font> <b>Orientador:</b>"); ?>              
+                ])->label("<font color='#FF0000'>*</font> <b>Orientador:</b>"); ?>
                 <?= $form->field($model, 'curso', ['options' => ['class' => 'col-md-3']])->radioList(['1' => 'Mestrado', '2' => 'Doutorado'])->label("<font color='#FF0000'>*</font> <b>Curso:</b>");?>
 				</div>
 				<div class="row">
@@ -146,17 +146,17 @@ $sedes = ['RR' => 'Boa Vista/RR', 'AM' => 'Manaus/AM', 'AC' => 'Rio Branco/AC'];
             </div>
             <div class="panel-body">
                 <div class="row">
-				<?= $form->field($model, 'idiomaExameProf' , ['options' => ['class' => 'col-md-6']] )->textInput(['maxlength' => true])->label("<font color='#FF0000'>*</font> <b>Idioma:</b>");?>
+				<?= $form->field($model, 'idiomaExameProf' , ['options' => ['class' => 'col-md-6']] )->textInput(['maxlength' => true])->label("<b>Idioma:</b>");?>
 				</div>
 				<div class="row">
-				<?= $form->field($model, 'conceitoExameProf', ['options' => ['class' => 'col-md-3']])->dropDownlist(['Aprovado' => 'Aprovado', 'Reprovado' => 'Reprovado'], ['prompt' => 'Selecione um Conceito...'])->label("<font color='#FF0000'>*</font> <b>Conceito Obtido:</b>");
+				<?= $form->field($model, 'conceitoExameProf', ['options' => ['class' => 'col-md-3']])->dropDownlist(['Aprovado' => 'Aprovado', 'Reprovado' => 'Reprovado'], ['prompt' => 'Selecione um Conceito...'])->label("<b>Conceito Obtido:</b>");
             ?>
                 <?= $form->field($model, 'dataExameProf', ['options' => ['class' => 'col-md-3']])->widget(DatePicker::classname(), [
                     'language' => Yii::$app->language,
                     'pluginOptions' => [
                     'format' => 'dd-mm-yyyy',
                     'todayHighlight' => true]
-                ])->label("<font color='#FF0000'>*</font> Data do Exame:");?>
+                ])->label("Data do Exame:");?>
 				</div>
             </div>
         </div>

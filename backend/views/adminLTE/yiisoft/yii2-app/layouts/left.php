@@ -8,16 +8,16 @@ use app\models\MembrosBanca;
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="img/<?php 
-                        if(Yii::$app->user->identity->administrador) echo "administrador"; 
-                        else if(Yii::$app->user->identity->coordenador) echo "coordenador"; 
-                        else if(Yii::$app->user->identity->professor) echo "professor"; 
-                        else if(Yii::$app->user->identity->secretaria) echo "secretaria"; 
-                        else echo "aluno"; 
+                <img src="img/<?php
+                        if(Yii::$app->user->identity->administrador) echo "administrador";
+                        else if(Yii::$app->user->identity->coordenador) echo "coordenador";
+                        else if(Yii::$app->user->identity->professor) echo "professor";
+                        else if(Yii::$app->user->identity->secretaria) echo "secretaria";
+                        else echo "aluno";
                     ?>.png" class="img-circle" alt="User Image"/>
             </div>
-            <div class="pull-left info">
-                <p><?= Yii::$app->user->identity->nome ?></p>
+            <div class="pull-left info" style="white-space:normal;padding-right:10px;">
+                <?= Yii::$app->user->identity->nome ?>
             </div>
         </div>
 
@@ -190,18 +190,18 @@ use app\models\MembrosBanca;
 			['label' => 'Gerar Cautela', 'icon' => 'fa fa-list', 'url' => ['cautela/index'],],
                         ['label' => 'Gerar Cautela Avulsa', 'icon' => 'fa fa-refresh', 'url' => ['cautela-avulsa/index'],],
                         /*['label' => 'Descarte de Equipamentos', 'icon' => 'fa fa-trash', 'url' => ['descarte-equipamento/index'],],*/
-                        
+
                     ],
                 ],
-                
+
 				//['label' => 'despesas', 'icon' => 'fa fa-calendar', 'url' => ['cont-proj-despesas/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
-				
+
 				//['label' => 'receitas', 'icon' => 'fa fa-calendar', 'url' => ['cont-proj-receitas/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
 				//['label' => 'Registrar Datas', 'icon' => 'fa fa-cog fa-spin', 'url' => ['cont-proj-registra-datas/index'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria'),],
 				//['label' => 'rubricas de projeto', 'icon' => '', 'url' => ['cont-proj-rubricasde-projetos/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
 				//['label' => 'transferencia de rubricas', 'icon' => 'fa fa-calendar', 'url' => ['cont-proj-rubricasde-projetos/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
 				//['label' => 'transferencia de saldo de rubricas', 'icon' => 'fa fa-calendar', 'url' => ['cont-proj-transferencias-saldo-rubricas/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
-				
+
 			  // ['label' => 'Aluno', 'options' => ['class' => 'header'], 'visible' => Yii::$app->user->identity->checarAcesso('aluno')],
                // ['label' => 'Aluno Opção', 'icon' => 'fa fa-file-code-o', 'url' => ['site/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
             ],

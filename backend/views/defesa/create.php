@@ -23,7 +23,7 @@ else{
 }
 
 
-$this->title = 'Criar Defesa - '.$titulo. ' - de '.$model->nome;
+$this->title = 'Cadastrar Defesa - '.$titulo. ' - de '.$model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Defesas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="defesa-create">
 
 	<p>
-        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['aluno/view_orientado', 'id' => $_GET["aluno_id"] ], ['class' => 'btn btn-warning']) ?>    
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['aluno/view_orientado', 'id' => $_GET["aluno_id"] ], ['class' => 'btn btn-warning']) ?>
 	</p>
 
     <?= $this->render('_form', [
