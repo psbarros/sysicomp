@@ -137,6 +137,10 @@ class AlunoController extends Controller
     {
 
         $model = $this->findModel($id);
+        $defesas = Defesa::find()
+            ->where(['aluno_id'=>$id])
+            ->orderBy('idDefesa')
+            ->all();
 
         $linhaPesquisa = new LinhaPesquisa();
         $linhaPesquisa = $linhaPesquisa->getLinhaPesquisaNome($model->area);
@@ -151,6 +155,7 @@ class AlunoController extends Controller
 
         return $this->render('view', [
             'model' => $model,
+            'defesas' => $defesas,
         ]);
     }
 

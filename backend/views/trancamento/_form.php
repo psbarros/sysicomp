@@ -53,7 +53,7 @@ use kartik\widgets\Select2;
         </div>
 		<div class="row">
             <?= $form->field($model, 'justificativa' , ['options' => ['class' => 'col-md-3']] )->textArea(['rows' => '6'])->label("<font color='#FF0000'>*</font> <b>Justificativa:</b>") ?>
-        </div>		
+        </div>
         <!--div class="row">
 			<?= $form->field($model, 'documento', ['options' => ['class' => 'col-md-3'], ] )->fileInput()->label("<font color='#FF0000'>*</font> <b>Documento (PDF):</b>"); ?>
         </div-->
@@ -63,15 +63,15 @@ use kartik\widgets\Select2;
                         'pluginOptions' => [
                             'onText' => 'Ativo',
                             'offText' => 'Encerrado'
-                    ]]) 
+                    ]])
         ?>
 
         <?= $form->field($model, 'tipo', ['options' => ['class' => 'col-md-3']])
                     ->widget(SwitchInput::classname(), [
                         'pluginOptions' => [
-                            'onText' => 'Sim',
-                            'offText' => 'Não'
-                    ]])->label('Suspensão') 
+                            'onText' => '&nbsp;&nbsp;Sim&nbsp;&nbsp;',
+                            'offText' => '&nbsp;&nbsp;Não&nbsp;&nbsp;'
+                    ]])->label('Suspensão')
         ?>
         </div>
 

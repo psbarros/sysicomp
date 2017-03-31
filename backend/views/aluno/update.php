@@ -12,12 +12,14 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="aluno-update">
 
-	<p><?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar', ['aluno/index'], ['class' => 'btn btn-warning']) ?></p>
+	<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Voltar','#',['class' => 'btn btn-warning','onclick'=>"history.go(-1);"]); ?>
+
+	<br><br>
 
     <?= $this->render('_form', [
         'model' => $model,
         'linhasPesquisas' => $linhasPesquisas,
-        'orientadores' => $orientadores, 
+        'orientadores' => $orientadores,
     ]) ?>
 
 </div>

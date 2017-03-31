@@ -85,22 +85,23 @@ class Defesa extends \yii\db\ActiveRecord
         return [
             'idDefesa' => 'Id Defesa',
             'titulo' => 'Titulo',
-            'tipoDefesa' => 'Tipo Defesa',
+            'tipoDefesa' => 'Tipo de Defesa',
             'data' => 'Data',
             'conceito' => 'Conceito',
             'horario' => 'Horario',
             'local' => 'Local',
             'resumo' => 'Resumo',
-            'numDefesa' => 'Num Defesa',
+            'numDefesa' => 'Número da Defesa',
             'examinador' => 'Examinador',
-            'emailExaminador' => 'Email Examinador',
-            'reservas_id' => 'Reservas ID',
+            'emailExaminador' => 'Email do Examinador',
+            'reservas_id' => 'Reservas',
 			'nome_aluno' => 'Nome do Aluno',
-            'banca_id' => 'Banca ID',
-            'aluno_id' => 'Aluno ID',
+            'banca_id' => 'Banca',
+            'aluno_id' => 'Aluno',
             'previa' => 'Previa',
             'portariaID' => 'Nº da Portaria',
-            'portariaAno' => 'Ano da Portaria'
+            'portariaAno' => 'Ano da Portaria',
+            'presidente' => 'Presidente da Banca'
         ];
     }
 

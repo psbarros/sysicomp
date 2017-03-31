@@ -50,7 +50,7 @@ class UserController extends Controller
                         }
                     ],
                 ],
-            ], 
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -128,7 +128,7 @@ class UserController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        
+
         if($model->professor){
             $alunos = $model->getAlunos($model->id);
             if($alunos){
@@ -142,7 +142,7 @@ class UserController extends Controller
             $this->mensagens('success', 'Usuário Removido', 'Usuário removido com sucesso.');
         }catch(IntegrityException $e){
             $this->mensagens('danger', 'Erro ao Remover Usuário', 'Ocorreu um erro ao remover o Usuário.');
-        }  
+        }
 
         return $this->redirect(['index']);
     }
@@ -169,13 +169,13 @@ class UserController extends Controller
 
 		//return $this->render('lattes', ['model' => $model]);
     }
-	
+
 	/**
      * Uploads Lattes.
      * @return mixed
      */
-	 
-	 
+
+
     public function actionCvsdisciplinas()
     {
         $model = new UploadCvsdisciplinasForm();
@@ -203,13 +203,13 @@ class UserController extends Controller
 
 		return $this->render('cvsalunos', ['model' => $model]);
     }
-	
-	
+
+
 	// Método que atualiza o banco com os formandos do período
     public function actionPit()
     {
 
-		$token = "108FEF2DC23A626489596417D31C7729-".date("Y-m-d");
+		$token = "108FEF2DC23A626489596417D31C7729-".date("d-m-Y");
 		$tokenMD5 = MD5($token);
 		$link = 'http://200.129.163.42:8080/viper/listaFormados?cod_curso=IE08&ano_evasao=2016&periodo_evasao=1&sistema=PPGI&tkn='.$tokenMD5;
 		var_dump($link);
@@ -223,13 +223,13 @@ class UserController extends Controller
             echo "ERRO NO WEBSERVICE";
 
         }
-            
+
         $dados = json_decode($webservice, true);
-		
+
 		var_dump($dados);
 
-    }	
-	
+    }
+
 
 
     /**

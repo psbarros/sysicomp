@@ -14,6 +14,16 @@ $statusAluno = array(0 => 'Aluno Corrente',1 => 'Aluno Egresso',2 => 'Aluno Desi
 
 $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => 'Aprovado');
 
+$this->registerCss("
+    table.detail-view th {
+            width: 20%;
+    }
+
+    table.detail-view td {
+            width: 80%;
+    }
+");
+
 ?>
 <div class="aluno-view">
 
@@ -46,9 +56,9 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
             'nome',
             'email:email',
             [
-                     'attribute' => 'curso',
-                     'label'=> 'Endereço',
-                     'value' => $model->endereco. ", Bairro ".$model->bairro.", Cidade ".$model->cidade. "-".$model->uf. ", CEP ".$model->cep
+                'attribute' => 'curso',
+                'label'=> 'Endereço',
+                'value' => $model->endereco. ", Bairro ".$model->bairro.", Cidade ".$model->cidade. "-".$model->uf. ", CEP ".$model->cep
             ],
             'cpf',
             'telresidencial',
@@ -63,7 +73,7 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"><b>Dados do Aluno</b></h3>
+            <h3 class="panel-title"><b>Situação no PPGI</b></h3>
         </div>
         <div class="panel-body">
         <?= DetailView::widget([
@@ -72,18 +82,18 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
            'matricula',
             'orientador',
             [
-                     'attribute' => 'area',
-                     'label'=> 'Linha de Pesquisa',
-                ],
+                'attribute' => 'area',
+                'label'=> 'Linha de Pesquisa',
+            ],
             [
-                     'attribute' => 'curso',
-                     'format'=>'raw',
-                     'value' => $model->curso == 1 ? 'Mestrado' : 'Doutorado'
-                ],
+                'attribute' => 'curso',
+                'format'=>'raw',
+                'value' => $model->curso == 1 ? 'Mestrado' : 'Doutorado'
+            ],
             [
-                     'attribute' => 'bolsista',
-                     'format'=>'raw',
-                     'value' => $model->bolsista == 1 ? 'SIM: '.$model->financiadorbolsa.' implementada em '.date("d/m/Y", strtotime($model->dataimplementacaobolsa)) : 'NÃO'
+                'attribute' => 'bolsista',
+                'format'=>'raw',
+                'value' => $model->bolsista == 1 ? 'SIM: '.$model->financiadorbolsa.' implementada em '.date("d/m/Y", strtotime($model->dataimplementacaobolsa)) : 'NÃO'
             ],
             [   'label' => 'Status',
                 'attribute' => 'status',
@@ -93,14 +103,13 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
                 'label' => 'Data de Ingresso',
                 'attribute' => 'dataingresso',
                 'value' => date("d/m/Y", strtotime($model->dataingresso)),
-
             ],
         ],
         ]) ?>
         </div>
     </div>
 
-        <div class="panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><b>Exame de Proficiência</b></h3>
         </div>
@@ -114,42 +123,40 @@ $exameProficienciaAluno = array(null => "Não Avaliado", 0 => 'Reprovado',1 => '
                 'label' => 'Data do Exame de Proficiência',
                 'attribute' => 'dataExameProf',
                 'value' => date("d/m/Y", strtotime($model->dataExameProf)),
-
             ],
         ],
         ]) ?>
         </div>
     </div>
-	<!--<div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title"><b>Trancamentos de Curso</b></h3>
+
+
+    <?php foreach ($defesas as $defesa): ?>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" style="vertical-align:bottom">
+            <h3 style="float:left;padding-top:3px;" class="panel-title"><b>Defesa <?= $defesa->tipoDefesa ?></b></h3>
+            <div style="float:right">
+                <?= Html::a('Ver Detalhes',['defesa/view','idDefesa'=>$defesa->idDefesa,'aluno_id'=>$defesa->aluno_id],['class' => 'btn btn-primary btn-xs','options'=>[ 'target' => '_blank']]); ?>
+            </div>
+            <div style="clear:both">
+            </div>
         </div>
         <div class="panel-body">
-        <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            //[
-                //'label' => 'Data da Solicitação',
-                //'attribute' => 'dataSolicitacao',
-                //'value' => date("d/m/Y", strtotime($model->dataSolicitacao)),
-            //],
-            //[
-              //  'label' => 'Data de Início',
-//                'attribute' => 'dataInicio',
-  //              'value' => date("d/m/Y", strtotime($model->dataInicio)),
-    //        ],
-		//	[
-          //      'label' => 'Previsão de Término',
-                //'attribute' => 'prevTermino',
-                //'value' => date("d/m/Y", strtotime($model->prevTermino)),
-            //],
-			//[
-                //'label' => 'Data de Término',
-                //'attribute' => 'dataTermino',
-                //'value' => date("d/m/Y", strtotime($model->dataTermino)),
-            //],
-        ],
-        ]) ?>
+
+            <?= DetailView::widget([
+                'model' => $defesa,
+                'attributes' => [
+                    'titulo', // <- clique aqui para
+                    'conceito',
+                    [
+                        'label' => 'Data da Defesa',
+                        'attribute' => 'data',
+                        'value' => date("d/m/Y", strtotime($defesa->data)),
+                    ],
+                ],
+            ]) ?>
+
         </div>
     </div>
-</div>
+
+    <?php endforeach; ?>

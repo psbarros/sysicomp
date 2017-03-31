@@ -2,28 +2,10 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Defesa */
 
-if ($tipodefesa == 1){
-	$titulo = "Qualificação";
-}
-else if ($tipodefesa == 2){
-	$titulo = "Qualificação 1";
-}
-else if ($tipodefesa == 3){
-	$titulo = "Dissertação";
-}
-else if ($tipodefesa == 4){
-	$titulo = "Qualificação 2";
-}
-else{
-	$titulo = "Tese";
-}
-
-
-$this->title = 'Cadastrar Defesa - '.$titulo. ' - de '.$model->nome;
+$this->title = 'Cadastrar Defesa - ' . $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Defesas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -40,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'membrosBancaInternos' => $membrosBancaInternos,
         'membrosBancaExternos' => $membrosBancaExternos,
         'membrosBancaSuplentes' => $membrosBancaSuplentes,
-        'tipodefesa' => $tipodefesa,
+        'defesastipos' => $defesastipos,
+        'aluno' => $aluno,
     ]) ?>
 
 </div>

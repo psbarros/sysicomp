@@ -19,10 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
     <div class="row" style="margin-left: 10px;">
 
-        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['defesa/index',], ['class' => 'btn btn-warning']) ?>  
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['defesa/index',], ['class' => 'btn btn-warning']) ?>
 
 		<?= $model->conceito == null ? Html::a('<span class="glyphicon glyphicon-edit"></span> Editar', ['update', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-primary']) : "" ?>
-        
+
         <?= $model->banca->status_banca == null ? Html::a('<span class="glyphicon glyphicon-remove"></span> Excluir', ['delete', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -42,9 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
 
                 $form = ActiveForm::begin();
-                echo $form->field($model, 'conceito')->dropDownlist(['Aprovado' => 'Aprovado', 'Reprovado' => 'Reprovado', 'Suspenso' => 'Suspenso'], 
+                echo $form->field($model, 'conceito')->dropDownlist(['Aprovado' => 'Aprovado', 'Reprovado' => 'Reprovado', 'Suspenso' => 'Suspenso'],
                     ['prompt' => 'Selecione um Conceito']);
-                
+
                 echo "<div class='form-group'>";
                 echo Html::submitButton($model->isNewRecord ? 'Criar' : 'Alterar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
                 echo "</div>";
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
 
         if($model->banca->status_banca == 1){
-			if($model->tipoDefesa == "D" || $model->tipoDefesa == "T"){		
+			if($model->tipoDefesa == "D" || $model->tipoDefesa == "T"){
 				echo Html::a('<span class="glyphicon glyphicon-print"></span> Ata Defesa  ', ['atadefesapdf', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-success', 'target' => '_blank']);
 		        echo Html::a('<span class="glyphicon glyphicon-print"></span> Folha de Aprovação', ['folhapdf', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-success', 'target' => '_blank']);
 
@@ -127,11 +127,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'resumo:ntext',
         ],
     ]) ?>
-    
+
 <?php
 
 	if($model->tipoDefesa != "Q1"){
-		
+
 ?>
 
 <h3> Detalhes da Banca </h3>
@@ -168,7 +168,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             'title' => Yii::t('yii', 'Agradecimento'),
                             'target'=>'_blank',
-                    ]);   
+                    ]);
                   },
                   'folha' => function ($url, $model) {
                     return Html::a('<span class="glyphicon glyphicon-print"></span>', ['declaracaopdf', 'idDefesa' => $_GET['idDefesa'], 'aluno_id' => $_GET['aluno_id'], 'membrosbanca_id' => $model->membrosbanca_id  ], [
@@ -177,9 +177,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             'title' => Yii::t('yii', 'Declaração'),
                             'target'=>'_blank',
-                    ]);   
+                    ]);
                   }
-              ]                            
+              ]
             ],
         ],
     ]); ?>

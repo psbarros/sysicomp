@@ -92,7 +92,7 @@ class Aluno extends \yii\db\ActiveRecord
             'dataExameProf' => 'Data do Exame de Proficiência',
             'cursograd' => 'Curso da Graduação',
             'instituicaograd' => 'Instituicão da Graduação',
-            'egressograd' => 'Ano de Egresso',
+            'egressograd' => 'Término da Graduação',
             'orientador' => 'Orientador',
             'anoconclusao' => 'Ano de Conclusão',
             'sede' => 'Sede',

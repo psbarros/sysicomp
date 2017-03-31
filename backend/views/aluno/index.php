@@ -27,14 +27,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'matricula',
-            'nome',
+            [
+                'attribute' => 'matricula',
+                'headerOptions' => ['style' => 'width:7%'],
+            ],
+            [
+                'attribute' => 'nome',
+                'headerOptions' => ['style' => 'width:28%'],
+            ],
             [   'label' => 'Curso',
                 'attribute' => 'curso',
                 'filter'=>array (1 => "Mestrado",2 => "Doutorado"),
                 'value' => function ($model) {
                     return $model->curso == 1 ? 'Mestrado' : 'Doutorado';
                 },
+                'headerOptions' => ['style' => 'width:7%'],
             ],
             [   'label' => 'Status',
                 'attribute' => 'status',
@@ -43,14 +50,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     $statusAluno = array (0 => "Corrente",1 => "Egresso",2 => "Desistente",3 => "Desligado",4 => "Jubilado",5 => "Matrícula Trancada");
                     return $statusAluno[$model->status];
                 },
+                'headerOptions' => ['style' => 'width:7%'],
             ],
             [   'label' => 'Ingresso',
                 'attribute' => 'dataingresso',
                 'value' => function ($model) {
                     return date("m/Y", strtotime($model->dataingresso));
-                    },
+                },
+                'headerOptions' => ['style' => 'width:7%'],
             ],
-            'nomeOrientador',
+            [
+                'attribute' => 'nomeOrientador',
+                'headerOptions' => ['style' => 'width:27%'],
+            ],
             [   'label' => 'Linha Pesquisa',
                 'attribute' => 'siglaLinhaPesquisa',
                 'filter' => Html::activeDropDownList($searchModel, 'siglaLinhaPesquisa', \yii\helpers\ArrayHelper::map(LinhaPesquisa::find()->asArray()->all(), 'id', 'sigla'),[  'class'=>'form-control','prompt' => 'Selecione a Linha']),
@@ -60,7 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value' => function ($model){
                   return "<span class='fa ". $model->linhaPesquisa->icone ." fa-lg'/> ". $model->siglaLinhaPesquisa;
-                }
+                },
+                'headerOptions' => ['style' => 'width:10%'],
             ],
 
             ['class' => 'yii\grid\ActionColumn',
@@ -75,7 +88,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'title' => Yii::t('yii', 'Remover Aluno'),
                     ]);
                   }
-              ]
+              ],
+              'headerOptions' => ['style' => 'width:7%'],
             ],
         ],
     ]); ?>

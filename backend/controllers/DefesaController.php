@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use app\models\Defesa;
 use app\models\DefesaSearch;
+use app\models\DefesasTipo;
 use app\models\BancaControleDefesas;
 use app\models\LinhaPesquisa;
 use app\models\Banca;
@@ -229,53 +230,26 @@ class DefesaController extends Controller
     public function actionCreate($aluno_id)
     {
 
-        $membrosBancaInternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao = 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome','filiacao');
-
-        $membrosBancaExternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao <> 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome','filiacao');
-
-        $membrosBancaSuplentes = ArrayHelper::map(MembrosBanca::find()->orderBy('nome')->all(), 'id', 'nome','filiacao');
-
-        $membrosExternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao <> 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome');
-
         $model = new Defesa();
+        $aluno = Aluno::findOne($aluno_id);
+        $model->aluno_id = $aluno_id;
 
+        $membrosBancaInternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao = 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome','filiacao');
+        $membrosBancaExternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao <> 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome','filiacao');
+        $membrosBancaSuplentes = ArrayHelper::map(MembrosBanca::find()->orderBy('nome')->all(), 'id', 'nome','filiacao');
+        $membrosExternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao <> 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome');
         $conceitoPendente = $model->ConceitoPendente($aluno_id);
 
         if ($conceitoPendente == true){
-
                 $this->mensagens('danger', 'Defesas c/ Pendências', 'Existem defesas que estão pendentes de conceito ou Bancas pendentes de Deferimento pelo Coordenador.');
-
                 return $this->redirect(['aluno/orientandos',]);
-
         }
 
-
-        $model->aluno_id = $aluno_id;
-
         $cont_Defesas = Defesa::find()->where("aluno_id = ".$aluno_id." AND conceito is NOT NULL")->count();
-
         $curso = Aluno::find()->select("curso")->where("id =".$aluno_id)->one()->curso;
 
-            if($cont_Defesas == 0 && $curso == 1){
-                $model->tipoDefesa = "Q1";
-                $tipodefesa = 1;
-            }
-            else if($cont_Defesas == 0 && $curso == 2){
-                $model->tipoDefesa = "Q1";
-                $tipodefesa = 2;
-            }
-            else if ($cont_Defesas == 1 && $curso == 1){
-                $model->tipoDefesa = "D";
-                $tipodefesa = 3;
-            }
-            else if ($cont_Defesas == 1 && $curso == 2){
-                $model->tipoDefesa = "Q2";
-                $tipodefesa = 4;
-            }
-            else if ($cont_Defesas == 2 && $curso == 2){
-                $model->tipoDefesa = "T";
-                $tipodefesa = 5;
-            }
+        $defesas_tipos = DefesasTipo::find()->where(['curso'=>$aluno->curso])->all();
+        $defesas_tipos = ArrayHelper::map($defesas_tipos,'id','nome');
 
         if ($model->load(Yii::$app->request->post() ) ) {
 
@@ -334,6 +308,7 @@ class DefesaController extends Controller
             }
 
         }
+        
         else if ( ($curso == 1 && $cont_Defesas >= 2) || ($curso == 2 && $cont_Defesas >= 3) ){
             $this->mensagens('danger', 'Solicitar Banca', 'Não foi possível solicitar banca, pois esse aluno já possui '.$cont_Defesas.' defesas cadastradas');
             return $this->redirect(['aluno/orientandos',]);
@@ -341,10 +316,11 @@ class DefesaController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'tipodefesa' => $tipodefesa,
             'membrosBancaInternos' => $membrosBancaInternos,
             'membrosBancaExternos' => $membrosBancaExternos,
             'membrosBancaSuplentes' => $membrosBancaSuplentes,
+            'defesastipos' => $defesas_tipos,
+            'aluno' => $aluno,
         ]);
     }
 

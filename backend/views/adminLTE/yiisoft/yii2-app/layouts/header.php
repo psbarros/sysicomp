@@ -151,7 +151,7 @@ if(!Yii::$app->user->isGuest){
 
     <nav class="navbar navbar-static-top" role="navigation">
 
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <a href="#" class="sidebar-toggle" style='height:55px;padding:18px 15px;' data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
 
