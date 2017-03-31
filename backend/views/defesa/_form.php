@@ -28,7 +28,7 @@ $this->registerJs("
             } else {
                 $('#bloco-local').css('display','none');
                 $('#bloco-banca').css('display','none');
-                $('#bloco-examinador').css('display','block');                
+                $('#bloco-examinador').css('display','block');
             }
         });
     }
@@ -49,7 +49,7 @@ $this->registerJs("
     <div class="panel-body">
         <div class="row">
 
-            <?= $form->field($model, 'tipoDefesa', ['options' => ['class' => 'col-md-8']])->dropDownList($defesastipos) ?>
+            <?= $form->field($model, 'tipoDefesa', ['options' => ['class' => 'col-md-8']])->dropDownList($defesastipos,  ['options' => $defesas_aluno_array]]) ?>
 
             <?= $form->field($model, 'titulo', ['options' => ['class' => 'col-md-8']])->textInput(['maxlength' => true]) ?>
 

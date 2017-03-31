@@ -234,19 +234,35 @@ class DefesaController extends Controller
         $aluno = Aluno::findOne($aluno_id);
         $model->aluno_id = $aluno_id;
 
+        // Selecionando os membros de bancas cadastrados
         $membrosBancaInternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao = 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome','filiacao');
         $membrosBancaExternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao <> 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome','filiacao');
         $membrosBancaSuplentes = ArrayHelper::map(MembrosBanca::find()->orderBy('nome')->all(), 'id', 'nome','filiacao');
-        $membrosExternos = ArrayHelper::map(MembrosBanca::find()->where("filiacao <> 'PPGI/UFAM'")->orderBy('nome')->all(), 'id', 'nome');
+
+        // Verificando se o aluno possui conceitos pendentes de defesas anteriores
         $conceitoPendente = $model->ConceitoPendente($aluno_id);
 
         if ($conceitoPendente == true){
-                $this->mensagens('danger', 'Defesas c/ Pendências', 'Existem defesas que estão pendentes de conceito ou Bancas pendentes de Deferimento pelo Coordenador.');
-                return $this->redirect(['aluno/orientandos',]);
+            $this->mensagens('danger', 'Defesas c/ Pendências', 'Existem defesas que estão pendentes de conceito ou Bancas pendentes de Deferimento pelo Coordenador.');
+            return $this->redirect(['aluno/orientandos']);
         }
 
-        $cont_Defesas = Defesa::find()->where("aluno_id = ".$aluno_id." AND conceito is NOT NULL")->count();
-        $curso = Aluno::find()->select("curso")->where("id =".$aluno_id)->one()->curso;
+        $defesas_aluno = Defesa::find()
+            ->where("aluno_id = ".$aluno_id." AND conceito is NOT NULL")
+            ->orderBy("id DESC")
+            ->all();
+
+        $defesas_aluno_array = [];
+
+        foreach ($defesas_aluno as $defesa) {
+            $defesas_aluno_array[$defesa->id] = ['disabled' => true];
+        }
+
+        $cont_defesas = Defesa::find()
+            ->where("aluno_id = ".$aluno_id." AND conceito is NOT NULL")
+            ->count();
+
+
 
         $defesas_tipos = DefesasTipo::find()->where(['curso'=>$aluno->curso])->all();
         $defesas_tipos = ArrayHelper::map($defesas_tipos,'id','nome');
@@ -254,18 +270,17 @@ class DefesaController extends Controller
         if ($model->load(Yii::$app->request->post() ) ) {
 
             $model->auxiliarTipoDefesa = $tipodefesa;
-
             $model_ControleDefesas = new BancaControleDefesas();
-            if($model->tipoDefesa == "Q1" && $curso == 2){
+
+            if($model->tipoDefesa == "Q1" && $aluno->curso == 2) {
                 $model_ControleDefesas->status_banca = 1;
                 $model_ControleDefesas->justificativa = 'Sem justificativa';
-            }
-            else{
+            } else {
                 $model_ControleDefesas->status_banca = null;
                 $model_ControleDefesas->justificativa = 'Sem justificativa';
             }
-            $model_ControleDefesas->save(false);
 
+            $model_ControleDefesas->save(false);
             $model->banca_id = $model_ControleDefesas->id;
 
             if (! $model->uploadDocumento(UploadedFile::getInstance($model, 'previa'))){
@@ -273,31 +288,23 @@ class DefesaController extends Controller
                 return $this->redirect(['aluno/orientandos',]);
             }
 
-
             try{
 
                 if($model->tipoDefesa == "Q1" && $model->curso == "Doutorado"){
 
-
                     if($model->save(false)){
-
                         $this->mensagens('success', 'Defesa salva', 'A defesa foi salva com sucesso.');
                         return $this->redirect(['view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
                     }
 
-                }
-                else{
+                } else {
 
                     $model->salvaMembrosBanca();
 
-
                     if($model->save()){
-
                         $this->mensagens('success', 'Defesa salva', 'A defesa foi salva com sucesso.');
-
                         return $this->redirect(['passagens', 'banca_id' => $model->banca_id]);
-
-                    }else{
+                    } else {
                         $this->mensagens('danger', 'Erro ao salvar defesa', 'Ocorreu um erro ao salvar a defesa. Verifique os campos e tente novamente');
                     }
 
@@ -308,9 +315,9 @@ class DefesaController extends Controller
             }
 
         }
-        
-        else if ( ($curso == 1 && $cont_Defesas >= 2) || ($curso == 2 && $cont_Defesas >= 3) ){
-            $this->mensagens('danger', 'Solicitar Banca', 'Não foi possível solicitar banca, pois esse aluno já possui '.$cont_Defesas.' defesas cadastradas');
+
+        else if ( ($aluno->curso == 1 && $cont_defesas >= 2) || ($aluno->curso == 2 && $cont_defesas >= 3) ){
+            $this->mensagens('danger', 'Solicitar Banca', 'Não foi possível solicitar banca, pois esse aluno já possui '.$cont_defesas.' defesas cadastradas');
             return $this->redirect(['aluno/orientandos',]);
         }
 
@@ -320,6 +327,7 @@ class DefesaController extends Controller
             'membrosBancaExternos' => $membrosBancaExternos,
             'membrosBancaSuplentes' => $membrosBancaSuplentes,
             'defesastipos' => $defesas_tipos,
+            'defesas_aluno_array' => $defesas_aluno_array,
             'aluno' => $aluno,
         ]);
     }

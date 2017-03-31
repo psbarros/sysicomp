@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'membrosBancaExternos' => $membrosBancaExternos,
         'membrosBancaSuplentes' => $membrosBancaSuplentes,
         'defesastipos' => $defesastipos,
+        'defesas_aluno_array' => $defesas_aluno_array,		
         'aluno' => $aluno,
     ]) ?>
 
