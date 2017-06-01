@@ -7,19 +7,22 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\widgets\MaskedInput;
-use kartik\widgets\SwitchInput;
+use lo\widgets\Toggle;
 
 $perfis = ['1' => 'Administrador', '2' => 'Coordenador', '3' => 'Secretaria', '4' => 'Professor', '5' => 'Aluno'];
 
 ?>
+
 <div class="site-signup">
 
-<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['index'], ['class' => 'btn btn-warning']) ?>
-    <br><br>
+    <p>
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Voltar','#',['class' => 'btn btn-warning','onclick'=>"history.go(-1);"]); ?>
+        <?= Html::a('<span class="fa fa-list"></span>&nbsp;&nbsp;Listar Usuários', ['user/index'], ['class' => 'btn btn-success']) ?>
+    </p>
 
-        <div style= "text-align:left">
-            <font color='#FF0000'>*</font> Campos Obrigatórios
-        </div>
+    <div style= "text-align:left">
+        <font color='#FF0000'>*</font> Campos Obrigatórios
+    </div>
 
     <div class="row">
         <div class="col-lg-8">
@@ -36,55 +39,57 @@ $perfis = ['1' => 'Administrador', '2' => 'Coordenador', '3' => 'Secretaria', '4
                         <?= $form->field($model, 'email', ['options' => ['class' => 'col-md-6 col-right']])->label("<font color='#FF0000'>*</font> <b>E-mail:</b>") ?>
                         <?= $form->field($model, 'password', ['options' => ['class' => 'col-md-6 col-left']])->passwordInput()->label("Senha:")  ?>
                         <?= $form->field($model, 'password_repeat', ['options' => ['class' => 'col-md-6 col-right']])->passwordInput()->label("Repetir Senha:")  ?>
-                        <div style="margin-bottom: 20px;"><b><font color='#FF0000'>*</font> Escolha o(s) perfil(s) correspondente a este usuário</b></div>
+                        <div style="margin-bottom: 20px;"><b><font color='#FF0000'>*</font> Escolha o(s) perfil(s) correspondente a este usuário:</b></div>
 
-                <div class = "row">
-                    <?= $form->field($model, 'administrador', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
-                        'pluginOptions' => [
-                            'onText' => 'Sim',
-                            'offText' => 'Não',
-                    ]]) ?>
-                    <?= $form->field($model, 'coordenador', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
-                        'pluginOptions' => [
-                            'onText' => 'Sim',
-                            'offText' => 'Não',
-                    ]]) ?>
-                    <?= $form->field($model, 'secretaria', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
-                        'pluginOptions' => [
-                            'onText' => 'Sim',
-                            'offText' => 'Não',
-                    ]])?>
-                    <?= $form->field($model, 'professor', ['options' => ['class' => 'col-md-3']])->widget(SwitchInput::classname(), [
-                        'pluginOptions' => [
-                            'onText' => 'Sim',
-                            'offText' => 'Não',
-                    ]])?>
-                </div>
-                <!--<div class = "row">
-                    <?= $form->field($model, 'aluno', ['options' => ['class' => 'col-md-5']])->widget(SwitchInput::classname(), [
-                        'pluginOptions' => [
-                            'onText' => 'Sim',
-                            'offText' => 'Não',
-                    ]]) ?>
-                </div>-->
+                        <div class = "row">
+                            <?= $form->field($model, 'administrador', ['options' => ['class' => 'col-md-3']])->widget(Toggle::classname(), [
+                                'options' => [
+                                    'data-on' => 'Sim',
+                                    'data-off' => 'Não',
+                                    'data-onstyle' => 'primary',
+                                    'data-offstyle' => 'default'
+                            ]])?>
+                            <?= $form->field($model, 'coordenador', ['options' => ['class' => 'col-md-3']])->widget(Toggle::classname(), [
+                                'options' => [
+                                    'data-on' => 'Sim',
+                                    'data-off' => 'Não',
+                                    'data-onstyle' => 'primary',
+                                    'data-offstyle' => 'default'
+                            ]])?>
+                            <?= $form->field($model, 'secretaria', ['options' => ['class' => 'col-md-3', 'on' => 'Sim']])->widget(Toggle::classname(), [
+                                'options' => [
+                                    'data-on' => 'Sim',
+                                    'data-off' => 'Não',
+                                    'data-onstyle' => 'primary',
+                                    'data-offstyle' => 'default'
+                            ]])?>
+                            <?= $form->field($model, 'professor', ['options' => ['class' => 'col-md-3']])->widget(Toggle::classname(), [
+                                'options' => [
+                                    'data-on' => 'Sim',
+                                    'data-off' => 'Não',
+                                    'data-onstyle' => 'primary',
+                                    'data-offstyle' => 'default'
+                            ]])?>
+                        </div>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><b>Dados Pessoais<b></h3>
+                        <h3 class="panel-title"><b>Dados Pessoais</b></h3>
                     </div>
                     <div class="panel-body">
                         <?= $form->field($model, 'endereco')->textInput(['maxlength' => true])->label("<b>Endereço:</b>") ?>
                         <?= $form->field($model, 'telresidencial', ['options' => ['class' => 'col-md-6 col-left']])->widget(\yii\widgets\MaskedInput::className(), [
-                            'mask' => ['(99) 9999-9999','(99) 99999-9999']])->label("<b>Telefone Residencial:</b>") ?>
+                            'mask' => ['(99) 9999-9999','(99) 99999-9999']])->label("<b>Telefone Residencial:</b>")
+                        ?>
                         <?= $form->field($model, 'telcelular', ['options' => ['class' => 'col-md-6 col-right']])->widget(MaskedInput::className(), [
-                            'mask' => '(99) 99999-9999'])->label("<b>Telefone Celular:</b>") ?>
-
+                            'mask' => '(99) 99999-9999'])->label("<b>Telefone Celular:</b>")
+                        ?>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><b>Dados Profissionais<b></h3>
+                        <h3 class="panel-title"><b>Dados Profissionais</b></h3>
                     </div>
                     <div class="panel-body">
                         <?= $form->field($model, 'siape', ['options' => ['class' => 'col-md-6 col-left']])->textInput(['maxlength' => true])->label("<b>SIAPE:</b>") ?>

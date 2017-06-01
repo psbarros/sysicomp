@@ -33,7 +33,7 @@ use app\models\MembrosBanca;
                     'visible' => (Yii::$app->user->identity->checarAcesso('administrador') || Yii::$app->user->identity->checarAcesso('secretaria')),
                     'items' => [
                         ['label' => 'Adicionar Usuário', 'icon' => 'fa fa-user-plus', 'url' => ['site/signup'],],
-                        ['label' => 'Listar Usuários', 'icon' => 'fa fa-list', 'url' => ['user/index'],],
+                        ['label' => 'Listar Usuários', 'icon' => 'fa fa-list', 'url' => ['user/index'], 'active' => $this->context->route == 'user/update' || $this->context->route == 'user/view' || $this->context->route == 'user/index' ],
                     ],
                 ],
                 ['label' => 'Coordenação PPGI', 'options' => ['class' => 'header'], 'visible' => Yii::$app->user->identity->checarAcesso('coordenador')],
