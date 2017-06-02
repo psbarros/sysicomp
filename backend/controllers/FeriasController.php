@@ -58,7 +58,7 @@ class FeriasController extends Controller
 
         $searchModel = new FeriasSearch();
         $dataProvider = $searchModel->searchMinhasFerias(Yii::$app->request->queryParams , $idUser);
-        
+
 
 
         return $this->render('index', [
@@ -77,7 +77,7 @@ class FeriasController extends Controller
             $direitoQtdFerias = 45;
         }
         else{
-            $direitoQtdFerias = 30;   
+            $direitoQtdFerias = 30;
         }
 
 
@@ -120,9 +120,9 @@ class FeriasController extends Controller
             $direitoQtdFerias = 45;
         }
         else{
-            $direitoQtdFerias = 30;   
+            $direitoQtdFerias = 30;
         }
-       
+
         $todosAnosFerias = $model->anosFerias($idUser);
 
         $qtd_usufruto_ferias = $model->feriasAno($idUser,$ano,1);
@@ -146,7 +146,7 @@ class FeriasController extends Controller
 
         ]);
     }
-    
+
     public function actionListartodos($ano)
     {
 
@@ -157,7 +157,7 @@ class FeriasController extends Controller
             $direitoQtdFerias = 45;
         }
         else{
-            $direitoQtdFerias = 30;   
+            $direitoQtdFerias = 30;
         }
 
 
@@ -285,8 +285,8 @@ class FeriasController extends Controller
         $model = new Ferias();
 
         $model_User = User::find()->where(["id" => $id])->one();
-        
-        
+
+
         if($model_User->professor == 1){
             $limiteDias = 45;
         }
@@ -411,7 +411,7 @@ class FeriasController extends Controller
                 }
 
 
-    
+
                 if( $diferencaDias < 0 || $interval->format('%R') == "-"){
 
                     $this->mensagens('danger', 'Registro Férias',  'Datas inválidas!');
@@ -435,9 +435,9 @@ class FeriasController extends Controller
                     else if( $ehSecretario == 1  && ($totalDiasFeriasAno+$diferencaDiasUpdate) <= 30 && $model->save()){
 
                         $this->mensagens('success', 'Registro Férias',  'Registro de Férias realizado com sucesso!');
-                    
+
                         return $this->redirect(['listar', "ano" => $anoSaida]);
-                    
+
                     }
                     else if ((($ehProfessor == 1) && ($totalDiasFeriasAno+$diferencaDiasUpdate) >45)) {
 
@@ -490,7 +490,7 @@ class FeriasController extends Controller
         $this->findModel($id)->delete();
 
         $this->mensagens('success', 'Registro Férias',  'Registro de Férias excluído com sucesso!');
-        
+
         return $this->redirect(['detalhar','id' => $idUsuario , 'ano'=> $ano, 'prof' => $prof]);
     }
 
@@ -520,7 +520,7 @@ class FeriasController extends Controller
 
         $message = '';
         // message
-            
+
         $message .= "O(A) funcionario(a) ".$model->nomeusuario." enviou um registro de ferias.\r\n\n";
         $message .= "Nome: ".$model->nomeusuario."\r\n";
         $message .= "E-mail: ".$model->emailusuario."\r\n";
@@ -528,13 +528,13 @@ class FeriasController extends Controller
         $message .= "Data de Retorno: ".date("d/m/Y", strtotime($model->dataRetorno))."\r\n";
         $message .= "Data e Hora do envio: ".date("d/m/Y H:i:s", strtotime($model->dataPedido))."\r\n";
 
-        $chefe = "ruiter@icomp.ufam.edu.br";
+        $chefe = "tanara@icomp.ufam.edu.br";
         $secretaria = "secretaria@icomp.ufam.edu.br";
-            
+
         $email[] = $chefe;
         $email[] = $secretaria;
 
-            
+
         $message .= $mime_boundary."\r\n";
 
         try{
@@ -550,7 +550,7 @@ class FeriasController extends Controller
                 return false;
         }
         return true;
-    }   
+    }
 
 
             /* Envio de mensagens para views
