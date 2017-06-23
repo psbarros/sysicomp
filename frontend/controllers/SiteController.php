@@ -81,20 +81,20 @@ class SiteController extends Controller
         return $this->render('opcoes',['model' => $model,
             ]);
     }
-    
-    
+
+
 
 
 
     public function actionCadastroppgi(){
         /*if(Yii::$app->session->get('candidato') !== null)
         $this->redirect(['candidato/passo1']);*/
-    
-        $this->layout = '@app/views/layouts/main-login.php';
-        
-        $model = new Candidato();  
 
-        if ($model->load(Yii::$app->request->post())){                
+        $this->layout = '@app/views/layouts/main-login.php';
+
+        $model = new Candidato();
+
+        if ($model->load(Yii::$app->request->post())){
 
             $model->inicio = date("Y-m-d H:i:s");
             $model->passoatual = 0;
@@ -115,10 +115,11 @@ class SiteController extends Controller
 
                     return $this->redirect(['candidato/passo1']);
                 }
-            }catch(\Exception $e){ 
-                $this->mensagens('danger', 'Erro ao salvar candidato', 'Verifique os campos e tente novamente');
-                throw new \yii\web\HttpException(405, 'Erro com relação ao identificador do edital'); 
             }
+            catch(\yii\db\Exception $e) {
+               throw new \yii\web\HttpException(405, $e->getMessage());
+            }
+
 
         }
 
@@ -136,7 +137,7 @@ class SiteController extends Controller
     {
 
         /*Redirecionamento para o formulário caso candidato esteja "logado"*/
-        
+
         if(Yii::$app->session->get('candidato'))
             $this->redirect(['candidato/passo1']);
 
@@ -154,7 +155,7 @@ class SiteController extends Controller
 
         $edital = new Edital();
         $edital = $edital->getEditaisDisponiveis();
-            
+
             return $this->render('login', [
                 'model' => $model,
                 'edital' => $edital,

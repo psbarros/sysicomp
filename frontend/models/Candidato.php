@@ -24,7 +24,7 @@ class Candidato extends \yii\db\ActiveRecord
     public $curriculumUpload;
     public $propostaUpload;
     public $comprovanteUpload;
-    
+
     /*Cartas de recomendação Obrigatórias*/
     public $cartaNomeReq1;
     public $cartaNomeReq2;
@@ -114,10 +114,10 @@ class Candidato extends \yii\db\ActiveRecord
             'whenClient' => "function (attribute, value) {
                 return $('#form_hidden').val() == 'passo_form_3';
             }"],
-            [['cartaOrientadorFile'], 'required', 'when' => function($model){ return (!isset($model->cartaorientador) && $model->passoatual == 3 && $model->cursodesejado == 2 && $model->cartaorientador($model->idEdital)) ;}, 
+            [['cartaOrientadorFile'], 'required', 'when' => function($model){ return (!isset($model->cartaorientador) && $model->passoatual == 3 && $model->cursodesejado == 2 && $model->cartaorientador($model->idEdital)) ;},
                 'whenClient' => "function (attribute, value) {
 				    return $('#form_hidden').val() == 'passo_form_3' && $('#form_ignorarRequiredCartaOrientador').val() == 0;
-				  
+
             }"],
             [['propostaFile'], 'required', 'when' => function($model){ return !isset($model->proposta) && $model->passoatual == 3;},
             'whenClient' => "function (attribute, value) {
@@ -127,7 +127,7 @@ class Candidato extends \yii\db\ActiveRecord
             'whenClient' => "function (attribute, value) {
                 return $('#form_hidden').val() == 'passo_form_3' && ($('#form_upload').val() == '1' || $('#form_upload').val() == '0');
             }"],
-            
+
 
             [['cartaNomeReq1', 'cartaNomeReq2', 'cartaEmailReq1' , 'cartaEmailReq2'], 'required', 'when' => function($model){ return $model->passoatual == 3 && $model->edital->cartarecomendacao == 1;},
             'whenClient' => "function (attribute, value) {
@@ -138,7 +138,7 @@ class Candidato extends \yii\db\ActiveRecord
             [['cartaNome', 'cotaTipo', 'deficienciaTipo', 'posicaoEdital', 'declaracao'], 'string'],
             [['cartaEmail'], 'email'],
             [['cpf'], CpfValidator::className(), 'message' => 'CPF Inválido'],
- 
+
             [['cartaOrientadorFile', 'curriculumFile', 'propostaFile', 'comprovanteFile', 'publicacoesFile'], 'safe'],
             [['cartaOrientadorFile', 'curriculumFile', 'propostaFile', 'comprovanteFile'], 'file', 'extensions' => 'pdf', 'maxSize' => 1024 * 1024 * 3],
             [['publicacoesFile'], 'file', 'extensions' => 'xml'],
@@ -240,7 +240,7 @@ class Candidato extends \yii\db\ActiveRecord
                 'propostaFile' => 'Proposta de Trabalho',
                 'comprovanteFile' => 'Comprovante de Pagamento',
                 'publicacoesFile' => 'Curriculum Vittae XML',
-            
+
         ];
     }
 
@@ -282,7 +282,7 @@ class Candidato extends \yii\db\ActiveRecord
         //verificação se o diretório a ser criado já existe, pois se já existe, não há necessidade de criar outro
         $caminho_ja_existe = is_dir($caminho);
         $edital_ja_existe =  is_dir('documentos/'.$idEdital);
-        
+
         if($edital_ja_existe != true)
             mkdir('documentos/'.$idEdital);
 
@@ -293,7 +293,7 @@ class Candidato extends \yii\db\ActiveRecord
 
         return $caminho;
     }
-    
+
     public function uploadPasso2($curriculumFile, $enviar){
         //obtenção o ID do usuário pelo meio de sessão
         $id = Yii::$app->session->get('candidato');
@@ -356,7 +356,7 @@ class Candidato extends \yii\db\ActiveRecord
             $this->cartaEmailReq1 = $this->recomendacoes[0]->email;
             $this->cartaEmailReq2 = $this->recomendacoes[1]->email;
         }
-        
+
         for($i = 2 ; $i < count($this->recomendacoes) ; $i++){
             $this->cartaNome[$i-2] = $this->recomendacoes[$i]->nome;
             $this->cartaEmail[$i-2] = $this->recomendacoes[$i]->email;
@@ -365,7 +365,7 @@ class Candidato extends \yii\db\ActiveRecord
         $experienciaAcademica = ExperienciaAcademica::findAll(['idCandidato' => $this->id]);
 
 
-        for ($i=0; $i < count($experienciaAcademica); $i++) { 
+        for ($i=0; $i < count($experienciaAcademica); $i++) {
             if($i == 0){
                 $this->instituicaoacademica1 = $experienciaAcademica[0]->instituicao;
                 $this->atividade1 = $experienciaAcademica[0]->atividade;
@@ -385,8 +385,11 @@ class Candidato extends \yii\db\ActiveRecord
     }
 
     /*Validação para identificar se usuário já está cadastrado*/
-    public function beforeSave()
+    public function beforeSave($insert)
     {
+
+      parent::beforeSave($insert);
+
         if($this->passoatual == 0 && !Candidato::find()->where(['idEdital' => $this->idEdital])->andWhere(['email' => $this->email])->count()){
             $this->posicaoEdital = (Candidato::find()->where(['idEdital' => $this->idEdital])->count() + 1);
             return true;
@@ -425,13 +428,13 @@ class Candidato extends \yii\db\ActiveRecord
 
         $array['nome'] = $this->cartaNomeReq1 != "" && $this->cartaNomeReq2 != "" ? [$this->cartaNomeReq1, $this->cartaNomeReq2] : [];
         $array['email'] = [$this->cartaEmailReq1, $this->cartaEmailReq2];
-        
+
         if(isset($this->cartaNome) && isset($this->cartaEmail)){
             $this->cartaNome = array_filter($this->cartaNome);
             $this->cartaEmail = array_filter($this->cartaEmail);
         }
-        
-        for ($i=0; $i < count($this->cartaNome); $i++){ 
+
+        for ($i=0; $i < count($this->cartaNome); $i++){
             if($this->cartaNome[$i] != "" && $this->cartaEmail[$i] != ""){
                 array_push($array['nome'], $this->cartaNome[$i]);
                 array_push($array['email'], $this->cartaEmail[$i]);
@@ -466,9 +469,9 @@ class Candidato extends \yii\db\ActiveRecord
     /*Extração dos periódicos e conferências e salvamento no banco*/
     public function uploadXml($xmlFile) {
         if(!isset($xmlFile))
-            
+
             return true;
-        
+
         else{
             if($xmlFile->type == 'text/xml'){
                 $caminho = $this->gerarDiretorio($this->id,$this->idEdital);
@@ -477,16 +480,16 @@ class Candidato extends \yii\db\ActiveRecord
 
                     CandidatoPublicacoes::deleteAll('idCandidato = \''.$this->id.'\' AND tipo = 1');
                     CandidatoPublicacoes::deleteAll('idCandidato = \''.$this->id.'\' AND tipo = 2');
-					
+
 					if($xml->{'PRODUCAO-BIBLIOGRAFICA'}->{'ARTIGOS-PUBLICADOS'}){
 
 						foreach ($xml->{'PRODUCAO-BIBLIOGRAFICA'}->{'ARTIGOS-PUBLICADOS'} as $publicacao) {
-							
+
 							for ($i=0; $i < count($publicacao); $i++) {
-								
+
 								$candidatoPublicacoes = new CandidatoPublicacoes();
 								$candidatoPublicacoes->idCandidato = $this->id;
-								
+
 								$candidatoPublicacoes->titulo = Html::encode($publicacao->{'ARTIGO-PUBLICADO'}[$i]->{'DADOS-BASICOS-DO-ARTIGO'}['TITULO-DO-ARTIGO']);
 								$candidatoPublicacoes->local = Html::encode($publicacao->{'ARTIGO-PUBLICADO'}[$i]->{'DETALHAMENTO-DO-ARTIGO'}['TITULO-DO-PERIODICO-OU-REVISTA']);
 								$candidatoPublicacoes->ano = Html::encode($publicacao->{'ARTIGO-PUBLICADO'}[$i]->{'DADOS-BASICOS-DO-ARTIGO'}['ANO-DO-ARTIGO']);
@@ -496,31 +499,31 @@ class Candidato extends \yii\db\ActiveRecord
 								foreach ($publicacao->{'ARTIGO-PUBLICADO'}[$i]->{'AUTORES'} as $autor) {
 									$candidatoPublicacoes->autores .= ucwords(strtolower(Html::encode($autor['NOME-COMPLETO-DO-AUTOR'])))."; ";
 								}
-								
+
 								if(!$candidatoPublicacoes->save())
 									return false;
 							}
 						}
 					}
 					if($xml->{'PRODUCAO-BIBLIOGRAFICA'}->{'TRABALHOS-EM-EVENTOS'}){
-						
+
 						foreach ($xml->{'PRODUCAO-BIBLIOGRAFICA'}->{'TRABALHOS-EM-EVENTOS'} as $publicacao) {
-							
+
 							for ($i=0; $i < count($publicacao); $i++) {
 
 								$candidatoPublicacoes = new CandidatoPublicacoes();
 								$candidatoPublicacoes->idCandidato = $this->id;
-								
+
 								$candidatoPublicacoes->titulo = Html::encode($publicacao->{'TRABALHO-EM-EVENTOS'}[$i]->{'DADOS-BASICOS-DO-TRABALHO'}['TITULO-DO-TRABALHO']);
 								$candidatoPublicacoes->local = Html::encode($publicacao->{'TRABALHO-EM-EVENTOS'}[$i]->{'DETALHAMENTO-DO-TRABALHO'}['NOME-DO-EVENTO']);
-								$candidatoPublicacoes->ano = Html::encode($publicacao->{'TRABALHO-EM-EVENTOS'}[$i]->{'DADOS-BASICOS-DO-TRABALHO'}['ANO-DO-TRABALHO']); 
+								$candidatoPublicacoes->ano = Html::encode($publicacao->{'TRABALHO-EM-EVENTOS'}[$i]->{'DADOS-BASICOS-DO-TRABALHO'}['ANO-DO-TRABALHO']);
 								$candidatoPublicacoes->tipo = 1;
-								$candidatoPublicacoes->natureza = ucwords(strtolower(Html::encode($publicacao->{'TRABALHO-EM-EVENTOS'}[$i]->{'DADOS-BASICOS-DO-TRABALHO'}['NATUREZA']))); 
+								$candidatoPublicacoes->natureza = ucwords(strtolower(Html::encode($publicacao->{'TRABALHO-EM-EVENTOS'}[$i]->{'DADOS-BASICOS-DO-TRABALHO'}['NATUREZA'])));
 								$candidatoPublicacoes->autores = "";
 								foreach ($publicacao->{'TRABALHO-EM-EVENTOS'}[$i]->{'AUTORES'} as $autor) {
 									$candidatoPublicacoes->autores .= ucwords(strtolower(Html::encode($autor['NOME-COMPLETO-DO-AUTOR'])))."; ";
 								}
-								
+
 								if(!$candidatoPublicacoes->save())
 									return false;
 							}

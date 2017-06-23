@@ -19,11 +19,11 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <link rel='stylesheet' type='text/css' href='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css'>
-    <link rel="stylesheet" type="text/css" href="http://flwebsites.biz/jAlert/src/jAlert-v3.css">
-    <script src='https://code.jquery.com/jquery-2.0.3.min.js'></script>
-    <script src='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js'></script>
-    
+    <link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href="js/jAlert-v3.css">
+    <script src='js/jquery-2.0.3.min.js'></script>
+    <script src='js/bootstrap.min.js'></script>
+
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
@@ -62,7 +62,7 @@ AppAsset::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        
+
     <section class="content">
         <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
         <input id="timesession" type="hidden" value= <?= ini_get('session.gc_maxlifetime');?> />
