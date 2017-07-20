@@ -67,4 +67,3 @@ $this->params['breadcrumbs'][] = $this->title;
 						<div class="iconimage" style="float: left; width: 150px; margin-top: 20px;"><img src="img/pagamento.png" border="0" height="32" width="32"><br><b>Imprimir Comprovante de Pagamento</b></div></a>
 			</div>
 </div>
-

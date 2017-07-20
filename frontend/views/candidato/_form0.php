@@ -73,6 +73,7 @@ use app\models\Edital;
                         }
                         
                         echo "<b> Baixar Edital: </b> <a href='".$edital[$i]->documento."' target= '_blank'> Clique aqui</a> <br>";
+			echo "<b> Hora Atual: </b>" . date("Y-m-d H:i:s") . "<br>";
                         echo "</div>";
                     }
                 }

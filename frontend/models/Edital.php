@@ -68,6 +68,7 @@ class Edital extends \yii\db\ActiveRecord
     public function getEditaisDisponiveis(){
 
         $edital = Edital::find()->where(['<=','datainicio',date('Y-m-d')])->andWhere(['>=','datafim',date('Y-m-d')])->all();
+	Yii::warning("ooooo:" . date('Y-m-d H:i:s'));
 
         return $edital;
     }
