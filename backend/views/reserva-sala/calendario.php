@@ -5,25 +5,52 @@ use yii\grid\GridView;
 use yii\web\JsExpression;
 use yii\bootstrap\Modal;
 
-
-
 $this->title = 'Reserva: '.$modelSala->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Reserva de Sala', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>
 <script type="text/javascript">
-        
-        function anoSelecionado(){
+
+        function anoSelecionado() {
             var x = document.getElementById("comboBoxAno").value;
+            window.location="index.php?r=reserva-sala/calendario&idSala="+x;
+        }
 
-            window.location="index.php?r=reserva-sala/calendario&idSala="+x; 
+        function imprimir() {
 
+
+            var toPrint = document.getElementsByClassName('fc-body')[0].cloneNode(true);
+
+
+
+            var linkElements = document.getElementsByTagName('link');
+            var link = '';
+            for(var i = 0, length = linkElements.length; i < length; i++) {
+              link = link + linkElements[i].outerHTML;
+            }
+
+            var styleElements = document.getElementsByTagName('style');
+            var styles = '';
+            for(var i = 0, length = styleElements.length; i < length; i++) {
+              styles = styles + styleElements[i].innerHTML;
+            }
+
+            var popupWin = window.open('', '_blank');
+            popupWin.document.open();
+            popupWin.document.write('<html><head><title>Schedule Preview</title>'+link+'<style>'+styles+'</style></head><body">');
+            popupWin.document.write(toPrint.innerHTML);
+            popupWin.document.write('<script type="text/javascript">window.print();<'+'/script>');
+            popupWin.document.write('</body></html>');
+            popupWin.document.close();
+            //setTimeout(popupWin.print(), 60000);
+            return false;
         }
 </script>
   <p>
     <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar ', ['index'], ['class' => 'btn btn-warning']) ?>
     <?= Html::a('<span class="glyphicon glyphicon-list"></span> Listagem ', ['reserva-sala/listagemreservas'], ['class' => 'btn btn-warning']) ?>
+    <?= Html::a('<span class="glyphicon glyphicon-list"></span> Imprimir ', ['#'], ['class' => 'btn btn-warning','onclick' => 'return imprimir()']) ?>
   </p>
   <?php
     Modal::begin([
@@ -39,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <p>
     <b>Selecione uma Sala:</b> <select id= "comboBoxAno" onchange="anoSelecionado();" class="form-control" style="margin-bottom: 20px; width:20%;">
-        <?php for($i=0; $i<count($modelSalas); $i++){ 
+        <?php for($i=0; $i<count($modelSalas); $i++){
 
             $valores = $modelSalas[$i]->id;
 
@@ -81,5 +108,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
       ));
   ?>
-    
+
 </div>

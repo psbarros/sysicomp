@@ -33,9 +33,9 @@ class ReservaSalaController extends Controller
                             return Yii::$app->user->identity->checarAcesso('coordenador') || Yii::$app->user->identity->checarAcesso('secretaria') ||
                            Yii::$app->user->identity->checarAcesso('professor');
                         }
-                    ],                    
+                    ],
                 ],
-            ], 
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -65,7 +65,7 @@ class ReservaSalaController extends Controller
             $modelSala = Sala::findOne(['id' => $idSala]);
         else
             $modelSala = $modelSalas[0];
-        
+
         $reservas = ReservaSala::findAll(['sala' => $idSala]);
         foreach ($reservas as $reserva) {
             $reservaItem = new \yii2fullcalendar\models\Event();
@@ -83,8 +83,38 @@ class ReservaSalaController extends Controller
         ]);
     }
 
+    public function actionCalendarioprint(){
+
+        $this->layout = "print.php";
+
+        $reservasCalendario = array();
+        $idSala = filter_input(INPUT_GET, 'idSala');
+
+        $modelSalas = Sala::find()->all();
+        if($idSala)
+            $modelSala = Sala::findOne(['id' => $idSala]);
+        else
+            $modelSala = $modelSalas[0];
+
+        $reservas = ReservaSala::findAll(['sala' => $idSala]);
+        foreach ($reservas as $reserva) {
+            $reservaItem = new \yii2fullcalendar\models\Event();
+            $reservaItem->id = $reserva->id;
+            $reservaItem->title = $reserva->atividade;
+            $reservaItem->start = $reserva->dataInicio.'T'.$reserva->horaInicio;
+            $reservaItem->end = $reserva->dataTermino.'T'.$reserva->horaTermino;
+            $reservasCalendario[] = $reservaItem;
+        }
+
+        return $this->render('calendarioprint',[
+            'modelSala' => $modelSala,
+            'reservasCalendario' => $reservasCalendario,
+            'modelSalas' => $modelSalas,
+        ]);
+    }
+
     public function actionListagemreservas(){
-        
+
         $searchModel = new ReservaSalaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -116,11 +146,11 @@ class ReservaSalaController extends Controller
             for($i=0; $i<$diferencaDias; $i++){
 
                 $dataDoLoop = date('d-m-Y',date(strtotime("+".$i." days", strtotime($auxDataInicio))));
-                
+
                 // 0 é domingo, 1 é segunda, 2 é terça, 3 é quarta, 4 é quinta, 5 é sexta, 6 é sábado
                 $diaDaSemana = date('w', strtotime($dataDoLoop));
 
-                if(in_array($diaDaSemana, $model->diasSemana)) { 
+                if(in_array($diaDaSemana, $model->diasSemana)) {
 
                     $model->id = null;
                     $model->isNewRecord = true;
@@ -132,7 +162,7 @@ class ReservaSalaController extends Controller
 
                     if(count($reservas) > 0){
                         foreach ($reservas as $value) {
-                            if(!(($model->horaTermino < $value->horaInicio && $model->horaInicio < $value->horaInicio) || 
+                            if(!(($model->horaTermino < $value->horaInicio && $model->horaInicio < $value->horaInicio) ||
                                 ($model->horaInicio > $value->horaTermino && $model->horaTermino > $value->horaTermino))){
                                 $this->enviarNotificaoDesmarqueReserva($model, $value);
                                 $value->delete();
@@ -173,10 +203,10 @@ class ReservaSalaController extends Controller
             $this->mensagens('danger', 'Horário Inválido', 'Não foi possível reservar esta sala no horário escolhido, pois ela já possui uma reserva. Tente novamente em outro horário!');
             return $this->redirect(['calendario', 'idSala' => $model->sala]);
         }
-        
+
         $model->idSolicitante = Yii::$app->user->identity->id;
-        $model->dataReserva = date('Y-m-d H:i:s');      
-        
+        $model->dataReserva = date('Y-m-d H:i:s');
+
         if ($model->load(Yii::$app->request->post())) {
             if(!$model->horarioOk()){
                 $this->mensagens('danger', 'Horário Inválido', 'Não foi possível reservar esta sala no horário escolhido, pois ela já possui uma reserva. Tente novamente em outro horário!');
@@ -258,7 +288,7 @@ class ReservaSalaController extends Controller
     }
 
     protected function validaUpdateDelete($model){
-        if($model->idSolicitante != Yii::$app->user->identity->id && $model->dataInicio < date('d-m-Y') 
+        if($model->idSolicitante != Yii::$app->user->identity->id && $model->dataInicio < date('d-m-Y')
             || ($model->dataInicio == date('d-m-Y') && $model->horaInicio < date('H:i:s')))
             throw new ForbiddenHttpException('Acesso negado.');
     }
@@ -273,7 +303,7 @@ class ReservaSalaController extends Controller
         $message = "";
         $message .= "Prof.".$reserva->solicitante->nome."\r\n";
         $message .= "Devido à solicitação de ".$reservaLote->tipo." pela Secretaria do IComp, a sua Reserva para a ".$reserva->atividade." no dia ".$reserva->dataInicio." no Horário das ".$reserva->horaInicio." foi cancelada por motivo de prioridade.\r\n";
-        $message .= "Qualquer dúvida entre em contato com a Secretaria do IComp.\r\n";  
+        $message .= "Qualquer dúvida entre em contato com a Secretaria do IComp.\r\n";
         $message .= $mime_boundary."\r\n";
 
         try{
