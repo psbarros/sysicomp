@@ -43,22 +43,24 @@ class ContProjRegistraDatasController extends Controller
         for ($i = 0; $i < count($projetos); $i++) {
             $id[] = $projetos[$i]->id;
         }
-        $ids=join("','",$id);
-        $candidato = ContProjRegistraDatas::find()->where("data = '" . date('Y-m-d') . "' AND projeto_id IN ('$ids')")
-            ->orderBy("data")->all();
+        if (!empty($id)) {
+            $ids=join("','",$id);
+            $candidato = ContProjRegistraDatas::find()->where("data = '" . date('Y-m-d') . "' AND projeto_id IN ('$ids')")
+                ->orderBy("data")->all();
 
-        //$candidato = ContProjRegistraDatas::find()->all();
-        //->where("inicio > '".$ultima_visualizacao."'")
-        for ($i = 0; $i < count($candidato); $i++) {
-            $a = date("d/m/Y", strtotime($candidato[$i]->data));
-            echo "<li><a href='#'>";
-            echo "<div class='pull-left'>
-                <img src='../web/img/candidato.png' class='img-circle'
-                alt='user image'/>
-                </div>";
-            echo ("<p>" . "Evento: " .mb_strimwidth($candidato[$i]->observacao,0,15,"...")) . "<br>";
-            echo ("<p>" . "Evento: " .$candidato[$i]->evento) . "<br>";
-            echo ("Data: " . $a) . "</p></a></li>";
+            //$candidato = ContProjRegistraDatas::find()->all();
+            //->where("inicio > '".$ultima_visualizacao."'")
+            for ($i = 0; $i < count($candidato); $i++) {
+                $a = date("d/m/Y", strtotime($candidato[$i]->data));
+                echo "<li><a href='#'>";
+                echo "<div class='pull-left'>
+                    <img src='/img/candidato.png' class='img-circle'
+                    alt='user image'/>
+                    </div>";
+                echo ("<p>" . "Evento: " .mb_strimwidth($candidato[$i]->observacao,0,15,"...")) . "<br>";
+                echo ("<p>" . "Evento: " .$candidato[$i]->evento) . "<br>";
+                echo ("Data: " . $a) . "</p></a></li>";
+            }
         }
 
     }
@@ -70,11 +72,12 @@ class ContProjRegistraDatasController extends Controller
         for ($i = 0; $i < count($projetos); $i++) {
             $id[] = $projetos[$i]->id;
         }
-        $ids=join("','",$id);
-        $candidato = ContProjRegistraDatas::find()->where("data = '" . date('Y-m-d') . "' AND projeto_id IN ('$ids')")
-            ->orderBy("data")->all();
-        echo count($candidato);
-
+        if (!empty($id)) {
+            $ids=join("','",$id);
+            $candidato = ContProjRegistraDatas::find()->where("data = '" . date('Y-m-d') . "' AND projeto_id IN ('$ids')")
+                ->orderBy("data")->all();
+            echo count($candidato);
+        }
     }
 
     public function actionZerarnotificacaodatas()

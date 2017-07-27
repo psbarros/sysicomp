@@ -1,8 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\web\JsExpression;
+use yii\web\View;
 use yii\bootstrap\Modal;
 
 $this->title = 'Reserva: '.$modelSala->nome;
@@ -10,47 +12,28 @@ $this->params['breadcrumbs'][] = ['label' => 'Reserva de Sala', 'url' => ['index
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>
-<script type="text/javascript">
+<?php
+$this->registerJs("
 
-        function anoSelecionado() {
-            var x = document.getElementById("comboBoxAno").value;
-            window.location="index.php?r=reserva-sala/calendario&idSala="+x;
-        }
+function anoSelecionado() {
+    var x = document.getElementById('comboBoxAno').value;
+    window.location='index.php?r=reserva-sala/calendario&idSala=' + x;
+}
 
-        function imprimir() {
+function imprimir () {
+    var iniciooo = $('th.fc-sun').data('date');
+    var termino = $('th.fc-sat').data('date');
+    $('#link-impressao').attr('href','" . Url::to(['reserva-sala/imprimir','idSala'=>$_GET['idSala']])  . "&inicio=' + iniciooo + '&termino=' + termino);
+    return true;
+}
+", View::POS_HEAD);
+?>
 
-
-            var toPrint = document.getElementsByClassName('fc-body')[0].cloneNode(true);
-
-
-
-            var linkElements = document.getElementsByTagName('link');
-            var link = '';
-            for(var i = 0, length = linkElements.length; i < length; i++) {
-              link = link + linkElements[i].outerHTML;
-            }
-
-            var styleElements = document.getElementsByTagName('style');
-            var styles = '';
-            for(var i = 0, length = styleElements.length; i < length; i++) {
-              styles = styles + styleElements[i].innerHTML;
-            }
-
-            var popupWin = window.open('', '_blank');
-            popupWin.document.open();
-            popupWin.document.write('<html><head><title>Schedule Preview</title>'+link+'<style>'+styles+'</style></head><body">');
-            popupWin.document.write(toPrint.innerHTML);
-            popupWin.document.write('<script type="text/javascript">window.print();<'+'/script>');
-            popupWin.document.write('</body></html>');
-            popupWin.document.close();
-            //setTimeout(popupWin.print(), 60000);
-            return false;
-        }
 </script>
   <p>
     <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar ', ['index'], ['class' => 'btn btn-warning']) ?>
     <?= Html::a('<span class="glyphicon glyphicon-list"></span> Listagem ', ['reserva-sala/listagemreservas'], ['class' => 'btn btn-warning']) ?>
-    <?= Html::a('<span class="glyphicon glyphicon-list"></span> Imprimir ', ['#'], ['class' => 'btn btn-warning','onclick' => 'return imprimir()']) ?>
+    <?= Html::a('<span class="glyphicon glyphicon-list"></span> Imprimir ', ['seila'], ['class' => 'btn btn-warning','id' => 'link-impressao','onclick' => 'return imprimir()', 'target' => '_blank']) ?>
   </p>
   <?php
     Modal::begin([

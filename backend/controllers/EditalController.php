@@ -1285,7 +1285,7 @@ class EditalController extends Controller
             for ($i=0; $i<count($candidato); $i++){
                 echo "<li><a href='#'>";
                 echo "<div class='pull-left'>
-                <img src='../web/img/candidato.png' class='img-circle'
+                <img src='/img/candidato.png' class='img-circle'
                 alt='user image'/>
                 </div>";
                 echo("<p>"."Email: ".$candidato[$i]->email)."<br>";
@@ -1326,7 +1326,7 @@ class EditalController extends Controller
             for ($i=0; $i<count($candidato); $i++){
                 echo "<li><a href='#'>";
                 echo "<div class='pull-left'>
-                <img src='../web/img/candidato.png' class='img-circle'
+                <img src='/img/candidato.png' class='img-circle'
                 alt='user image'/>
                 </div>";
                 echo("<p>"."Email: ".$candidato[$i]->email)."<br>";
@@ -1367,7 +1367,7 @@ class EditalController extends Controller
             for ($i=0; $i<count($recomendacao); $i++){
                 echo "<li><a href='#'>";
                 echo "<div class='pull-left'>
-                <img src='../web/img/candidato.png' class='img-circle'
+                <img src='/img/candidato.png' class='img-circle'
                 alt='user image'/>
                 </div>";
                 echo("<p>"."Candidato: ".$recomendacao[$i]->candidato->nome)."<br>";

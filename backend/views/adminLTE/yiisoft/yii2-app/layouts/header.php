@@ -21,7 +21,7 @@ if(!Yii::$app->user->isGuest){
 <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->checarAcesso('coordenador')){ ?>
 <script>
 
-    setInterval(function(){
+    setTimeout(function(){
 
                                 var xhttp = new XMLHttpRequest();
                                 xhttp.onreadystatechange = function() {

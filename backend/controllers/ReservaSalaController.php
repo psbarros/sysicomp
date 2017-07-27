@@ -13,6 +13,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Exception;
+use kartik\mpdf\Pdf;
 
 /**
  * ReservaSalaController implements the CRUD actions for ReservaSala model.
@@ -83,35 +84,75 @@ class ReservaSalaController extends Controller
         ]);
     }
 
-    public function actionCalendarioprint(){
+    public function actionImprimir($idSala, $inicio, $termino){
 
-        $this->layout = "print.php";
+        $sala = Sala::findOne($idSala);
 
-        $reservasCalendario = array();
-        $idSala = filter_input(INPUT_GET, 'idSala');
+        $reservas = ReservaSala::find()
+            ->where(['sala' => $idSala])
+            ->andWhere('dataInicio >= "' . $inicio . ' 00:00:00"')
+            ->andWhere('dataTermino < "' . $termino . ' 23:59:59"')
+            ->all();
 
-        $modelSalas = Sala::find()->all();
-        if($idSala)
-            $modelSala = Sala::findOne(['id' => $idSala]);
-        else
-            $modelSala = $modelSalas[0];
-
-        $reservas = ReservaSala::findAll(['sala' => $idSala]);
-        foreach ($reservas as $reserva) {
-            $reservaItem = new \yii2fullcalendar\models\Event();
-            $reservaItem->id = $reserva->id;
-            $reservaItem->title = $reserva->atividade;
-            $reservaItem->start = $reserva->dataInicio.'T'.$reserva->horaInicio;
-            $reservaItem->end = $reserva->dataTermino.'T'.$reserva->horaTermino;
-            $reservasCalendario[] = $reservaItem;
-        }
-
-        return $this->render('calendarioprint',[
-            'modelSala' => $modelSala,
-            'reservasCalendario' => $reservasCalendario,
-            'modelSalas' => $modelSalas,
+        // get your HTML raw content without any layouts or scripts
+        $content = $this->renderPartial('imprimir',[
+            'sala' => $sala,
+            'inicio' => $inicio,
+            'termino' => $termino,
+            'reservas' => $reservas
         ]);
+
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_LANDSCAPE,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $content,
+            'marginTop' => '10',
+            'marginBottom' => '10',
+            'marginRight' => '10',
+            'marginLeft' => '10',
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+             // set mPDF properties on the fly
+            'options' => ['title' => 'Krajee Report Title'],
+             // call mPDF methods on the fly
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+
     }
+
+    public function actionImprimir2($idSala, $inicio, $termino){
+
+        $sala = Sala::findOne($idSala);
+
+        $reservas = ReservaSala::find()
+            ->where(['sala' => $idSala])
+            ->andWhere('dataInicio >= "' . $inicio . ' 00:00:00"')
+            ->andWhere('dataTermino < "' . $termino . ' 23:59:59"')
+            ->all();
+
+        // get your HTML raw content without any layouts or scripts
+        $content = $this->renderPartial('imprimir',[
+            'sala' => $sala,
+            'inicio' => $inicio,
+            'termino' => $termino,
+            'reservas' => $reservas
+        ]);
+        return $content;
+    }
+
 
     public function actionListagemreservas(){
 

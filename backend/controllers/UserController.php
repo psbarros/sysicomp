@@ -161,13 +161,13 @@ class UserController extends Controller
             if ($model->upload(Yii::$app->user->identity->id)) {
                 // file is uploaded successfully
 				$this->mensagens('success', 'Sucesso', 'Upload realizado com sucesso.');
-				//return $this->redirect(['lattes');
+				return $this->redirect(['lattes']);
             }
         }
 
-		//$this->mensagens('success', 'Sucesso', 'Upload vai ser realizado com sucesso.');
+		$this->mensagens('success', 'Sucesso', 'Upload vai ser realizado com sucesso.');
 
-		//return $this->render('lattes', ['model' => $model]);
+		return $this->render('lattes', ['model' => $model]);
     }
 
 	/**
