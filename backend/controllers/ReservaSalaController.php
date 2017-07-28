@@ -99,7 +99,8 @@ class ReservaSalaController extends Controller
             'sala' => $sala,
             'inicio' => $inicio,
             'termino' => $termino,
-            'reservas' => $reservas
+            'reservas' => $reservas,
+            'ver_matriz' => false,
         ]);
 
         // setup kartik\mpdf\Pdf component
@@ -120,9 +121,8 @@ class ReservaSalaController extends Controller
             'marginLeft' => '10',
             // format content from your own css file if needed or use the
             // enhanced bootstrap css built by Krajee for mPDF formatting
-            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
             // any css to be embedded if required
-            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'cssInline' => 'td {padding: 0px} .td-content {border: 2px inset black;} .td-content div {color: blue}',
              // set mPDF properties on the fly
             'options' => ['title' => 'Krajee Report Title'],
              // call mPDF methods on the fly
@@ -148,7 +148,8 @@ class ReservaSalaController extends Controller
             'sala' => $sala,
             'inicio' => $inicio,
             'termino' => $termino,
-            'reservas' => $reservas
+            'reservas' => $reservas,
+            'ver_matriz' => false,
         ]);
         return $content;
     }
