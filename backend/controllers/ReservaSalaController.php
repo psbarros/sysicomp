@@ -58,6 +58,7 @@ class ReservaSalaController extends Controller
     }
 
     public function actionCalendario(){
+        setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         $reservasCalendario = array();
         $idSala = filter_input(INPUT_GET, 'idSala');
 
@@ -85,6 +86,8 @@ class ReservaSalaController extends Controller
     }
 
     public function actionImprimir($idSala, $inicio, $termino, $datestr){
+
+        setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 
         $sala = Sala::findOne($idSala);
 
