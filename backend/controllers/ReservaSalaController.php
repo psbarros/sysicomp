@@ -84,7 +84,7 @@ class ReservaSalaController extends Controller
         ]);
     }
 
-    public function actionImprimir($idSala, $inicio, $termino){
+    public function actionImprimir($idSala, $inicio, $termino, $datestr){
 
         $sala = Sala::findOne($idSala);
 
@@ -100,6 +100,7 @@ class ReservaSalaController extends Controller
             'inicio' => $inicio,
             'termino' => $termino,
             'reservas' => $reservas,
+            'datestr' => $datestr,
             'ver_matriz' => false,
         ]);
 

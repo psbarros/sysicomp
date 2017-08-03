@@ -2,6 +2,7 @@
 
 $_horas = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30'];
 $_dias = ['Dom','Seg','Ter','Qua','Qui','Sex'];
+
 $_matriz_horarios = [];
 
 for ($dia=0;$dia<count($_dias);$dia++) {
@@ -53,11 +54,11 @@ if (0) {
     </head>
     <body>
         <div style="width: 100%">
-            <div style="float:left;width: 35%">
-                <h3>Instituto de Computação</h3>
+            <div style="float:left;width: 60%">
+                <h3>Instituto de Computação &mdash; <?= $sala->nome ?></h3>
             </div>
-            <div style="float:right;width: 60%; text-align: right">
-                <h3><?= $sala->nome ?> &mdash; Horários</h3>
+            <div style="float:right;width: 38%; text-align: right">
+                <h3><?= $datestr ?></h3>
             </div>
         </div>
         <table style="border: 1px solid black; width: 100%; border-collapse: collapse; border-spacing:10px">

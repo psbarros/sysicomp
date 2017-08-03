@@ -23,7 +23,8 @@ function anoSelecionado() {
 function imprimir () {
     var iniciooo = $('th.fc-sun').data('date');
     var termino = $('th.fc-sat').data('date');
-    $('#link-impressao').attr('href','" . Url::to(['reserva-sala/imprimir','idSala'=>$_GET['idSala']])  . "&inicio=' + iniciooo + '&termino=' + termino);
+    var datestr = encodeURI($('div.fc-center h2').text());
+    $('#link-impressao').attr('href','" . Url::to(['reserva-sala/imprimir','idSala'=>$_GET['idSala']])  . "&inicio=' + iniciooo + '&termino=' + termino + '&datestr=' + datestr);
     return true;
 }
 
@@ -77,6 +78,7 @@ $('.fc-agendaWeek-button').click(function () {
 
       <?= \yii2fullcalendar\yii2fullcalendar::widget(array(
           'events'=> $reservasCalendario,
+          'options' => ['language' => 'pt'],
           'clientOptions' => [
             'allDayDefault' => false,
             'weekends' => true,
