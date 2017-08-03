@@ -70,7 +70,7 @@ if (0) {
             <?php for ($hora=0;$hora<count($_horas);$hora++): ?>
                 <tr style="padding:0">
                     <?php if ($hora%2==0): ?>
-                    <td style="border: 1px solid black; width: 12mm; max-width: 12mm; align: left" rowspan="2"><div style="font-size: 3mm">&nbsp;</div>&nbsp;<?= $_horas[$hora] ?>&nbsp;<div style="font-size: 3mm">&nbsp;</div></td>
+                    <td style="border: 1px solid black; width: 12mm; max-width: 12mm; align: left" rowspan="2"><div style="font-size: 3mm">&nbsp;</div>&nbsp;<?= $_horas[$hora] ?>&nbsp;<div style="font-size: 3.5mm">&nbsp;</div></td>
                     <?php endif; ?>
                     <?php
 

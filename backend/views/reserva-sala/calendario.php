@@ -26,7 +26,20 @@ function imprimir () {
     $('#link-impressao').attr('href','" . Url::to(['reserva-sala/imprimir','idSala'=>$_GET['idSala']])  . "&inicio=' + iniciooo + '&termino=' + termino);
     return true;
 }
+
 ", View::POS_HEAD);
+
+$this->registerJs("
+$('.fc-month-button').click(function () {
+    console.log('okok');
+    $('#link-impressao').addClass('disabled');
+});
+$('.fc-agendaWeek-button').click(function () {
+    console.log('okok');
+    $('#link-impressao').removeClass('disabled');
+});
+", View::POS_LOAD);
+
 ?>
 
 </script>

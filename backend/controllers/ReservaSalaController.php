@@ -115,8 +115,8 @@ class ReservaSalaController extends Controller
             'destination' => Pdf::DEST_BROWSER,
             // your html content input
             'content' => $content,
-            'marginTop' => '10',
-            'marginBottom' => '10',
+            'marginTop' => '4',
+            'marginBottom' => '4',
             'marginRight' => '10',
             'marginLeft' => '10',
             // format content from your own css file if needed or use the
