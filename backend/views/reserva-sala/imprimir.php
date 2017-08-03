@@ -1,6 +1,6 @@
 <?php
 
-$_horas = ['07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30'];
+$_horas = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30'];
 $_dias = ['Dom','Seg','Ter','Qua','Qui','Sex'];
 $_matriz_horarios = [];
 
@@ -13,8 +13,14 @@ for ($dia=0;$dia<count($_dias);$dia++) {
 for ($dia=0, $diaatual = $inicio;$dia<count($_dias);$dia++, $diaatual = date('Y-m-d',strtotime("+1 day", strtotime($diaatual)))) {
     for ($hora=0;$hora<count($_horas);$hora++) {
         foreach ($reservas as $reserva) {
+            if (strtotime($reserva->horaTermino) > strtotime('22:00:00')) {
+                $reserva->horaTermino = '22:00:00';
+            }
+            if (strtotime($reserva->horaInicio) < strtotime('08:00:00')) {
+                $reserva->horaInicio = '08:00:00';
+            }
             if ((strtotime($reserva->dataInicio) == strtotime($diaatual)) && (strtotime($reserva->horaInicio) >= strtotime($_horas[$hora].':00')) &&  (strtotime($reserva->horaInicio) < strtotime($_horas[$hora+1].':00'))) {
-                $qtd_horas = round(((min(strtotime($reserva->horaTermino),strtotime('22:00:00'))) - strtotime($reserva->horaInicio))/1800);
+                $qtd_horas = round((strtotime($reserva->horaTermino) - strtotime($reserva->horaInicio)) / 1800);
                 for ($i=0; $i<$qtd_horas; $i++) {
                     $_matriz_horarios[$dia][$hora+$i] = $qtd_horas."#".$reserva->atividade."#".$reserva->horaInicio."#".$reserva->horaTermino;
                 }
@@ -62,26 +68,31 @@ if (0) {
                 <?php endfor; ?>
             </tr>
             <?php for ($hora=0;$hora<count($_horas);$hora++): ?>
-                <tr>
+                <tr style="padding:0">
                     <?php if ($hora%2==0): ?>
-                    <td style="border: 1px solid black; width: 12mm; max-width: 12mm; align: left" rowspan="2"><div style="font-size: 2.5mm">&nbsp;</div>&nbsp;<?= $_horas[$hora] ?>&nbsp;<div style="font-size: 3mm">&nbsp;</div></td>
+                    <td style="border: 1px solid black; width: 12mm; max-width: 12mm; align: left" rowspan="2"><div style="font-size: 3mm">&nbsp;</div>&nbsp;<?= $_horas[$hora] ?>&nbsp;<div style="font-size: 3mm">&nbsp;</div></td>
                     <?php endif; ?>
                     <?php
 
                     for ($dia=1;$dia<count($_dias);$dia++) {
                         if ($_matriz_horarios[$dia][$hora] == 0) {
-                            echo '<td style="border: 1px solid #DDDDDD; align: center"></td>' . "\n";
+                            echo '<td style="border: 1px solid #DDDDDD; align: center"><div style="font-size: 4mm">&nbsp;</div></td>' . "\n";
                         }
                         elseif (($hora==0) || (($_matriz_horarios[$dia][$hora] != $_matriz_horarios[$dia][$hora-1]) && ($hora<count($_horas)))) {
                             $dados = explode("#",$_matriz_horarios[$dia][$hora]);
+                            $rowspan = $dados[0];
                             if ($dados[0] == 1) {
-                                $dados[1] = substr($dados[1],0,50);
+                                $dados[1] = substr($dados[1]."Testando Testando Testando Testando Testando",0,60);
+                                $break = "&nbsp;&mdash;&nbsp;";
                             }
-                            if ($dados[0] == 2) {
+                            elseif ($dados[0] == 2) {
                                 $dados[1] = substr($dados[1],0,80);
+                                $break = "<br>";
+                            } else {
+                                $break = "<br>";
                             }
-                            echo '<td class="td-content" style="background-color: #eee; font-size: 12px; padding: 0px 10px 0px 10px; margin: 0; align: center" rowspan="' . $dados[0] . '">';
-                            echo "<span style='font-size: 9px'>" . substr($dados[2],0,-3) ." &mdash; ". substr($dados[3],0,-3) ."</span><br><strong><span style='font-size: 10px'>". $dados[1] . "</span></strong>";
+                            echo '<td class="td-content" style="background-color: #eee; font-size: 12px; padding: 0px 10px 0px 10px; margin: 0; align: center" rowspan="' . $rowspan . '">';
+                            echo "<span style='font-size: 9px; padding:0'>" . substr($dados[2],0,-3) ." &mdash; ". substr($dados[3],0,-3) . $break ."</span><strong><span style='font-size: 10px'>". $dados[1] . "</span></strong>";
                             echo "</td>\n";
                         }
                     }
