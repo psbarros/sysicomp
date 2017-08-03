@@ -1,6 +1,8 @@
 <?php
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
+    'sourceLanguage' => 'pt-br',
+    'language' => 'pt-br',
     'timeZone' => 'America/Manaus',
     'components' => [
         'cache' => [
