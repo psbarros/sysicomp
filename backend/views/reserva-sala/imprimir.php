@@ -82,7 +82,7 @@ if (0) {
                             $dados = explode("#",$_matriz_horarios[$dia][$hora]);
                             $rowspan = $dados[0];
                             if ($dados[0] == 1) {
-                                $dados[1] = substr($dados[1]."Testando Testando Testando Testando Testando",0,60);
+                                $dados[1] = substr($dados[1],0,55);
                                 $break = "&nbsp;&mdash;&nbsp;";
                             }
                             elseif ($dados[0] == 2) {
