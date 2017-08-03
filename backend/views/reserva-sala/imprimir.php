@@ -87,7 +87,7 @@ if (0) {
                             }
                             elseif ($dados[0] == 2) {
                                 $dados[1] = substr($dados[1],0,80);
-                                $break = "<br>";
+                                $break = "&nbsp;&mdash;&nbsp;";
                             } else {
                                 $break = "<br>";
                             }
