@@ -9,6 +9,7 @@ return [
 		'formatter' => [
             'class' => 'yii\i18n\Formatter',
             'dateFormat' => 'dd/MM/yyyy',
+            'locale' => 'pt-BR',
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             'currencyCode' => 'R$',
