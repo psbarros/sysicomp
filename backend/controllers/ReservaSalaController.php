@@ -58,7 +58,7 @@ class ReservaSalaController extends Controller
     }
 
     public function actionCalendario(){
-        setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        setlocale(LC_ALL, 'pt-BR');
         $reservasCalendario = array();
         $idSala = filter_input(INPUT_GET, 'idSala');
 
