@@ -82,6 +82,7 @@ $('.fc-agendaWeek-button').click(function () {
           'clientOptions' => [
             'allDayDefault' => false,
             'weekends' => true,
+            'language' => 'pt',
             'defaultView' => 'agendaWeek',
             'slotDuration' => '00:30:00',
             'minTime' => '07:00:00',
