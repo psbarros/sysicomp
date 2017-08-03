@@ -77,7 +77,7 @@ if (0) {
 
                     for ($dia=1;$dia<count($_dias);$dia++) {
                         if ($_matriz_horarios[$dia][$hora] == 0) {
-                            echo '<td style="width: 50mm; max-width: 50mm; min-width: 50mm; border: 1px solid #DDDDDD; align: center"><div style="font-size: 4mm">&nbsp;</div></td>' . "\n";
+                            echo '<td style="width: 55mm; max-width: 55mm; min-width: 55mm; border: 1px solid #DDDDDD; align: center"><div style="font-size: 4mm">&nbsp;</div></td>' . "\n";
                         }
                         elseif (($hora==0) || (($_matriz_horarios[$dia][$hora] != $_matriz_horarios[$dia][$hora-1]) && ($hora<count($_horas)))) {
                             $dados = explode("#",$_matriz_horarios[$dia][$hora]);

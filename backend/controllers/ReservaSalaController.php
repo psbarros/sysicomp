@@ -125,7 +125,7 @@ class ReservaSalaController extends Controller
             // any css to be embedded if required
             'cssInline' => 'td {padding: 0px} .td-content {border: 2px inset black;} .td-content div {color: blue}',
              // set mPDF properties on the fly
-            'options' => ['title' => 'Instituto de Computação - ' . $sala],
+            'options' => ['title' => 'Instituto de Computação - ' . $sala->nome],
              // call mPDF methods on the fly
         ]);
 
