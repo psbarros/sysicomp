@@ -3,6 +3,7 @@ namespace backend\controllers;
 
 use Yii;
 use app\models\Aluno;
+use app\models\User;
 use yii\filters\AccessControl;
 use app\models\Trancamento;
 use app\models\TrancamentoSearch;
@@ -107,6 +108,7 @@ class TrancamentoController extends Controller
         
         $model->idAluno = $idAluno;
 
+
         if (!$model->canDoStopOut() && !$ignoredWarning) {
             return $this->render('_limitWarn', [
                 'model'=>$model,
@@ -115,9 +117,15 @@ class TrancamentoController extends Controller
 
         $model->dataSolicitacao = date("Y-m-d"); //Get the current date
         $model->dataSolicitacao0 = date('d/m/Y', strtotime($model->dataSolicitacao));
-        $model->tipo=0; //Defines 'type' as 'Trancamento'
-        $model->status=1; //Defines status as active
-        
+        $model->tipo = 0; //Defines 'type' as 'Trancamento'
+        $model->status = 1; //Defines status as active
+
+
+        // registra quem solicitou este trancamento
+        $usuario_logado_id = \Yii::$app->user->id;
+        $nome_usuario = User::find()->where(['id' => $usuario_logado_id])->one()->nome;
+        $model->setAttribute("nomeResponsavel", $nome_usuario);
+
         if ($model->load(Yii::$app->request->post())) {
 
             //Required to adapt the date inserted in the view to the format that will be inserted into the database

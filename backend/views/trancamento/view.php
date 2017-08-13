@@ -100,6 +100,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'value' => $model->tipo == 0 ? 'Trancamento' : 'Suspensão'
         ],
         [
+            'attribute' => 'nomeResponsavel',
+            'value' => $model->getAttribute("nomeResponsavel")
+        ],
+        [
             'attribute' => 'documento',
             'format' => 'html',
             'value' => '<span class="fa fa-file-pdf-o"></span>   '.

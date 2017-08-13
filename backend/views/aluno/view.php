@@ -123,6 +123,7 @@ $this->registerCss("
                     'dataInicio',
                     'prevTermino',
                     'justificativa',
+                    'responsavel',
                     ['class' => 'yii\grid\ActionColumn',
                         'template'=>'{delete}',
                         'buttons'=>[
