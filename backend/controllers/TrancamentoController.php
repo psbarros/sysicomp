@@ -177,6 +177,7 @@ class TrancamentoController extends Controller
                 $this->mensagens('error', 'Erro', 'Houve uma falha ao criar o trancamento.');
             }
         }
+
         return $this->render('create', [
             'model'=>$model,
         ]);

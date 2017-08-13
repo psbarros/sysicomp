@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Trancamento */
@@ -48,6 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <?php
+        $aluno_url = Url::to(['aluno/view', 'id' => $model->idAluno]);
+    ?>
 
     <?= DetailView::widget([
     'model' => $model,
@@ -60,7 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'idAluno',
         [
             'attribute' => 'idAluno',
-            'value' => $model->aluno->nome
+            'value' => Html::a($model->aluno->nome, $aluno_url),
+            'format' => 'raw'
         ],
         [
             'attribute' => 'orientador',

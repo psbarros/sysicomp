@@ -110,10 +110,35 @@ $this->registerCss("
         ]) ?>
         </div>
     </div>
+    <?php
+    $this->registerCss("
+        .flex-container{
+            display: flex;
+            justify-content: space-between;
+            padding-right: 2em;
+            align-items: center;
+        }
+        
+        .add-btn{
+            font-size: 1.5em;
+            color: #1fc132;
+        }
+    ");
+
+    $add_trancamento_url = Url::to(['trancamento/create', 'idAluno' => $model->id]);
+    ?>
+
 
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading flex-container">
             <h3 class="panel-title"><b>Trancamentos</b></h3>
+            <?= Html::a('<span class="glyphicon glyphicon-plus add-btn"></span>', $add_trancamento_url,
+                [
+                    'title'        => 'create',
+                    'data-method'  => 'post',
+                ]
+                );
+            ?>
         </div>
         <div class="panel-body">
             <?= GridView::widget([
@@ -125,7 +150,7 @@ $this->registerCss("
                     'justificativa',
                     'responsavel',
                     ['class' => 'yii\grid\ActionColumn',
-                        'template'=>'{delete}',
+                        'template'=>'{update} {delete}',
                         'buttons'=>[
                             'delete' => function ($url, $model) {
                                 $url = Url::to(['trancamento/delete', 'id' => $model->id]);
@@ -134,6 +159,16 @@ $this->registerCss("
                                     [
                                         'title'        => 'delete',
                                         'data-confirm' => Yii::t('yii', 'Deletar Trancamento?'),
+                                        'data-method'  => 'post',
+                                    ]
+                                );
+                            },
+                            'update' => function ($url, $model) {
+                                $url = Url::to(['trancamento/update', 'id' => $model->id]);
+
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url,
+                                    [
+                                        'title'        => 'update',
                                         'data-method'  => 'post',
                                     ]
                                 );
