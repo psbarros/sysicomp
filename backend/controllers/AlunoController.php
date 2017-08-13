@@ -6,6 +6,8 @@ use Yii;
 use app\models\Aluno;
 use app\models\Defesa;
 use app\models\Trancamento;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
 use common\models\User;
 use common\models\LinhaPesquisa;
@@ -142,6 +144,14 @@ class AlunoController extends Controller
             ->orderBy('idDefesa')
             ->all();
 
+        $trancamentos_provider = new ActiveDataProvider([
+            'query' => Trancamento::find()->where(['idAluno' => $id]),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+
         $linhaPesquisa = new LinhaPesquisa();
         $linhaPesquisa = $linhaPesquisa->getLinhaPesquisaNome($model->area);
 
@@ -156,6 +166,7 @@ class AlunoController extends Controller
         return $this->render('view', [
             'model' => $model,
             'defesas' => $defesas,
+            'trancamentos_provider' => $trancamentos_provider,
         ]);
     }
 

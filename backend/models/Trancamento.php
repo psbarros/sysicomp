@@ -231,4 +231,9 @@ class Trancamento extends \yii\db\ActiveRecord
             }
         }
     }
+
+    public function getId()
+    {
+        return $this->getPrimaryKey();
+    }
 }

@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aluno */
@@ -106,6 +108,39 @@ $this->registerCss("
             ],
         ],
         ]) ?>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><b>Trancamentos</b></h3>
+        </div>
+        <div class="panel-body">
+            <?= GridView::widget([
+                'dataProvider'=>$trancamentos_provider,
+                'columns' => [
+                    'dataSolicitacao',
+                    'dataInicio',
+                    'prevTermino',
+                    'justificativa',
+                    ['class' => 'yii\grid\ActionColumn',
+                        'template'=>'{delete}',
+                        'buttons'=>[
+                            'delete' => function ($url, $model) {
+                                $url = Url::to(['trancamento/delete', 'id' => $model->id]);
+
+                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,
+                                    [
+                                        'title'        => 'delete',
+                                        'data-confirm' => Yii::t('yii', 'Deletar Trancamento?'),
+                                        'data-method'  => 'post',
+                                    ]
+                                );
+                            }
+                        ]
+                    ]
+                ]
+            ]) ?>
         </div>
     </div>
 

@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * TrancamentoController implements the CRUD actions for Trancamento model.
@@ -281,19 +282,23 @@ class TrancamentoController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+        $aluno_id = $model->idAluno;
 
-        $documento = $model->documento;
+        // $documento = $model->documento;
 
         if ($model->delete()) {
             //Delete the document related to the stop out
             //getcwd() is used to get the current working directory (cwd)
-            unlink(getcwd().'/'.$documento);
+            // unlink(getcwd().'/'.$documento);
             $this->mensagens('success', 'Sucesso', 'Trancamento deletado com sucesso.');
         }
         else {
             $this->mensagens('error', 'Erro', 'Falha ao deletar trancamento.');
         }
-        return $this->redirect(['index']);
+
+        $url = Url::to(['aluno/view', 'id' => $aluno_id]);
+
+        return $this->redirect($url);
     }
     /**
      * Finds the Trancamento model based on its primary key value.
