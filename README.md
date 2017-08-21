@@ -14,7 +14,7 @@ https://github.com/dbfernandes/sysicomp
 
 O primeiro passo para instalação é fazer um fork do repositório original do sistema em sua conta do Github. Para fazer isso, acesse endereço (https://github.com/dbfernandes/sysicomp) e click o botão fork desse repositório (vide imagem abaixo).
 
-![Fork no Github](http://localhost/sysicomp/fork.png)
+![Fork no Github](http://coyote.icomp.ufam.edu.br/sysicomp/fork.png)
 
 Após o fork, você pode clonar seu novo repositório através do comando git clone:
 
