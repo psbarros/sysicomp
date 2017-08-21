@@ -38,11 +38,11 @@ Uma vez inicializado seu sistema, acesse a turma de **Prática de Banco de Dados
 
 Crie um banco de dados MySQL em seu sistema e carregue o dump no novo banco. Após isso, abra o arquivo `common/config/main-local.php` e informe os dados de acesso do banco.
 
-Também é importante acessar o diretório `backend/views/layouts` e criar o layout da aplicação (`main.php`). Esse diretório contém um arquivo chamado `main-sample.php` que você pode usar para gerar o layout da sua aplicação através dos seguintes comandos:
+Também é importante acessar o diretório `backend/views/adminLTE/yiisoft/yii2-app/layouts` e criar o menu da aplicação (arquivo `left.php`). Esse diretório contém um arquivo chamado `left-sample.php` que você pode usar para gerar o menu da sua aplicação através dos seguintes comandos:
 
 ```
-$ cd backend/views/layouts
-$ cp main-sample.php main.php
+$ cd backend/views/adminLTE/yiisoft/yii2-app/layouts
+$ cp left-sample.php left.php
 ```
 Para acessar o backend, você pode usar o seguinte usuário:
 
