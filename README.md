@@ -44,3 +44,10 @@ Também é importante acessar o diretório `backend/views/layouts` e criar o lay
 $ cd backend/views/layouts
 $ cp main-sample.php main.php
 ```
+Para acessar o backend, você pode usar o seguinte usuário:
+
+```
+Nome Completo: Usuário Todo Poderoso
+CPF: 878.832.797-34
+Senha: Utp102030
+```
