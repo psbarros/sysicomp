@@ -34,4 +34,13 @@ Depois disso, inicialize seu sistema através do comando abaixo. Você será ser
 $ php init
 ```
 
-Uma vez inicializado seu sistema, acesse turma de Prática de Banco de Dados no CodeBench (2017/2), clique na aba de Materiais Didáticos, e faça o download do dump do banco de dados do deste sistema. Esse dump foi gerado a partir do sistema em produção, e foi colocado no Codebench porque possui dados sigilosos.
+Uma vez inicializado seu sistema, acesse a turma de **Prática de Banco de Dados** no **CodeBench** (2017/2), clique na aba de Materiais Didáticos, e faça o download do Dump do banco de dados do deste sistema. Esse Dump foi gerado a partir do sistema em produção, e foi colocado no Codebench porque possui dados sigilosos.
+
+Crie um banco de dados MySQL em seu sistema e carregue o dump no novo banco. Após isso, abra o arquivo `common/config/main-local.php` e informe os dados de acesso do banco.
+
+Também é importante acessar o diretório `backend/views/layouts` e criar o layout da aplicação (`main.php`). Esse diretório contém um arquivo chamado `main-sample.php` que você pode usar para gerar o layout da sua aplicação através dos seguintes comandos:
+
+```
+$ cd backend/views/layouts
+$ cp main-sample.php main.php
+```
