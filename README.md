@@ -22,10 +22,16 @@ Após o fork, você pode clonar seu novo repositório através do comando git cl
 $ git clone https://github.com/<seu usuário no github>/sysicomp
 ```
 
-Feito o clone, basta seguir as orientações de instalação de qualquer sistema desenvolvido através do Yii 2. O primeiro passo é instalar as dependências do sistema através do composer:
+Feito o clone, basta seguir as orientações de instalação de qualquer sistema desenvolvido através do Yii 2. O primeiro passo é instalar as dependências do sistema através do composer, mas antes disso, temos que instalar o [composer asset plugin](https://github.com/fxpio/composer-asset-plugin), caso ele ainda não tenha sido instalado previamente:
 
 ```
-$ php composer.phar install
+$ php composer.phar global require "fxp/composer-asset-plugin:^1.3.1"
+```
+
+Feito isso, podemos instalar as dependências do sistema normalmente
+
+```
+$ php composer.phar --prefer-dist install
 ```
 
 Depois disso, inicialize seu sistema através do comando abaixo. Você será será questionado se deseja criar um ambiente de desenvolvimento ou produção. Caso você pretenda fazer edições no código do repositório, ou contribuir com este projeto, opte pelo ambiente de desenvolvimento.
@@ -51,5 +57,3 @@ Nome Completo: Usuário Todo Poderoso
 CPF: 878.832.797-34
 Senha: Utp102030
 ```
-
-FIM.
