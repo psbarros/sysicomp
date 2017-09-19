@@ -28,13 +28,13 @@ else {
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model_aluno, 'nome')->textInput(['readonly' => true]) ?>
+    <?= $form->field($model_aluno, 'nome')->textInput(['readonly' => false]) ?>
 
-    <?= $form->field($model_aluno, 'curso')->dropDownList($arrayCurso,['readonly' => true]) ?>
+    <?= $form->field($model_aluno, 'curso')->dropDownList($arrayCurso,['readonly' => false]) ?>
 
     <?= $form->field($model, 'numDefesa')->textInput() ?>
 
-    <?= $form->field($model, 'tipoDefesa')->textInput(['readonly' => true,'maxlength' => true]) ?>
+    <?= $form->field($model, 'tipoDefesa')->textInput(['readonly' => false,'maxlength' => true]) ?>
 
 <!--     <?= $form->field($model, 'conceito')
         ->dropDownList(
@@ -55,6 +55,11 @@ else {
 		        ]);
 		    ?>
     <?php if ($aparecer_form){ ?>
+
+    <?= $form->field($model, 'emailExaminador')->textInput() ?>
+
+    <?= $form->field($model, 'banca_id')->textInput() ?>
+
     <?= $form->field($model, 'horario')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'local')->textInput(['maxlength' => true]) ?>
