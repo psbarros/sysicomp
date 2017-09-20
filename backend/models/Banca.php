@@ -35,6 +35,7 @@ class Banca extends \yii\db\ActiveRecord
             [['membrosbanca_id'], 'required'],
             [['membrosbanca_id'], 'integer'],
             [['funcao'], 'string'],
+            [['membro_nome'], 'string'],
             [['passagem'], 'string', 'max' => 1],
         ];
     }
@@ -45,8 +46,9 @@ class Banca extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'banca_id' => 'Banca ID',
-            'membrosbanca_id' => 'Membrosbanca ID',
+            'banca_id' => 'Banca',
+            'membrosbanca_id' => 'membro id',
+            'membro_nome' => 'Nome Presidente Banca',
             'funcao' => 'Funcao',
             'passagem' => 'Passagem',
         ];

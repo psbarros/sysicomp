@@ -56,6 +56,7 @@ use app\models\MembrosBanca;
                         ['label' => 'Defesas a serem avaliadas', 'icon' => 'fa fa-calendar-check-o', 'url' => ['banca-controle-defesas/index'],],
                         ['label' => 'Listar todas as defesas', 'icon' => 'fa fa-list', 'url' => ['defesa/index'],],
                         ['label' => 'Agendar Defesas', 'icon' => 'fa fa-list', 'url' => ['agendar-defesa/create'],],
+                        ['label' => 'Gerenciar Bancas', 'icon' => 'fa fa-list', 'url' => ['banca/index'],],
                     ],
                 ],
                 [

@@ -30,9 +30,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'banca_id',
             'membrosbanca_id',
-            'funcao:ntext',
+            [ 'attribute' => 'membrosbanca_id',
+               'value' => $model->membrosBanca->nome,
+
+            ],
+            
+            ['attribute' => 'funcao',
+            'label' => "Funcao",
+            'format' => "html",
+            'value' => function ($model){
+                if ($model->funcao === 'P'){
+                    return "Presidente";
+                }
+                else if ($model->funcao === 'I') {
+                    return "Membro Interno";
+                }
+                else if ($model->funcao === 'S') {
+                    return "Suplente";
+                }else{
+                    return "Membro externo";
+                }
+            },
+            ],
             'passagem',
         ],
     ]) ?>
+
+
 
 </div>

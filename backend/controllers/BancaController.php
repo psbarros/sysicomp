@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use app\models\Banca;
+use yii\filters\AccessControl;
 use app\models\BancaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -17,17 +18,31 @@ class BancaController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
+   public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->checarAcesso('secretaria');
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'deletesecretaria' => ['POST'],
                 ],
             ],
         ];
     }
+
 
     /**
      * Lists all Banca models.
@@ -36,7 +51,7 @@ class BancaController extends Controller
     public function actionIndex()
     {
         $searchModel = new BancaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,0);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

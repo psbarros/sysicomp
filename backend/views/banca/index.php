@@ -24,9 +24,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+
+
             'banca_id',
             'membrosbanca_id',
-            'funcao:ntext',
+            'membro_nome',
+            
+
+            [
+            'attribute' => 'funcao',
+            'label' => "Funcao",
+            'format' => "html",
+            'value' => function ($model){
+                if ($model->funcao === 'P'){
+                    return "Presidente";
+                }
+                else if ($model->funcao === 'I') {
+                    return "Membro Interno";
+                }
+                else if ($model->funcao === 'S') {
+                    return "Suplente";
+                }else{
+                    return "Membro externo";
+                }
+            },
+            ],
             'passagem',
 
             ['class' => 'yii\grid\ActionColumn'],
