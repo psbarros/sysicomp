@@ -25,6 +25,9 @@ use Yii;
  */
 class AgendarDefesa extends \yii\db\ActiveRecord
 {
+
+    public $nome_aluno;
+    public $curso_aluno;
     /**
      * @inheritdoc
      */
@@ -48,6 +51,7 @@ class AgendarDefesa extends \yii\db\ActiveRecord
             [['conceito'], 'string', 'max' => 9],
             [['local'], 'string', 'max' => 100],
             [['previa'], 'string', 'max' => 45],
+            [['idAluno'], 'exist', 'skipOnError' => true, 'targetClass' => Aluno::className(), 'targetAttribute' => ['idAluno' => 'id']],
         ];
     }
 
@@ -58,20 +62,22 @@ class AgendarDefesa extends \yii\db\ActiveRecord
     {
         return [
             'idDefesa' => 'Id Defesa',
-            'titulo' => 'Titulo',
+            'titulo' => 'Título',
             'tipoDefesa' => 'Tipo  de Defesa',
             'data' => 'Data',
             'conceito' => 'Conceito',
             'horario' => 'Horario',
             'local' => 'Local',
             'resumo' => 'Resumo',
-            'numDefesa' => 'Numero da Defesa',
+            'numDefesa' => 'Número da Defesa',
             'examinador' => 'Examinador',
             'emailExaminador' => 'Email Examinador',
             'reservas_id' => 'Reservas ID',
-            'banca_id' => 'Banca ID',
-            'aluno_id' => 'Aluno ID',
+            'banca_id' => 'Número da Banca',
+            'aluno_id' => 'Aluno ID', 
             'previa' => 'Previa',
+            'nome_aluno' => 'Nome do Aluno',
+            'curso_aluno' => 'Curso',
         ];
     }
 
@@ -90,7 +96,7 @@ class AgendarDefesa extends \yii\db\ActiveRecord
         return $nome;
     }
 
-
+    
     public function getCurso(){
         #$aluno = $this->getModelAluno();
         $aluno= Aluno::find()->where("id =".$this->aluno_id)->all();
@@ -102,7 +108,7 @@ class AgendarDefesa extends \yii\db\ActiveRecord
         return $curso == 1 ? "Mestrado" : "Doutorado" ;
     }
 
-    public function getTipoDefesa(){
+    public function getDefesa(){
 
         if ($this->tipoDefesa == "Q1"){
             $defesa = "Qualificação 1";
@@ -120,4 +126,5 @@ class AgendarDefesa extends \yii\db\ActiveRecord
         return $defesa;
     }
 
+  
 }

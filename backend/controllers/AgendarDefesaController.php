@@ -8,7 +8,7 @@ use app\models\AgendarDefesasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use \yii\helpers\ArrayHelper;
 /**
  * AgendarDefesaController implements the CRUD actions for AgendarDefesa model.
  */
@@ -65,6 +65,7 @@ class AgendarDefesaController extends Controller
     public function actionCreate()
     {
         $model = new AgendarDefesa();
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
