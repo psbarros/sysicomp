@@ -33,7 +33,8 @@ class Membrosbanca extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'email', 'filiacao', 'telefone', 'cpf'], 'required'],
+            //[['nome', 'email', 'filiacao', 'telefone', 'cpf'], 'required'],
+            [['nome', 'filiacao'], 'required'],
             [['dataCadastro'], 'safe'],
             [['idProfessor'], 'integer'],
             [['nome', 'email', 'filiacao'], 'string', 'max' => 100],
@@ -57,7 +58,7 @@ class Membrosbanca extends \yii\db\ActiveRecord
             'idProfessor' => 'Id Professor',
         ];
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -70,16 +71,16 @@ class Membrosbanca extends \yii\db\ActiveRecord
      * $tipo  = [Q1, Q2, T, D]; Mestrado=>Q1,D; Doutorado=>Q1,Q2,T;
      */
     public function getBancasbytipo($tipo, $curso, $ano=null)
-    {	
+    {
     	$bancasSel = null;
-    	foreach ($this->bancas as $banca){    		
+    	foreach ($this->bancas as $banca){
     		if($banca->defesa!=null && (strtolower($banca->defesa->curso) == strtolower($curso) ) && strtolower($banca->defesa->tipoDefesa) == strtolower($tipo))
     			if($ano==null || date( 'Y', strtotime( $banca->defesa->data )) == $ano)
 	    		 $bancasSel[] = $banca;
     	}
     	return $bancasSel;
     }
-    
+
     public function getBancasbytipoEnum($tipo, $curso, $ano=null)
     {	$strenum = "";
     	$bancas = $this->getBancasbytipo($tipo, $curso, $ano);
@@ -90,10 +91,10 @@ class Membrosbanca extends \yii\db\ActiveRecord
     		}
     		$strenum .= "</ol>";
     	}
-    	
+
     	return $strenum;
     }
-    
+
     public static function membroIdByUserId($userId){
     	$usuario = User::findOne($userId);
     	//Usuario.ID TO Membro.idProfessor
@@ -104,7 +105,7 @@ class Membrosbanca extends \yii\db\ActiveRecord
     	//Usuario.Nome To Membro.Nome
     	if($membro == null)
     		$membro = Membrosbanca::find()->where(['like','nome',$usuario->nome])->one();
-    	
+
     	if($membro == null)
     		return null;
     	else
