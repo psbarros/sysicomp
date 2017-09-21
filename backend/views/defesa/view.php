@@ -146,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'banca_id',
             //'membrosbanca_id',
             [
-                'attribute'=>'membro_nome',
+                'attribute'=>'nome',
                 'label' => "Nome do Membro",
             ],
             [

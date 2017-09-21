@@ -23,15 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-
-
             'banca_id',
-            'membrosbanca_id',
-            'membro_nome',
-            
+            'nome',
 
-            [
+
+          /*  [
             'attribute' => 'funcao',
             'label' => "Funcao",
             'format' => "html",
@@ -48,8 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return "Membro externo";
                 }
             },
-            ],
-            'passagem',
+          ], */
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

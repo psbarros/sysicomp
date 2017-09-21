@@ -15,7 +15,7 @@ use Yii;
 class Banca extends \yii\db\ActiveRecord
 {
 
-    public $membro_nome;
+    public $nome;
     public $membro_filiacao;
 
     /**
@@ -35,7 +35,7 @@ class Banca extends \yii\db\ActiveRecord
             [['membrosbanca_id'], 'required'],
             [['membrosbanca_id'], 'integer'],
             [['funcao'], 'string'],
-            [['membro_nome'], 'string'],
+            [['nome'], 'string'],
             [['passagem'], 'string', 'max' => 1],
         ];
     }
@@ -48,7 +48,7 @@ class Banca extends \yii\db\ActiveRecord
         return [
             'banca_id' => 'Banca',
             'membrosbanca_id' => 'membro id',
-            'membro_nome' => 'Nome Presidente Banca',
+            'nome' => 'Nome Presidente Banca',
             'funcao' => 'Funcao',
             'passagem' => 'Passagem',
         ];
@@ -58,7 +58,7 @@ class Banca extends \yii\db\ActiveRecord
     {
 	return $this->hasOne(Defesa::className(), ['banca_id' => 'banca_id']);
     }
-    
+
     public function getMembrosBanca()
     {
     	return $this->hasOne(MembrosBanca::className(), ['id'=>'membrosbanca_id']);

@@ -19,7 +19,7 @@ class BancaSearch extends Banca
     {
         return [
             [['banca_id', 'membrosbanca_id'], 'integer'],
-            [['membro_nome','funcao', 'passagem'], 'safe'],
+            [['nome','funcao', 'passagem'], 'safe'],
         ];
     }
 
@@ -43,11 +43,11 @@ class BancaSearch extends Banca
     {
 
     if($idBanca!=0){
-       $query = Banca::find()->select("j17_banca_has_membrosbanca.* , j17_membrosbanca.nome as membro_nome, j17_membrosbanca.filiacao as membro_filiacao ")->where("banca_id = ".$idBanca)
+       $query = Banca::find()->select("j17_banca_has_membrosbanca.* , j17_membrosbanca.nome as nome, j17_membrosbanca.filiacao as membro_filiacao ")->where("banca_id = ".$idBanca)
             ->innerJoin("j17_membrosbanca","j17_membrosbanca.id = j17_banca_has_membrosbanca.membrosbanca_id")->orderBy(['funcao'=>SORT_DESC]);
     }else{
-            $query = Banca::find()->select("j17_banca_has_membrosbanca.banca_id as banca_id , j17_banca_has_membrosbanca.membrosbanca_id as membrosbanca_id, j17_membrosbanca.nome as membro_nome, j17_banca_has_membrosbanca.funcao as funcao, j17_banca_has_membrosbanca.passagem as passagem  ")->where("funcao = 'P'")
-            ->innerJoin("j17_membrosbanca","j17_banca_has_membrosbanca.membrosbanca_id = j17_membrosbanca.id")->orderBy(['banca_id'=>SORT_DESC]);
+            $query = Banca::find()->select("j17_banca_has_membrosbanca.banca_id as banca_id , j17_banca_has_membrosbanca.membrosbanca_id as membrosbanca_id, j17_membrosbanca.nome as nome, j17_banca_has_membrosbanca.funcao as funcao, j17_banca_has_membrosbanca.passagem as passagem  ")->where("j17_banca_has_membrosbanca.funcao = 'P'")
+            ->innerJoin("j17_membrosbanca","j17_banca_has_membrosbanca.membrosbanca_id = j17_membrosbanca.id");
     }
         // add conditions that should always apply here
 
@@ -69,7 +69,7 @@ class BancaSearch extends Banca
             'membrosbanca_id' => $this->membrosbanca_id,
         ]);
 
-        $query->andFilterWhere(['like', 'membro_nome', $this->membro_nome])
+        $query->andFilterWhere(['like', 'nome', $this->nome])
         ->andFilterWhere(['like', 'funcao', $this->funcao])
             ->andFilterWhere(['like', 'passagem', $this->passagem]);
 
