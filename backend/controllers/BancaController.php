@@ -67,8 +67,12 @@ class BancaController extends Controller
      */
     public function actionView($banca_id, $membrosbanca_id)
     {
+        $model = $this->findModel($banca_id, $membrosbanca_id);
+        $model_banca = new BancaSearch();
+        $dataProvider = $model_banca->search(Yii::$app->request->queryParams,$model->banca_id);
         return $this->render('view', [
-            'model' => $this->findModel($banca_id, $membrosbanca_id),
+            'model' => $model,
+            'dataProvider'=> $dataProvider,
         ]);
     }
 
