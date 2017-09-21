@@ -24,7 +24,7 @@ use yii\widgets\MaskedInput;
     <div class="row">
         <?= $form->field($model, 'telefone', ['options' => ['class' => 'col-md-3']])->textInput(['maxlength' => true])->label("<font color='#FF0000'></font> <b>Telefone:</b>")  ?>
 
-        <?= $form->field($model, 'cpf', ['options' => ['class' => 'col-md-3']])->widget(MaskedInput::className(), ['mask' => '999.999.999-99'])->label("<font color='#FF0000'></font><b>CPF:</b>") ?> 
+        <?= $form->field($model, 'cpf', ['options' => ['class' => 'col-md-3']])->widget(MaskedInput::className(), ['mask' => '999.999.999-99'])->label("<font color='#FF0000'></font><b>CPF:</b>") ?>
     </div>
 
     <div class="form-group">
