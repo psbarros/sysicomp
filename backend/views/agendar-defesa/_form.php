@@ -86,6 +86,7 @@ $tipoCurso = ['Mestrado' => 'Mestrado', 'Doutorado' => 'Doutorado'];
 
                 <div class="form-group">
                     <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
+                    <?= Html::a('Cancelar', ['site/index',], ['class' => 'btn btn-danger']) ?> 
                 </div>
 
                 <?php ActiveForm::end(); ?>
