@@ -88,6 +88,7 @@ use app\models\MembrosBanca;
                 ['label' => 'Gerar PIT', 'icon' => 'fa fa-refresh', 'url' => ['user/pit'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
                 ['label' => 'Gerar RIT', 'icon' => 'fa fa-refresh', 'url' => ['user/rit'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
                 ['label' => 'Gerar Relatório Bancas', 'icon' => 'fa fa-refresh', 'url' => ['defesa/bancasbymembro', 'idProfessor'=>Membrosbanca::membroIdByUserId(Yii::$app->user->id)], 'visible' => Yii::$app->user->identity->checarAcesso('professor')||Yii::$app->user->identity->checarAcesso('administrador'),],
+                ['label' => 'Agendar Defesas', 'icon' => 'fa fa-list', 'url' => ['agendar-defesa/create'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria')||Yii::$app->user->identity->checarAcesso('administrador'),],
 
                 ['label' => 'Secretaria', 'options' => ['class' => 'header'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria')],
                 [

@@ -51,7 +51,7 @@ class AgendarDefesa extends \yii\db\ActiveRecord
             [['conceito'], 'string', 'max' => 9],
             [['local'], 'string', 'max' => 100],
             [['previa'], 'string', 'max' => 45],
-            [['idAluno'], 'exist', 'skipOnError' => true, 'targetClass' => Aluno::className(), 'targetAttribute' => ['idAluno' => 'id']],
+            
         ];
     }
 
