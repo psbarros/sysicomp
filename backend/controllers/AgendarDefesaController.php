@@ -4,11 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use app\models\AgendarDefesa;
+use app\models\Aluno;
 use app\models\AgendarDefesasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use \yii\helpers\ArrayHelper;
 /**
  * AgendarDefesaController implements the CRUD actions for AgendarDefesa model.
  */
@@ -65,14 +66,34 @@ class AgendarDefesaController extends Controller
     public function actionCreate()
     {
         $model = new AgendarDefesa();
+        
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
-        } else {
+        if ($model->load(Yii::$app->request->post())  )
+        {
+            $id_aluno = Aluno::find()->where(['nome'=>$model->nome_aluno])->one();
+
+            if($id_aluno!=null) 
+            {
+                $model->aluno_id=$id_aluno->id;
+                $model->save();
+                return $this->redirect(['view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
+            }
+            else
+            {
+                return $this-> redirect('alunonaoencontrado');
+            }
+        } 
+        else 
+        {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionAlunonaoencontrado()
+    {
+        return $this->render('alunonaoencontrado');
     }
 
     /**

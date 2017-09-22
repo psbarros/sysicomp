@@ -28,7 +28,7 @@ $tipoCurso = ['Mestrado' => 'Mestrado', 'Doutorado' => 'Doutorado'];
 
                 <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'aluno_id')->textInput() ?>
+                <?= $form->field($model, 'nome_aluno')->textInput() ?>
 
                 <?= $form->field($model, 'numDefesa')->textInput() ?>
 
