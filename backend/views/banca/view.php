@@ -3,12 +3,14 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use app\models\Defesa;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Banca */
 
 $this->title = 'Informações da Banca';
 $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['create']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="banca-view">
@@ -32,10 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'banca_id',
-            [ 'attribute' => 'Nome Presidente Banca',
-               'value' => $model->membrosBanca->nome,
+            [ 'attribute' => 'Titulo da Defesa',
+               'value' => Defesa::findOne(['banca_id'=>$model->banca_id]) ? $model->defesa->titulo : "não possui defesa" ,
 
             ],
+            [ 'attribute' => 'Aluno',
+               'value' => Defesa::findOne(['banca_id'=>$model->banca_id]) ? $model->defesa->nome : "não possui defesa",
+
+            ],
+
 
           /*  ['attribute' => 'funcao',
             'label' => "Funcao",

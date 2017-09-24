@@ -16,6 +16,8 @@ class Banca extends \yii\db\ActiveRecord
 {
 
     public $nome;
+    public $titulo;
+    public $nome_aluno;
     public $membro_filiacao;
 
     /**
@@ -32,10 +34,11 @@ class Banca extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['membrosbanca_id'], 'required'],
             [['membrosbanca_id'], 'integer'],
             [['funcao'], 'string'],
             [['nome'], 'string'],
+            [['titulo'], 'string'],
+            [['nome_aluno'], 'string'],
             [['passagem'], 'string', 'max' => 1],
         ];
     }
@@ -48,7 +51,9 @@ class Banca extends \yii\db\ActiveRecord
         return [
             'banca_id' => 'Banca',
             'membrosbanca_id' => 'membro id',
-            'nome' => 'Nome Presidente Banca',
+            'nome' => 'Presidente',
+            'titulo' =>'Titulo defesa',
+            'nome_aluno' =>'Aluno',
             'funcao' => 'Funcao',
             'passagem' => 'Passagem',
         ];
@@ -80,5 +85,8 @@ class Banca extends \yii\db\ActiveRecord
         else{
             return "Membro Externo";
         }
+
+
     }
+
 }

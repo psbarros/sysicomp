@@ -4,11 +4,16 @@ namespace backend\controllers;
 
 use Yii;
 use app\models\Banca;
+use app\models\MembrosBanca;
+use yii\helpers\ArrayHelper;
+use app\models\Defesa;
+use app\models\Aluno;
 use yii\filters\AccessControl;
 use app\models\BancaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\MembrosBancaSearch;
 
 /**
  * BancaController implements the CRUD actions for Banca model.
@@ -84,12 +89,47 @@ class BancaController extends Controller
     public function actionCreate()
     {
         $model = new Banca();
+        $model1 = new Banca();
+        $model2 = new Banca();
+        $model3 = new Banca();
+        $model4 = new Banca();
+        $model_membro = new MembrosBanca();
+        $model_defesa = new Defesa();
+        $model_aluno= new Aluno();
+        $items = ArrayHelper::map(MembrosBanca::find()->all(), 'id', 'nome');
+        $items_defesa = ArrayHelper::map(Defesa::find()->all(), 'idDefesa', 'titulo');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'banca_id' => $model->banca_id, 'membrosbanca_id' => $model->membrosbanca_id]);
+
+
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->funcao="P";
+            $model->save();
+            $model_aluno->save();
+            $model_defesa->banca_id=$model->banca_id;
+            $model_defesa->aluno_id=$model_aluno->id;
+            $model_defesa->save();
+
+            $model_banca = new BancaSearch();
+            $dataProvider = $model_banca->searchMembros(Yii::$app->request->queryParams,$model->banca_id);
+             return $this->render('view', [
+            'model' => $model,
+            'dataProvider'=> $dataProvider,
+        ]);
+
+
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'model1' => $model1,
+                'model2' => $model2,
+                'model3' => $model3,
+                'model4' => $model4,
+                'model_membro' => $model_membro,
+                'model_defesa' => $model_defesa,
+                'items' => $items,
+                'items_defesa'=> $items_defesa,
             ]);
         }
     }

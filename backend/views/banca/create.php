@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Banca */
 
-$this->title = 'Create Banca';
+$this->title = 'Criar Banca';
 $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,6 +16,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'model1' => $model1,
+        'model2' => $model2,
+        'model3' => $model3,
+        'model4' => $model4,
+        'model_membro' => $model_membro,
+        'model_defesa' => $model_defesa,
+        'items' => $items,
+        'items_defesa' => $items_defesa,
     ]) ?>
 
 </div>
