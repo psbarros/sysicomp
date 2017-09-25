@@ -37,7 +37,7 @@ $nomes=$model_membro->nome;
                     <div class="panel-heading">
                                     <h3 class="panel-title"><b>Presidente da Banca</b></h3>
                     </div>
-                          <?= $form->field($model, 'membrosbanca_id',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione uma função...'])->label("<font color='#FF0000'>*</font> <b>Nome Membro:</b>") ?>
+                          <?= $form->field($model, 'membrosbanca_id',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<font color='#FF0000'>*</font> <b>Nome Membro:</b>") ?>
                 </div> 
     
 
