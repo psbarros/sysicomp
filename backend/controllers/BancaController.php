@@ -8,6 +8,7 @@ use app\models\MembrosBanca;
 use yii\helpers\ArrayHelper;
 use app\models\Defesa;
 use app\models\Aluno;
+use backend\models\FormBancas;
 use yii\filters\AccessControl;
 use app\models\BancaSearch;
 use yii\web\Controller;
@@ -88,33 +89,58 @@ class BancaController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Banca();
-        $model1 = new Banca();
-        $model2 = new Banca();
-        $model3 = new Banca();
-        $model4 = new Banca();
-        $model_membro = new MembrosBanca();
-        $model_defesa = new Defesa();
-        $model_aluno= new Aluno();
+        $model = new FormBancas();
         $items = ArrayHelper::map(MembrosBanca::find()->all(), 'id', 'nome');
-        $items_defesa = ArrayHelper::map(Defesa::find()->all(), 'idDefesa', 'titulo');
-
-
-
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->funcao="P";
-            $model->save();
-            $model_aluno->save();
-            $model_defesa->banca_id=$model->banca_id;
-            $model_defesa->aluno_id=$model_aluno->id;
-            $model_defesa->save();
 
+            $model1= new Banca();
+            $model1->funcao='P';
+            $model1->membrosbanca_id=$model->membrosbanca_id_1;
+            $model1->save();
+            
+            if($model->membrosbanca_id_2){
+                   $model2= new Banca();
+                   $model2->banca_id=$model1->banca_id;
+                   $model2->funcao=$model->funcao2;
+                   $model2->membrosbanca_id=$model->membrosbanca_id_2;
+                   $model2->save();
+
+            }
+
+            if($model->membrosbanca_id_3){
+                   $model3= new Banca();
+                   $model3->banca_id=$model1->banca_id;
+                   $model3->funcao=$model->funcao3;
+                   $model3->membrosbanca_id=$model->membrosbanca_id_3;
+                   $model3->save();
+
+            }
+
+
+            if($model->membrosbanca_id_4){
+                   $model4= new Banca();
+                   $model4->banca_id=$model1->banca_id;
+                   $model4->funcao=$model->funcao4;
+                   $model4->membrosbanca_id=$model->membrosbanca_id_4;
+                   $model4->save();
+
+            }
+
+            if($model->membrosbanca_id_5){
+                   $model5= new Banca();
+                   $model5->banca_id=$model1->banca_id;
+                   $model5->funcao=$model->funcao5;
+                   $model5->membrosbanca_id=$model->membrosbanca_id_5;
+                   $model5->save();
+
+            }
+            
             $model_banca = new BancaSearch();
-            $dataProvider = $model_banca->searchMembros(Yii::$app->request->queryParams,$model->banca_id);
+            $dataProvider = $model_banca->searchMembros(Yii::$app->request->queryParams,$model1->banca_id);
              return $this->render('view', [
-            'model' => $model,
+            'model' => $model1,
             'dataProvider'=> $dataProvider,
         ]);
 
@@ -122,14 +148,7 @@ class BancaController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'model1' => $model1,
-                'model2' => $model2,
-                'model3' => $model3,
-                'model4' => $model4,
-                'model_membro' => $model_membro,
-                'model_defesa' => $model_defesa,
                 'items' => $items,
-                'items_defesa'=> $items_defesa,
             ]);
         }
     }

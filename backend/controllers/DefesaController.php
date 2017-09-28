@@ -249,13 +249,13 @@ class DefesaController extends Controller
 
         $defesas_aluno = Defesa::find()
             ->where("aluno_id = ".$aluno_id." AND conceito is NOT NULL")
-            ->orderBy("id DESC")
+            ->orderBy("idDefesa DESC")
             ->all();
 
         $defesas_aluno_array = [];
 
         foreach ($defesas_aluno as $defesa) {
-            $defesas_aluno_array[$defesa->id] = ['disabled' => true];
+            $defesas_aluno_array[$defesa->idDefesa] = ['disabled' => true];
         }
 
         $cont_defesas = Defesa::find()
