@@ -157,6 +157,7 @@ class Defesa extends \yii\db\ActiveRecord
     	return $this->idProfessor;
     }
 
+
     public function getTipoDefesa(){
 
         if ($this->tipoDefesa == "Q1"){

@@ -22,6 +22,7 @@ use yii\base\Exception;
 use yii\web\UploadedFile;
 use mPDF;
 use kartik\mpdf\Pdf;
+use yii\helpers\Html;
 
 /**
  * DefesaController implements the CRUD actions for Defesa model.
@@ -551,7 +552,8 @@ class DefesaController extends Controller
                 </p>
             ');
 
-             $pdf->WriteHTML('
+                                         // <- AQUIiiiiiiiiiiiiiiii
+             $pdf->WriteHTML('                       
 
                     CANDIDATO: '.$model->nome.' <br><br>
 
@@ -590,7 +592,8 @@ class DefesaController extends Controller
 
     }
 
-    public function actionAtadefesapdf($idDefesa, $aluno_id){
+     
+    public function actionAtadefesapdf($idDefesa, $aluno_id){ 
 
     $model = $this->findModel($idDefesa, $aluno_id);
 
@@ -598,7 +601,7 @@ class DefesaController extends Controller
             "01" => "Janeiro",
             "02" => "Fevereiro",
             "03" => "Março",
-            "04" => "Abril",
+            "04" => "Abril",                      
             "05" => "Maio",
             "06" => "Junho",
             "07" => "Julho",
@@ -1151,7 +1154,7 @@ class DefesaController extends Controller
     fclose($arqPDF);
 }
 
-   public function actionDeclaracaopdf($idDefesa, $aluno_id, $membrosbanca_id){
+   public function actionDeclaracaopdf($idDefesa, $aluno_id, $membrosbanca_id){ 
 
         $arrayMes = array(
             "01" => "Janeiro",
@@ -1243,6 +1246,136 @@ class DefesaController extends Controller
     fwrite($arqPDF,$pdfcode);
     fclose($arqPDF);
 }
+
+    function actionPrint($idDefesa, $aluno_id, $banca_id){ // <------------ COMEÇO DO CONVITE DE DEFESA
+        
+        $model = $model = $this->findModel($idDefesa, $aluno_id, $banca_id);
+
+        $idUsuario = Yii::$app->user->identity->id;
+
+        $pdf = new mPDF('utf-8','A4','','','15','15','42','30');
+
+        $banca = Banca::find()
+            ->select("j17_banca_has_membrosbanca.* , j17_banca_has_membrosbanca.funcao ,mb.nome as membro_nome, mb.filiacao as membro_filiacao, mb.*")->leftJoin("j17_membrosbanca as mb","mb.id = j17_banca_has_membrosbanca.membrosbanca_id")
+            ->where(["banca_id" => $model->banca_id])->orderBy(['funcao'=>SORT_DESC])->all();
+
+            $bancacompleta = "";
+            $outrosMembros = "";
+
+            foreach ($banca as $rows) {
+                if($rows->funcao == "P"){
+                    $funcao = "(Presidente)";
+                    $presidente = $rows->nome;
+                }
+                else{
+                    $funcao = "";
+                    $outrosMembros = $outrosMembros .', '. $rows->nome;
+                }
+                $bancacompleta = $bancacompleta . $rows->nome.' - '.$rows->membro_filiacao.' '.$funcao.'<br>';
+            }
+
+        $pdf->SetHTMLHeader('
+                <table style="vertical-align: bottom; font-family: serif; font-size: 8pt; color: #000000; font-weight: bold; font-style: italic;">
+                    <tr>
+                        <td width="20%" align="center" style="font-family: serif;font-weight: bold; font-size: 175%;"> <img src = "img/logo-brasil.jpg" height="90px" width="90px"> </td>
+                        <td width="60%" align="center" style="font-family: serif;font-weight: bold; font-size: 135%;">  PODER EXECUTIVO <br> UNIVERSIDADE FEDERAL DO AMAZONAS <br> INSTITUTO DE COMPUTAÇÃO <br> PROGRAMA DE PÓS-GRADUAÇÃO EM INFORMÁTICA </td>
+                        <td width="20%" align="center" style="font-family: serif;font-weight: bold; font-size: 175%;"> <img src = "img/ufam.jpg" height="90px" width="70px"> </td>
+                    </tr>
+                </table>
+                <hr>
+        ');
+
+
+        $pdf->WriteHTML(' <br>
+                <table style= "margin-top:0px;" width="100%;">
+                    <tr>
+                        <td style="text-align:center; width:700px; height:45px;">
+                            <b> CONVITE À COMUNIDADE  </b>
+                        </td>
+                       
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style= "height:45px; text-align:justify;">
+                            A Coordenação do Programa de Pós-Graduação em Informática PPGI/UFAM tem o prazer de convidar toda a comunidade para a sessão pública de apresentação de defesa de tese:
+                        </td><>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style= "height:55px; text-align:center;">
+                            <strong>
+                                '.$model->titulo.'
+                            </strong>
+                        </td><>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style= "height:35px; font-size: 12pt; text-align:justify;">
+                            '.$model->resumo.'
+                        </td><>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style= "height:45px;">
+                             CANDIDATO: '.$model->nome.' <br><br>                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            BANCA EXAMINADORA:  <br>
+                        </td>   
+                    </tr>
+
+                    <tr>
+                        <td style="vertical-align: bottom;">
+                         '.$bancacompleta.' 
+                        </td>   
+                    </tr>
+
+                    <br/><br/><br/>
+                    <tr>
+                        <td colspan="2" style= "height:0px;">
+                             LOCAL: '.$model->local.'
+                        </td><>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style= "height:0px;">
+                             DATA: '.$model->data.'
+                        </td><>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style= "height:0px;">
+                             HORÁRIO: '.$model->horario.'
+                        </td><>
+                    </tr> 
+
+                       
+                </table>'
+            );
+
+            $coordenadorppgi = new Defesa();
+             $coordenadorppgi = $coordenadorppgi->getCoordenadorPPGI();
+
+
+             $pdf->WriteHTML('
+                <br/>
+                <div style="text-align:center">
+                    <p><font style="font-size:medium">EDUARDO LUZEIRO FEITOSA<br>
+                    <font style="font-size:small"> Coordenador(a) do Programa de Pós-Graduação em Informática PPGI/UFAM </p>
+                </div>
+            ');
+
+            $pdf = $this->cabecalhoRodape($pdf);
+
+
+            
+        $pdfcode = $pdf->output();
+            fwrite($arqPDF,$pdfcode);
+            fclose($arqPDF);
+            
+       //FINAL PDF DE CONVITE DE DEFESA
+
+     }
 
     public function actionGerar_portaria($idDefesa, $aluno_id) {
         $model = $model = $this->findModel($idDefesa, $aluno_id);
@@ -1408,7 +1541,7 @@ class DefesaController extends Controller
         if (($model = Defesa::findOne(['idDefesa' => $idDefesa, 'aluno_id' => $aluno_id])) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A Página solicitada não foi encontrada');
         }
     }
 
