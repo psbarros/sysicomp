@@ -34,7 +34,7 @@ class BancaController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return Yii::$app->user->identity->checarAcesso('secretaria');
+                            return Yii::$app->user->identity->checarAcesso('professor');
                         }
                     ],
                 ],
@@ -65,6 +65,17 @@ class BancaController extends Controller
         ]);
     }
 
+    public function actionIndexsemdefesa()
+    {
+        $searchModel = new BancaSearch();
+        $dataProvider = $searchModel->searchSemDefesa(Yii::$app->request->queryParams);
+
+        return $this->render('indexsemdefesa', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Banca model.
      * @param integer $banca_id
@@ -81,6 +92,18 @@ class BancaController extends Controller
             'dataProvider'=> $dataProvider,
         ]);
     }
+
+    public function actionViewsemdefesa($banca_id, $membrosbanca_id)
+    {
+        $model = $this->findModel($banca_id, $membrosbanca_id);
+        $model_banca = new BancaSearch();
+        $dataProvider = $model_banca->searchMembros(Yii::$app->request->queryParams,$model->banca_id);
+        return $this->render('viewsemdefesa', [
+            'model' => $model,
+            'dataProvider'=> $dataProvider,
+        ]);
+    }
+
 
     /**
      * Creates a new Banca model.
@@ -162,13 +185,17 @@ class BancaController extends Controller
      */
     public function actionUpdate($banca_id, $membrosbanca_id)
     {
-        $model = $this->findModel($banca_id, $membrosbanca_id);
+        $model = Banca::findAll(['banca_id'=>$banca_id]);
+
+
+         $items = ArrayHelper::map(MembrosBanca::find()->all(), 'id', 'nome');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'banca_id' => $model->banca_id, 'membrosbanca_id' => $model->membrosbanca_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'items'=> $items,
             ]);
         }
     }

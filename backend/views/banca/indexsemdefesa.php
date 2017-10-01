@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-ok"></span> Criar Nova Banca' ,['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-ok"></span> Bancas sem Defesa ', ['banca/indexsemdefesa'], ['class' => 'btn btn-warning']) ?>
+
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar', ['banca/index'], ['class' => 'btn btn-warning']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'banca_id',
-            'titulo',
             'nome',
 
 
@@ -54,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'template' => '{View} {Update} {Delete}',
             'buttons'  => [
                              'View'   => function ($url, $model) {
-                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'banca_id' => $model->banca_id, 'membrosbanca_id'=> $model->membrosbanca_id ], [
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['viewsemdefesa', 'banca_id' => $model->banca_id, 'membrosbanca_id'=> $model->membrosbanca_id ], [
                                    'title' => Yii::t('yii', 'Visualizar Detalhes'),
                                     ]); 
                               },

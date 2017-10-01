@@ -11,7 +11,6 @@ use app\models\Defesa;
 $this->title = 'Informações da Banca';
 $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['create']];
-$this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['indexsemdefesa']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="banca-view">
@@ -20,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['banca/index',], ['class' => 'btn btn-warning']) ?>
+
+
     </p>
 
     <?= DetailView::widget([
