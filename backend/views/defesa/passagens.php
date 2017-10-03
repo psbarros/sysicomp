@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
             <tr>
               <td style=""> <input <?php if ($model[$i]->passagem == "S"){echo "checked";} ?> type="checkbox" name="check_list[]" value= <?php echo $model[$i]->membrosbanca_id ?>  > </input> </td>
-              <td style=""> <?php echo $model[$i]->membro_nome; ?> </td>
+              <td style=""> <?php echo $model[$i]->nome; ?> </td>
             </tr>
             <?php
         }

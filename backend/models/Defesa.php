@@ -170,6 +170,8 @@ class Defesa extends \yii\db\ActiveRecord
         }
         else if ($this->tipoDefesa == "D"){
             $defesa = "Dissertação";
+        }else{
+            $defesa ="não informado";
         }
 
         return $defesa;

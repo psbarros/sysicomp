@@ -69,6 +69,17 @@ class DefesaController extends Controller
         ]);
     }
 
+    public function actionIndexdefesaorientando()
+    {
+        $searchModel = new DefesaSearch();
+        $dataProvider = $searchModel->searchDefesaOrientando(Yii::$app->request->queryParams,Yii::$app->user->identity->id);
+
+        return $this->render('indexdefesaorientando', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Defesa model.
      * @param integer $idDefesa
@@ -270,7 +281,7 @@ class DefesaController extends Controller
 
         if ($model->load(Yii::$app->request->post() ) ) {
 
-            $model->auxiliarTipoDefesa = $tipodefesa;
+           // $model->auxiliarTipoDefesa = $tipodefesa;
             $model_ControleDefesas = new BancaControleDefesas();
 
             if($model->tipoDefesa == "Q1" && $aluno->curso == 2) {

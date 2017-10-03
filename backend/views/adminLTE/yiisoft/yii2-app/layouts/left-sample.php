@@ -94,6 +94,7 @@ use app\models\MembrosBanca;
                     'visible' => Yii::$app->user->identity->checarAcesso('secretaria'),
                     'items' => [
                       ['label' => 'Agendar Defesas', 'icon' => 'fa fa-list', 'url' => ['agendar-defesa/create'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria')||Yii::$app->user->identity->checarAcesso('administrador'),],
+                      ['label' => 'Visualizar Defesas', 'icon' => 'fa fa-list', 'url' => ['defesa/indexdefesaorientando'],],
                       ['label' => 'Gerenciar Bancas', 'icon' => 'fa fa-list', 'url' => ['banca/index'],],
                       ['label' => 'Membros de Banca', 'icon' => 'fa fa-users', 'url' => ['membros-banca/index'],],
                     ],
