@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="banca-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+   <!-- <h1><?= Html::encode($this->title) ?></h1>  -->
 
     <p>
        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['banca/index',], ['class' => 'btn btn-warning']) ?>
