@@ -1071,7 +1071,7 @@ class DefesaController extends Controller
             "12" => "Dezembro",
             );
 
-        $model = $this->findModel($idDefesa, $aluno_id);
+        $model = $this->findModel($idDefesa, $aluno_id,  $membrosbanca_id);
 
         $modelAluno = Aluno::find()->select("u.nome as nome, j17_aluno.curso as curso")->where(["j17_aluno.id" => $aluno_id])->innerJoin("j17_user as u","j17_aluno.orientador = u.id")->one();
 
@@ -1128,7 +1128,7 @@ class DefesaController extends Controller
 
              $pdf->WriteHTML('
                 <p style = "text-align: justify; line-height: 3.0; font-family: Times New Roman, Arial, serif; font-size: 120%;">
-                    AGRADECEMOS a participação do(a) <b>'.$banca->membro_nome.'</b> como
+                    AGRADECEMOS a participação do(a) <b>'.$banca->nome.'</b> como
                     '.$participacao.'(a) da banca examinadora referente à apresentação da Defesa de '.$tipoDefesa.'
                     do(a) aluno(a), abaixo especificado(a), do curso de '.$curso.' em Informática do
                     Programa de Pós-Graduação em Informática da Universidade Federal do Amazonas - realizada no dia
@@ -1310,7 +1310,7 @@ class DefesaController extends Controller
                     </tr>
 
                     <tr>
-                        <td colspan="2" style= "height:35px; font-size: 12pt; text-align:justify;">
+                        <td colspan="2" style= "height:20px; font-size: 12pt; text-align:justify;">
                             '.$model->resumo.'
                         </td><>
                     </tr>
