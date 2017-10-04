@@ -1247,7 +1247,7 @@ class DefesaController extends Controller
     fclose($arqPDF);
 }
 
-    function actionPrint($idDefesa, $aluno_id, $banca_id){ // <------------ COMEÇO DO CONVITE DE DEFESA
+    function actionPrint($idDefesa, $aluno_id, $banca_id){ //  COMEÇO DO CONVITE DE DEFESA // 
         
         $model = $model = $this->findModel($idDefesa, $aluno_id, $banca_id);
 
@@ -1369,11 +1369,12 @@ class DefesaController extends Controller
 
 
             
-        $pdfcode = $pdf->output();
+        $pdfcode = $pdf->output(); //Não esquecer de colocar
             fwrite($arqPDF,$pdfcode);
             fclose($arqPDF);
             
        //FINAL PDF DE CONVITE DE DEFESA
+
 
      }
 
