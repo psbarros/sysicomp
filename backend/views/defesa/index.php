@@ -60,8 +60,9 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
             ],
             'data',
             [
+            'label' => 'Conceito',
             "attribute" => 'conceito',
-			'filter'=>array ("Aprovado" => "Aprovado", "Reprovado" => "Reprovado"),
+            'filter'=>array ("Aprovado" => "Aprovado", "Reprovado" => "Reprovado", "Não Julgado" => "Não Julgado" ),
             "value" => function ($model){
                 return $model->conceito == null ? "Não Julgado" : $model->conceito;
 
