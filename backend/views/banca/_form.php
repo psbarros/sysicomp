@@ -14,7 +14,9 @@ $tipoFuncao = ['I' => 'Membro Interno', 'E' => 'Membro Externo', 'S' => 'Suplent
 
 
 
-
+<div class="form-group">
+         <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['banca/index',], ['class' => 'btn btn-warning']) ?>
+</div>
 
 
 <div class="banca-form">
@@ -35,7 +37,7 @@ $tipoFuncao = ['I' => 'Membro Interno', 'E' => 'Membro Externo', 'S' => 'Suplent
                                     <h3 class="panel-title"><b>Presidente da Banca</b></h3>
                     </div>
                           <?= $form->field($model, 'membrosbanca_id_1',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<font color='#FF0000'>*</font> <b>Nome Membro:</b>") ?>
-                </div> 
+                </div>
 
                 <div class="panel-body">
                     <div class="panel-heading">
@@ -45,7 +47,7 @@ $tipoFuncao = ['I' => 'Membro Interno', 'E' => 'Membro Externo', 'S' => 'Suplent
 
                         <?= $form->field($model, 'funcao2',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
 
-                </div> 
+                </div>
 
                 <div class="panel-body">
                     <div class="panel-heading">
@@ -54,7 +56,7 @@ $tipoFuncao = ['I' => 'Membro Interno', 'E' => 'Membro Externo', 'S' => 'Suplent
                           <?= $form->field($model, 'membrosbanca_id_3',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
 
                         <?= $form->field($model, 'funcao3',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
-                </div> 
+                </div>
 
                 <div class="panel-body">
                     <div class="panel-heading">
@@ -63,7 +65,7 @@ $tipoFuncao = ['I' => 'Membro Interno', 'E' => 'Membro Externo', 'S' => 'Suplent
                           <?= $form->field($model, 'membrosbanca_id_4',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
 
                           <?= $form->field($model, 'funcao4',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
-                </div> 
+                </div>
 
                 <div class="panel-body">
                     <div class="panel-heading">
@@ -72,11 +74,12 @@ $tipoFuncao = ['I' => 'Membro Interno', 'E' => 'Membro Externo', 'S' => 'Suplent
                           <?= $form->field($model, 'membrosbanca_id_5',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
 
                         <?= $form->field($model, 'funcao5',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
-                </div> 
+                </div>
 
     </div>
      <div class="form-group">
              <?= Html::submitButton('Salvar', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+             <?= Html::a('Cancelar', ['site/index'], ['class' => 'btn btn-danger', 'name' => 'btn-danger']) ?>
      </div>
     <?php ActiveForm::end(); ?>
 
