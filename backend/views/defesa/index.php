@@ -58,7 +58,21 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
 				'filter'=>array ("Q1" => "Qualificação 1", "Q2" => "Qualificação 2", "D" => "Dissertação", "T" => "Tese"),
                 'value' => 'tipoDefesa'
             ],
-            'data',
+             //'data',
+            [    
+                'label' => 'Data',
+                'attribute' => 'data',
+                'filter' => \yii\jui\DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'data',
+                    'language' => 'pt',
+                    'dateFormat' => 'yyyy-MM-dd',
+                ]),
+                'format' => 'html',
+                'value' => function ($model) {
+                     return date("d-m-Y", strtotime($model->data));
+                },
+            ],
             [
             'label' => 'Conceito',
             "attribute" => 'conceito',
