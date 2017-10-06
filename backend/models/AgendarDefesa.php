@@ -46,7 +46,7 @@ class AgendarDefesa extends \yii\db\ActiveRecord
             [['resumo', 'examinador', 'emailExaminador'], 'string'],
             [['numDefesa', 'reservas_id', 'banca_id', 'aluno_id'], 'integer'],
             [['titulo'], 'string', 'max' => 180],
-            [['tipoDefesa'], 'string', 'max' => 2],
+            [['tipoDefesa'], 'string', 'max' => 20],
             [['data', 'horario'], 'string', 'max' => 10],
             [['conceito'], 'string', 'max' => 9],
             [['local'], 'string', 'max' => 100],
