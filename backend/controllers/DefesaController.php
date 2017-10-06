@@ -1528,6 +1528,24 @@ class DefesaController extends Controller
         }
     }
 
+    public function actionNaoJulgado($idDefesa, $aluno_id)
+    {
+
+        $model = $this->findModel($idDefesa, $aluno_id);
+
+        $model->conceito = "NaoJulgado";
+
+        if($model->save(false)) {
+
+            $this->mensagens('success', 'Aluno', 'Aluno ainda não foi julgado pela banca');
+
+            return $this->redirect(['index']);
+        } else {
+            $this->mensagens('danger', 'Aluno', 'Não foi possível atribuir conceito para este aluno, tente mais tarde');
+            return $this->redirect(['index']);
+        }
+    }
+
 
     /**
      * Finds the Defesa model based on its primary key value.
