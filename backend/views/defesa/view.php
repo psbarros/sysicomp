@@ -149,7 +149,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'banca_id',
             //'membrosbanca_id',
             [
-                'attribute'=>'nome',
+                'attribute'=>'nome_membro',
                 'label' => "Nome do Membro",
             ],
             [
