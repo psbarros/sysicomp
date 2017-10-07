@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 
 
 $tipoFuncao = ['I' => 'Membro Interno', 'E' => 'Membro Externo', 'S' => 'Suplente'];
+$tipoCurso = ['1' => 'Mestrado' , '2' => 'Doutorado'];
 
 ?>
 
@@ -37,6 +38,7 @@ $tipoFuncao = ['I' => 'Membro Interno', 'E' => 'Membro Externo', 'S' => 'Suplent
                                     <h3 class="panel-title"><b>Presidente da Banca</b></h3>
                     </div>
                           <?= $form->field($model, 'membrosbanca_id_1',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<font color='#FF0000'>*</font> <b>Nome Membro:</b>") ?>
+                          <?= $form->field($model, 'tipobanca',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoCurso, ['prompt' => 'Selecione o Curso...'])->label("<b>Curso:</b>") ?>
                 </div>
 
                 <div class="panel-body">

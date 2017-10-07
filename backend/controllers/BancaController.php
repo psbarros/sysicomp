@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use app\models\Banca;
+use app\models\BancaControleDefesas;
 use app\models\MembrosBanca;
 use yii\helpers\ArrayHelper;
 use app\models\Defesa;
@@ -117,18 +118,44 @@ class BancaController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            if($model->membrosbanca_id_1!=$model->membrosbanca_id_2 && $model->membrosbanca_id_1!=$model->membrosbanca_id_3 && $model->membrosbanca_id_1!=$model->membrosbanca_id_4 && $model->membrosbanca_id_1!=$model->membrosbanca_id_5 && $model->membrosbanca_id_2!=$model->membrosbanca_id_3 && $model->membrosbanca_id_2!=$model->membrosbanca_id_4 && $model->membrosbanca_id_2!=$model->membrosbanca_id_5 && $model->membrosbanca_id_3!=$model->membrosbanca_id_4 && $model->membrosbanca_id_3!=$model->membrosbanca_id_5 && $model->membrosbanca_id_4!=$model->membrosbanca_id_5){
+            if($model->membrosbanca_id_1!=$model->membrosbanca_id_2 && $model->membrosbanca_id_1!=$model->membrosbanca_id_3 && $model->membrosbanca_id_1!=$model->membrosbanca_id_4 && $model->membrosbanca_id_1!=$model->membrosbanca_id_5 && 
+                ($model->membrosbanca_id_2!=$model->membrosbanca_id_3 || ($model->membrosbanca_id_2==NULL)) &&
+                ($model->membrosbanca_id_2!=$model->membrosbanca_id_4 || ($model->membrosbanca_id_2==NULL)) &&
+                ($model->membrosbanca_id_2!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_2==NULL)) &&
+                ($model->membrosbanca_id_3!=$model->membrosbanca_id_4 || ($model->membrosbanca_id_3==NULL)) &&
+                ($model->membrosbanca_id_3!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_3==NULL)) && 
+                ($model->membrosbanca_id_4!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_4==NULL))){
 
 
             $model1= new Banca();
             $model1->funcao='P';
+            $model_status= new BancaControleDefesas();
+            $model_status->save(false);
+            $model1->banca_id=$model_status->id;
             $model1->membrosbanca_id=$model->membrosbanca_id_1;
             $model1->save();
             
+            $count=0;
+            if($model->membrosbanca_id_1){$count++;}
+            if($model->membrosbanca_id_2){$count++;}
+            if($model->membrosbanca_id_3){$count++;}
+            if($model->membrosbanca_id_4){$count++;}
+            if($model->membrosbanca_id_5){$count++;}
+
+           if(($model->tipobanca==1 && $count<3) || ($model->tipobanca==2 && $count<5)){
+
+                $this->mensagens('danger', 'Banca não Criada!', 'numero de membros inválido!! Mestrado no minimo 3 membros e Doutorado No minimo 5 Membros');
+                return $this->render('create', [
+                'model' => $model,
+                'items' => $items,
+            ]);
+
+            } 
+            
             if($model->membrosbanca_id_2){
                    $model2= new Banca();
-                   $model2->banca_id=$model1->banca_id;
                    $model2->funcao=$model->funcao2;
+                   $model2->banca_id=$model_status->id;
                    $model2->membrosbanca_id=$model->membrosbanca_id_2;
                    $model2->save();
 
@@ -136,8 +163,9 @@ class BancaController extends Controller
 
             if($model->membrosbanca_id_3){
                    $model3= new Banca();
-                   $model3->banca_id=$model1->banca_id;
+ 
                    $model3->funcao=$model->funcao3;
+                   $model3->banca_id=$model_status->id;
                    $model3->membrosbanca_id=$model->membrosbanca_id_3;
                    $model3->save();
 
@@ -146,8 +174,9 @@ class BancaController extends Controller
 
             if($model->membrosbanca_id_4){
                    $model4= new Banca();
-                   $model4->banca_id=$model1->banca_id;
+
                    $model4->funcao=$model->funcao4;
+                   $model4->banca_id=$model_status->id;
                    $model4->membrosbanca_id=$model->membrosbanca_id_4;
                    $model4->save();
 
@@ -155,8 +184,9 @@ class BancaController extends Controller
 
             if($model->membrosbanca_id_5){
                    $model5= new Banca();
-                   $model5->banca_id=$model1->banca_id;
+                   
                    $model5->funcao=$model->funcao5;
+                   $model5->banca_id=$model_status->id;
                    $model5->membrosbanca_id=$model->membrosbanca_id_5;
                    $model5->save();
 
