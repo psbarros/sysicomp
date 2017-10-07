@@ -142,9 +142,9 @@ class BancaController extends Controller
             if($model->membrosbanca_id_4){$count++;}
             if($model->membrosbanca_id_5){$count++;}
 
-           if(($model->tipobanca==1 && $count<3) || ($model->tipobanca==2 && $count<5)){
+           if((($model->tipobanca==1 || $model->tipobanca==2 || $model->tipobanca==3 )&& $count<3) || ($model->tipobanca==4 && $count<5)){
 
-                $this->mensagens('danger', 'Banca não Criada!', 'numero de membros inválido!! Mestrado no minimo 3 membros e Doutorado No minimo 5 Membros');
+                $this->mensagens('danger', 'Banca não Criada!', 'numero de membros inválido!! Mestrado no minimo 3 membros , Doutorado Q1 e Q2  no minimo 3 membros e Defesa de Doutorado  No minimo 5 Membros');
                 return $this->render('create', [
                 'model' => $model,
                 'items' => $items,
