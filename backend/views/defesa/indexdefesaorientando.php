@@ -2,10 +2,14 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use xj\bootbox\BootboxAsset;
 
-BootboxAsset::register($this);
-BootboxAsset::registerWithOverride($this);
+use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
+use app\models\Defesa;
+
+
+
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DefesaSearch */
@@ -14,20 +18,12 @@ BootboxAsset::registerWithOverride($this);
 $this->title = 'Lista de Defesas';
 $this->params['breadcrumbs'][] = $this->title;
 
-if( Yii::$app->user->identity->checarAcesso('coordenador') == 1){
-  $action = "{view} {banca} {update} {delete}";
-}
-else if ( Yii::$app->user->identity->checarAcesso('professor') == 1){
-  $action = "{view} {banca} {update} {delete}";
-}
-else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
-  $action = "{view}";
 
-}
+  $action = "{view} {banca} {update} {delete}";
 
 
 ?>
-<div class="defesa-indexdefesaorientando">
+<div class="defesa">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

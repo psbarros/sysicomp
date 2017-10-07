@@ -117,6 +117,8 @@ class BancaController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
+            if($model->membrosbanca_id_1!=$model->membrosbanca_id_2 && $model->membrosbanca_id_1!=$model->membrosbanca_id_3 && $model->membrosbanca_id_1!=$model->membrosbanca_id_4 && $model->membrosbanca_id_1!=$model->membrosbanca_id_5 && $model->membrosbanca_id_2!=$model->membrosbanca_id_3 && $model->membrosbanca_id_2!=$model->membrosbanca_id_4 && $model->membrosbanca_id_2!=$model->membrosbanca_id_5 && $model->membrosbanca_id_3!=$model->membrosbanca_id_4 && $model->membrosbanca_id_3!=$model->membrosbanca_id_5 && $model->membrosbanca_id_4!=$model->membrosbanca_id_5){
+
 
             $model1= new Banca();
             $model1->funcao='P';
@@ -166,6 +168,14 @@ class BancaController extends Controller
             'model' => $model1,
             'dataProvider'=> $dataProvider,
         ]);
+        }else{
+                                        $this->mensagens('danger', 'Banca não Criada!', 'Os membros devem ser diferentes um do outro!!');
+                return $this->render('create', [
+                'model' => $model,
+                'items' => $items,
+            ]);
+
+        }
 
 
         } else {

@@ -69,6 +69,17 @@ class DefesaController extends Controller
         ]);
     }
 
+     public function actionIndexdefesaorientando()
+    {
+        $searchModel = new DefesaSearch();
+        $dataProvider = $searchModel->searchDefesaOrientando(Yii::$app->request->queryParams,Yii::$app->user->identity->id);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Defesa model.
      * @param integer $idDefesa

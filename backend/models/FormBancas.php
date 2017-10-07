@@ -35,6 +35,7 @@ public $funcao2;
 public $funcao3;
 public $funcao4;
 public $funcao5;
+public $tipobanca;
 
     /**
      * @inheritdoc
@@ -51,7 +52,7 @@ public $funcao5;
         return [
             [['membrosbanca_id_1', 'membrosbanca_id_2', 'membrosbanca_id_3', 'membrosbanca_id_4', 'membrosbanca_id_5'], 'integer'],
             [['membrosbanca_id_1'], 'required'],
-            [['funcao1', 'funcao2', 'funcao3', 'funcao4', 'funcao5'], 'string'],
+            [['funcao1', 'funcao2', 'funcao3', 'funcao4', 'funcao5','tipobanca'], 'string'],
 
         ];
     }
@@ -73,6 +74,7 @@ public $funcao5;
             'funcao4' => 'funcao4',
             'membrosbanca_id_5' => 'membro id 5',
             'funcao5' => 'funcao5',
+            'tipobanca' => 'tipo da banca',
         ];
     }
 
@@ -100,6 +102,7 @@ public $funcao5;
     {
         return $this->hasOne(MembrosBanca::className(), ['id'=>'membrosbanca_id_5']);
     }
+
 
 
 }
