@@ -66,13 +66,13 @@ class BancaSearch extends Banca
 
         // grid filtering conditions
             $query->andFilterWhere([
-            'banca_id' => $this->banca_id,
+            'j17_banca_has_membrosbanca.banca_id' => $this->banca_id,
             'membrosbanca_id' => $this->membrosbanca_id,
+            'j17_defesa.titulo' => $this->titulo,
+            'j17_aluno.nome' => $this->nome,
         ]);
 
         $query->andFilterWhere(['like', 'nome_membro', $this->nome_membro])
-        ->andFilterWhere(['like', 'titulo', $this->titulo])
-        ->andFilterWhere(['like', 'nome', $this->nome])
         ->andFilterWhere(['like', 'funcao', $this->funcao])
             ->andFilterWhere(['like', 'passagem', $this->passagem]);
 
