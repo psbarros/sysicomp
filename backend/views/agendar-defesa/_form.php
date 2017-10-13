@@ -18,6 +18,8 @@ $horarios = ["" => "", "07:29" => "07:29", "07:59" => "07:59", "08:29" => "08:29
 
 $tipoCurso = ['Mestrado' => 'Mestrado', 'Doutorado' => 'Doutorado'];
 
+$tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Julgado' => 'Não Julgado'];
+
 ?>
 
 
@@ -36,8 +38,8 @@ $tipoCurso = ['Mestrado' => 'Mestrado', 'Doutorado' => 'Doutorado'];
 
                 <?= $form->field($model, 'curso_aluno', ['options' => ['class' => 'col-md-4']])->dropDownList($tipoCurso, ['prompt' => 'Selecione um curso'])->label("<font color='#FF0000'>*</font> <b>Curso:</b>") ?>
 
-                <?= $form->field($model, 'tipoDefesa', ['options' => ['class' => 'col-md-5']])->dropDownList($tipoDef, ['prompt' => 'Selecione um tipo de defesa'])->label("<font color='#FF0000'>*</font> <b>Tipo:</b>") ?>
-
+                <?= $form->field($model, 'tipoDefesa', ['options' => ['class' => 'col-md-5']])->dropDownList($tipoDef, ['prompt' => 'Selecione um tipo de defesa'])->label("<font color='#FF0000'>*</font> <b>Tipo:</b>") ?>                
+               
                </div>
 
                 <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
@@ -75,7 +77,9 @@ $tipoCurso = ['Mestrado' => 'Mestrado', 'Doutorado' => 'Doutorado'];
 
                 <div class="row">      
 
-                <?= $form->field($model, 'banca_id', ['options' => ['class' => 'col-md-3']])->textInput() ?>   
+                <?= $form->field($model, 'banca_id', ['options' => ['class' => 'col-md-3']])->textInput() ?>  
+
+                <?= $form->field($model, 'conceito', ['options' => ['class' => 'col-md-5']])->dropDownList($tipoConceito, ['prompt' => 'Selecione um conceito'])?> 
 
                 </div>             
 
@@ -86,7 +90,7 @@ $tipoCurso = ['Mestrado' => 'Mestrado', 'Doutorado' => 'Doutorado'];
 
                 <div class="form-group">
                     <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
-                    <?= Html::a('Cancelar', ['site/index',], ['class' => 'btn btn-danger']) ?> 
+                    <?= Html::a('Cancelar', ['defesa/index',], ['class' => 'btn btn-danger']) ?> 
                 </div>
 
                 <?php ActiveForm::end(); ?>
