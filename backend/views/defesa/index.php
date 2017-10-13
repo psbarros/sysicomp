@@ -95,8 +95,11 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
                         ]);                                
                     },
                     'update' => function ($url, $model){
-                        return $model->conceito == null ? Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], ['title' => Yii::t('yii', 'Editar Defesa'),
-                        ]) : "";
+                        if ( $model->conceito == "Não Julgado")
+                        {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], ['title' => Yii::t('yii', 'Editar Defesa'),
+                            ]);
+                        }
                     },
                     'delete' => function ($url, $model){
                         return $model->banca->status_banca == null ? Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [ 

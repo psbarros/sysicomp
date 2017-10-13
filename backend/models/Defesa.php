@@ -68,7 +68,7 @@ class Defesa extends \yii\db\ActiveRecord
             [['titulo'], 'string', 'max' => 180],
             [['tipoDefesa'], 'string', 'max' => 2],
             [['data', 'horario'], 'string', 'max' => 10],
-            [['conceito'], 'string', 'max' => 9],
+            [['conceito'], 'string', 'max' => 20],
             [['local'], 'string', 'max' => 100],
             [['previa'], 'string', 'max' => 45],
             [['anoPesq'], 'integer'],
