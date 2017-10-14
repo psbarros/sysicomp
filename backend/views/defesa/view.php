@@ -34,9 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('<span class="fa fa-balance-scale"></span> Gerar Portaria', ['gerar_portaria', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-success']) ?>
 
         <?= Html::a('<span class="glyphicon glyphicon-print"></span> Convite ', ['defesa/print', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id, 'banca_id' => $model->banca_id], ['target' => '_blank', 'class' => 'btn btn-info']) ?>
-
-				<?= Yii::$app->user->identity->secretaria ? Html::a('<span class="glyphicon glyphicon-envelope"></span>  Enviar Lembrete de Pendência', ['lembretependencia', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-primary']) : "" ?>
-
+				
 				<?php if(Yii::$app->user->identity->secretaria && $model->banca->status_banca == 1){
                 Modal::begin([
                   'header' => '<h2>Lançar Conceito</h2>',
