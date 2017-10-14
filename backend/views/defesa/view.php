@@ -35,8 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= Html::a('<span class="glyphicon glyphicon-print"></span> Convite ', ['defesa/print', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id, 'banca_id' => $model->banca_id], ['target' => '_blank', 'class' => 'btn btn-info']) ?>
 
+				<?= Yii::$app->user->identity->secretaria ? Html::a('<span class="glyphicon glyphicon-envelope"></span>  Enviar Lembrete de Pendência', ['lembretependencia', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-primary']) : "" ?>
 
-        <?php if(Yii::$app->user->identity->secretaria && $model->banca->status_banca == 1){
+				<?php if(Yii::$app->user->identity->secretaria && $model->banca->status_banca == 1){
                 Modal::begin([
                   'header' => '<h2>Lançar Conceito</h2>',
                   'toggleButton' => ['label' => '<span class="fa fa-hand-stop-o"></span> Lançar Conceito', 'class' => 'btn btn-success'],
@@ -56,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 Modal::end();
 
-				echo Html::a('<span class="glyphicon glyphicon-print"></span>  Convite', ['convitepdf', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-success', 'target' => '_blank']);
+				/*echo Html::a('<span class="glyphicon glyphicon-print"></span>  Convite', ['convitepdf', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-success', 'target' => '_blank']);*/
         }
 
         if($model->banca->status_banca == 1){
@@ -71,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
 
         ?>
-        <?= Yii::$app->user->identity->secretaria ? Html::a('<span class="glyphicon glyphicon-envelope"></span>  Enviar Lembrete de Pendência', ['lembretependencia', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-primary']) : "" ?>
+
 
         </div>
     </p>

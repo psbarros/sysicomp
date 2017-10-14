@@ -11,6 +11,8 @@ BootboxAsset::registerWithOverride($this);
 /* @var $searchModel app\models\DefesaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$action = "{view} {lembrete}";
+
 $this->title = 'Lista de Defesas Pendentes';
 
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['defesa/index',], ['class' => 'btn btn-warning']) ?>  
+<?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['defesa/index',], ['class' => 'btn btn-warning']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -53,16 +55,20 @@ $this->params['breadcrumbs'][] = $this->title;
              'horario',
              'local',
             ['class' => 'yii\grid\ActionColumn',
-              'template'=>'{lembrete}',
+              'template'=> $action,
                 'buttons'=>[
-                    'lembrete' => function ($url, $model) {  
+                    'lembrete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-ok"></span>', ['lembretependencia', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [
                                 'title' => Yii::t('yii', 'Enviar Lembrete'),
-                        ]);                                
+                        ]);
                     },
-              ]                            
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [
+                                    'title' => Yii::t('yii', 'Visualizar Detalhes'),
+                            ]);
+                        },
+                ]
             ],
         ],
     ]); ?>
 </div>
-    

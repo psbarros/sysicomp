@@ -32,10 +32,10 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php 
+        <?php
 
         echo Html::a('<span class="glyphicon glyphicon-ok"></span> Pendentes de Defesa ', ['pendentes',], ['class' => 'btn btn-warning']);
-        
+
         ?>
     </p>
     <?= GridView::widget([
@@ -59,7 +59,7 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
                 'value' => 'tipoDefesa'
             ],
              //'data',
-            [    
+            [
                 'label' => 'Data',
                 'attribute' => 'data',
                 'filter' => \yii\jui\DatePicker::widget([
@@ -88,11 +88,11 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
             ['class' => 'yii\grid\ActionColumn',
               'template'=> $action,
                 'buttons'=>[
-                
-                    'view' => function ($url, $model) {  
+
+                    'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [
                                 'title' => Yii::t('yii', 'Visualizar Detalhes'),
-                        ]);                                
+                        ]);
                     },
                     'update' => function ($url, $model){
                         if ( $model->conceito == "Não Julgado")
@@ -102,14 +102,14 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
                         }
                     },
                     'delete' => function ($url, $model){
-                        return $model->banca->status_banca == null ? Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [ 
+                        return $model->banca->status_banca == null ? Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [
                                 'data' => [
                                     'confirm' => 'Remover a defesa \''.$model->titulo.'\'?',
                                     'method' => 'post',
                                 ], 'title' => Yii::t('yii', 'Remover Defesa'),
                         ]) : "";
                     },
-                ]                            
+                ]
             ],
         ],
     ]); ?>
