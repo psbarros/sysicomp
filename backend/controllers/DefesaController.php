@@ -281,7 +281,7 @@ class DefesaController extends Controller
 
         if ($model->load(Yii::$app->request->post() ) ) {
 
-            $model->auxiliarTipoDefesa = $tipodefesa;
+            $model->auxiliarTipoDefesa = $model->tipodefesa;
             $model_ControleDefesas = new BancaControleDefesas();
 
             if($model->tipoDefesa == "Q1" && $aluno->curso == 2) {
