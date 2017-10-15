@@ -225,6 +225,7 @@ class BancaController extends Controller
      */
     public function actionUpdate($banca_id, $membrosbanca_id)
     {
+
         $model = Banca::findAll(['banca_id'=>$banca_id]);
 
 
@@ -249,9 +250,12 @@ class BancaController extends Controller
      */
     public function actionDelete($banca_id, $membrosbanca_id)
     {
-        $this->findModel($banca_id, $membrosbanca_id)->delete();
 
-        return $this->redirect(['index']);
+        $model_status=  new BancaControleDefesas();
+        $model_status = BancaControleDefesas::deleteAll(['id' => $banca_id]);
+        $model = Banca::deleteAll(['banca_id' => $banca_id]);
+
+        return $this->redirect(['indexsemdefesa']);
     }
 
     /**
