@@ -56,6 +56,7 @@ use app\models\MembrosBanca;
                         ['label' => 'Defesas a serem avaliadas', 'icon' => 'fa fa-calendar-check-o', 'url' => ['banca-controle-defesas/index'],],
                         ['label' => 'Listar todas as defesas', 'icon' => 'fa fa-list', 'url' => ['defesa/index'],],
                         ['label' => 'Agendar Defesas', 'icon' => 'fa fa-list', 'url' => ['agendar-defesa/create'],],
+                        ['label' => 'Gerenciar Bancas', 'icon' => 'fa fa-list', 'url' => ['banca/index'],],
                         ['label' => 'Membros de Banca', 'icon' => 'fa fa-users', 'url' => ['membros-banca/index'],],
                     ],
                 ],
@@ -99,7 +100,7 @@ use app\models\MembrosBanca;
                       ['label' => 'Membros de Banca', 'icon' => 'fa fa-users', 'url' => ['membros-banca/index'],],
                     ],
                 ],
-                
+
                 ['label' => 'Secretaria', 'options' => ['class' => 'header'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria')],
                 [
                     'label' => 'Alunos',
@@ -163,12 +164,10 @@ use app\models\MembrosBanca;
                     'items' => [
                         ['label' => 'Visualizar Defesas', 'icon' => 'fa fa-list', 'url' => ['defesa/index'],],
                         ['label' => 'Membros de Banca', 'icon' => 'fa fa-users', 'url' => ['membros-banca/index'],],
-
                         ['label' => 'Gerar Relatório Bancas', 'icon' => 'fa fa-refresh', 'url' => ['defesa/bancasallmembro'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria')||Yii::$app->user->identity->checarAcesso('administrador'),],
                         ['label' => 'Agendar Defesas', 'icon' => 'fa fa-list', 'url' => ['agendar-defesa/create'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria')||Yii::$app->user->identity->checarAcesso('administrador'),],
                     ],
                 ],
-
                 [
                     'label' => 'Afastamento Temporário',
                     'icon' => 'fa fa-plane',
@@ -192,7 +191,6 @@ use app\models\MembrosBanca;
                         ['label' => 'Tipos de Rubricas', 'icon' => 'fa fa-gears', 'url' => ['cont-proj-rubricas/index'],],
                         ['label' => 'Projetos', 'icon' => 'fa fa-signal', 'url' => ['cont-proj-projetos/index'],],
                         ['label' => 'Saldo Rubricas', 'icon' => 'fa fa-clone', 'url' => ['cont-proj-rubricasde-projetos/consultar'],],
-
                     ],
                 ],
                 [
@@ -205,18 +203,14 @@ use app\models\MembrosBanca;
             ['label' => 'Gerar Cautela', 'icon' => 'fa fa-list', 'url' => ['cautela/index'],],
                         ['label' => 'Gerar Cautela Avulsa', 'icon' => 'fa fa-refresh', 'url' => ['cautela-avulsa/index'],],
                         /*['label' => 'Descarte de Equipamentos', 'icon' => 'fa fa-trash', 'url' => ['descarte-equipamento/index'],],*/
-
                     ],
                 ],
-
                 //['label' => 'despesas', 'icon' => 'fa fa-calendar', 'url' => ['cont-proj-despesas/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
-
                 //['label' => 'receitas', 'icon' => 'fa fa-calendar', 'url' => ['cont-proj-receitas/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
                 //['label' => 'Registrar Datas', 'icon' => 'fa fa-cog fa-spin', 'url' => ['cont-proj-registra-datas/index'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria'),],
                 //['label' => 'rubricas de projeto', 'icon' => '', 'url' => ['cont-proj-rubricasde-projetos/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
                 //['label' => 'transferencia de rubricas', 'icon' => 'fa fa-calendar', 'url' => ['cont-proj-rubricasde-projetos/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
                 //['label' => 'transferencia de saldo de rubricas', 'icon' => 'fa fa-calendar', 'url' => ['cont-proj-transferencias-saldo-rubricas/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
-
               // ['label' => 'Aluno', 'options' => ['class' => 'header'], 'visible' => Yii::$app->user->identity->checarAcesso('aluno')],
                // ['label' => 'Aluno Opção', 'icon' => 'fa fa-file-code-o', 'url' => ['site/index'], 'visible' => Yii::$app->user->identity->checarAcesso('professor'),],
             ],
