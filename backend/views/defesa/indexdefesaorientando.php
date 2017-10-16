@@ -8,9 +8,6 @@ use yii\widgets\MaskedInput;
 use app\models\Defesa;
 
 
-
-
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DefesaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -62,25 +59,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
               'template'=> $action,
                 'buttons'=>[
-                
-                    'view' => function ($url, $model) {  
+
+                    'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [
                                 'title' => Yii::t('yii', 'Visualizar Detalhes'),
-                        ]);                                
+                        ]);
                     },
                     'update' => function ($url, $model){
                         return $model->conceito == null ? Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], ['title' => Yii::t('yii', 'Editar Defesa'),
                         ]) : "";
                     },
                     'delete' => function ($url, $model){
-                        return $model->banca->status_banca == null ? Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [ 
+                        return $model->banca->status_banca == null ? Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [
                                 'data' => [
                                     'confirm' => 'Remover a defesa \''.$model->titulo.'\'?',
                                     'method' => 'post',
                                 ], 'title' => Yii::t('yii', 'Remover Defesa'),
                         ]) : "";
                     },
-                ]                            
+                ]
             ],
         ],
     ]); ?>

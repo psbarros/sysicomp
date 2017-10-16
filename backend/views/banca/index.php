@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="banca-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!--<h1><?= Html::encode($this->title) ?></h1>-->
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -51,17 +51,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn',
 
-            'template' => '{View} {Update} {Delete}',
+            'template' => '{View} {update} {delete}',
             'buttons'  => [
                              'View'   => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'banca_id' => $model->banca_id, 'membrosbanca_id'=> $model->membrosbanca_id ], [
                                    'title' => Yii::t('yii', 'Visualizar Detalhes'),
-                                    ]); 
+                                    ]);
                               },
-            
 
 
-            
+
+
 
             ],
         ]
