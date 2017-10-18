@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
     <div class="row" style="margin-left: 10px;">
 
-        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['defesa/indexdefesaorientando',], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['defesa/index',], ['class' => 'btn btn-warning']) ?>
 
 		<?= $model->conceito == null ? Html::a('<span class="glyphicon glyphicon-edit"></span> Editar', ['update', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-primary']) : "" ?>
 
