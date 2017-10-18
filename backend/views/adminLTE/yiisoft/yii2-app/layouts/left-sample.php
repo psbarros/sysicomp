@@ -96,7 +96,7 @@ use app\models\MembrosBanca;
                     'items' => [
                       ['label' => 'Agendar Defesas', 'icon' => 'fa fa-list', 'url' => ['agendar-defesa/create'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria')||Yii::$app->user->identity->checarAcesso('administrador'),],
                       ['label' => 'Visualizar Defesas', 'icon' => 'fa fa-list', 'url' => ['defesa/indexdefesaorientando'],],
-                      ['label' => 'Criar Banca', 'icon' => 'fa fa-list', 'url' => ['banca/create'],],
+                      ['label' => 'Criar Banca', 'icon' => 'fa fa-list', 'url' => ['banca/create'],], //resolução de issue 18#
                       ['label' => 'Membros de Banca', 'icon' => 'fa fa-users', 'url' => ['membros-banca/index'],],
                     ],
                 ],
