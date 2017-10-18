@@ -32,11 +32,10 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php
-
-        echo Html::a('<span class="glyphicon glyphicon-ok"></span> Pendentes de Defesa ', ['pendentes',], ['class' => 'btn btn-warning']);
-
-        ?>
+        <div>
+           <?php echo Html::a('<span class="glyphicon glyphicon-ok"></span> Pendentes de Defesa ', ['pendentes',], ['class' => 'btn btn-warning']);?>
+           
+         </div>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

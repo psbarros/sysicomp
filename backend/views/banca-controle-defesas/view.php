@@ -67,8 +67,8 @@ $arrayStatusBanca = array(null => "Não Avaliada", 0 => "Reprovada", 1 => "Aprov
             //'banca_id',
             //'membrosbanca_id',
             [
-                'attribute'=>'membro_nome',
-                'label' => "Nome do Membro",
+                'attribute'=>'nome_membro',
+                'label' => "Nome Professsor",
             ],
             [
                 'attribute'=>'membro_filiacao',
