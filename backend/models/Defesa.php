@@ -124,7 +124,7 @@ class Defesa extends \yii\db\ActiveRecord
 
     public function getNome(){
         #$aluno = $this->getModelAluno();
-        $aluno= Aluno::find()->where("id =".$this->aluno_id)->all();
+        $aluno= Aluno::find()->where('id ='.$this->aluno_id)->all();
         $nome= null;
         foreach($aluno as $key => $a){
             $nome= $a->nome;
@@ -155,7 +155,7 @@ class Defesa extends \yii\db\ActiveRecord
 
     public function getIdProfessor(){
     	return $this->idProfessor;
-    }
+    } 
 
     public function getTipoDefesa(){
 

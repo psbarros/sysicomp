@@ -1,10 +1,22 @@
 <?php
 
 use yii\helpers\Html;
+use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use kartik\widgets\DatePicker;
 use \yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\widgets\MaskedInput;
+use yii\web\JsExpression;
+use app\models\Aluno;
+use app\models\AgendarDefesa;
+use app\models\MembrosBanca;
+use yii\jui\AutoComplete;
+use yii\helpers\Url;
+use xj\bootbox\BootboxAsset;
+
+BootboxAsset::register($this);
+BootboxAsset::registerWithOverride($this);
 /* @var $this yii\web\View */
 /* @var $model app\models\AgendarDefesa */
 /* @var $form yii\widgets\ActiveForm */
@@ -30,10 +42,35 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
 
                 <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'nome_aluno')->textInput() ?>
+                <?php $mAluno  = new Aluno();
+                      $mMembro = new Membrosbanca();
 
-                <?= $form->field($model, 'numDefesa')->textInput() ?>
+                ?>
+                <div>
+                    <?= $form->field($model, 'numDefesa')->textInput() ?>
+                </div>
+                <div class="row">
+                    <?=
+                        $form->field($mAluno, 'nome',['options'=>['class'=>'col-md-1']])->widget(AutoComplete::classname(), [
+                            'clientOptions' => [
+                                'source' => URL::to(['agendar-defesa/autocompletaluno']),
+                                'minLength'=>1,
+                                    'select' => new JsExpression("function( event, ui ) {
+                                        
+                                        $('[name=\"id\"]').val(ui.item.id);                                
+                                      }")
+                            ],
+                            'options'=>[
+                                'maxLength'=>100,
+                                'style'=>[
+                                    'width'=>'680px',
+                                ],
+                            ]
+                        ])->label("<font color='#FF0000'>*</font>Nome Aluno:");
 
+                    ?>
+                </div>
+                
                 <div class="row">
 
                 <?= $form->field($model, 'curso_aluno', ['options' => ['class' => 'col-md-4']])->dropDownList($tipoCurso, ['prompt' => 'Selecione um curso'])->label("<font color='#FF0000'>*</font> <b>Curso:</b>") ?>

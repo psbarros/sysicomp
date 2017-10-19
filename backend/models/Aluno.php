@@ -65,6 +65,7 @@ class Aluno extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            
             'nome' => 'Nome',
             'email' => 'Email',
             'senha' => 'Senha',
@@ -148,6 +149,8 @@ class Aluno extends \yii\db\ActiveRecord
     public function getTrancamentos() {
         return $this->hasMany(Trancamentos::className(), ['idAluno' => 'id']);
     }
+
+    
 
     public function getDiasParaFormar() {
 

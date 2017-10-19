@@ -85,8 +85,6 @@ class Banca extends \yii\db\ActiveRecord
         else{
             return "Membro Externo";
         }
-
-
     }
 
 }

@@ -28,6 +28,7 @@ class AgendarDefesa extends \yii\db\ActiveRecord
 
     public $nome_aluno;
     public $curso_aluno;
+     public $aluno_id;
     /**
      * @inheritdoc
      */
@@ -88,15 +89,23 @@ class AgendarDefesa extends \yii\db\ActiveRecord
 
     public function getNome(){
         #$aluno = $this->getModelAluno();
-        $aluno= Aluno::find()->where("id =".$this->aluno_id)->all();
+        $aluno= Aluno::find()->where('id ='.$this->aluno_id)->all();
         $nome= null;
         foreach($aluno as $key => $a){
             $nome= $a->nome;
         }
         #$aluno= Aluno::find()->one();
         return $nome;
+        
     }
 
+    public static function AlunoIdByAlunoId($Id){
+        $usuario = Aluno::findOne($Id);
+        //Aluno.ID TO Defesa.aluno_id
+        $aluno = AgendarDefesa::findOne(['aluno_id'=>$usuario->id]);
+
+        return $aluno->id;
+    }
     
     public function getCurso(){
         #$aluno = $this->getModelAluno();

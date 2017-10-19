@@ -83,8 +83,7 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
         				'source' => URL::to(['defesa/autocompletemembro']),
         				'minLength'=>3,
         				'select' => new JsExpression("function( event, ui ) {
-								        //console.log(ui);
-								        //$('disciplina-1-nome').val(ui.item.nome);
+								        
 								        $('[name=\"idProfessor\"]').val(ui.item.id);        						
 								      }")
         		],
