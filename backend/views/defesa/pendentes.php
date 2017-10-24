@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="defesa-index">
 
-<h4 style="font-weight: bold; text-align:center"> Listagem de defesas que estão pendentes de CONCEITO, mas que a banca já foi deferida pelo coordenador do PPGI </h4>
+<h4 style="font-weight: bold; text-align:center"> Listagem de defesas que estão pendentes de CONCEITO </h4>
 <br>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
               'template'=> $action,
                 'buttons'=>[
                     'lembrete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-ok"></span>', ['lembretependencia', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [
+                         if($model->conceito== null && $model->banca->status_banca == 1) return  Html::a('<span class="glyphicon glyphicon-ok"></span>', ['lembretependencia', 'idDefesa' => $model->idDefesa , 'aluno_id' => $model->aluno_id], [
                                 'title' => Yii::t('yii', 'Enviar Lembrete'),
                         ]);
                     },
