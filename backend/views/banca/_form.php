@@ -37,17 +37,17 @@ $tipoCurso = ['1' => 'Mestrado' , '2' => 'Doutorado-Qualificação-1','3' => 'Do
                     <div class="panel-heading">
                                     <h3 class="panel-title"><b>Presidente da Banca</b></h3>
                     </div>
-                          <?= $form->field($model, 'membrosbanca_id_1',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<font color='#FF0000'>*</font> <b>Nome Membro:</b>") ?>
-                          <?= $form->field($model, 'tipobanca',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoCurso, ['prompt' => 'Selecione o Curso...'])->label("<b>Curso:</b>") ?>
+                          <?= $form->field($model, 'membrosbanca_id',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<font color='#FF0000'>*</font> <b>Nome Membro:</b>") ?>
+                          <?= $form->field($model, 'funcao',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoCurso, ['prompt' => 'Selecione o Curso...'])->label("<b>Curso:</b>") ?>
                 </div>
 
                 <div class="panel-body">
                     <div class="panel-heading">
                                     <h3 class="panel-title"><b>Componente 2</b></h3>
                     </div>
-                          <?= $form->field($model, 'membrosbanca_id_2',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
+                          <?= $form->field($model, 'membrosbanca_id',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
 
-                        <?= $form->field($model, 'funcao2',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
+                        <?= $form->field($model, 'funcao',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
 
                 </div>
 
@@ -55,27 +55,27 @@ $tipoCurso = ['1' => 'Mestrado' , '2' => 'Doutorado-Qualificação-1','3' => 'Do
                     <div class="panel-heading">
                                     <h3 class="panel-title"><b>Componente 3</b></h3>
                     </div>
-                          <?= $form->field($model, 'membrosbanca_id_3',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
+                          <?= $form->field($model, 'membrosbanca_id',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
 
-                        <?= $form->field($model, 'funcao3',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
+                        <?= $form->field($model, 'funcao',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
                 </div>
 
                 <div class="panel-body">
                     <div class="panel-heading">
                                     <h3 class="panel-title"><b>Componente 4</b></h3>
                     </div>
-                          <?= $form->field($model, 'membrosbanca_id_4',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
+                          <?= $form->field($model, 'membrosbanca_id',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
 
-                          <?= $form->field($model, 'funcao4',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
+                          <?= $form->field($model, 'funcao',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
                 </div>
 
                 <div class="panel-body">
                     <div class="panel-heading">
                                     <h3 class="panel-title"><b>Componente 5</b></h3>
                     </div>
-                          <?= $form->field($model, 'membrosbanca_id_5',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
+                          <?= $form->field($model, 'membrosbanca_id',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($items, ['prompt' => 'Selecione um membro...'])->label("<b>Nome Membro:</b>") ?>
 
-                        <?= $form->field($model, 'funcao5',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
+                        <?= $form->field($model, 'funcao',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoFuncao, ['prompt' => 'Selecione uma Função...'])->label("<b>Funcao:</b>") ?>
                 </div>
 
     </div>

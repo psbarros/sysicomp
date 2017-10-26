@@ -193,15 +193,12 @@ class BancaController extends Controller
      */
     public function actionUpdate($banca_id, $membrosbanca_id)
     {
-        $model = Banca::findAll(['banca_id'=>$banca_id]);
-         $items = ArrayHelper::map(MembrosBanca::find()->all(), 'id', 'nome');
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model = Banca::findOne($banca_id);
+        $items = ArrayHelper::map(MembrosBanca::find()->all(), 'id', 'nome');
+        if ($model->load(Yii::$app->request->post()) && $model->save()){
             return $this->redirect(['view', 'banca_id' => $model->banca_id, 'membrosbanca_id' => $model->membrosbanca_id]);
         } else {
-            return $this->render('update', [
-                'model' => $model,
-                'items'=> $items,
-            ]);
+            return $this->render('update',['model' => $model, 'items'=> $items]);
         }
     }
     /**
