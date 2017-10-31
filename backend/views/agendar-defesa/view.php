@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
    
 
     <p>
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Sair  ', ['defesa/index',], ['class' => 'btn btn-warning']) ?>
         <?= Html::a('Atualizar', ['update', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Deletar', ['delete', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id], [
             'class' => 'btn btn-danger',
