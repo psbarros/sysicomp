@@ -49,27 +49,7 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
                 <div>
                     <?= $form->field($model, 'numDefesa')->textInput() ?>
                 </div>
-                <div class="row">
-                    <?=
-                        $form->field($mAluno, 'nome',['options'=>['class'=>'col-md-1']])->widget(AutoComplete::classname(), [
-                            'clientOptions' => [
-                                'source' => URL::to(['agendar-defesa/autocompletaluno']),
-                                'minLength'=>1,
-                                    'select' => new JsExpression("function( event, ui ) {
-                                        
-                                        $('[name=\"id\"]').val(ui.item.id);                                
-                                      }")
-                            ],
-                            'options'=>[
-                                'maxLength'=>100,
-                                'style'=>[
-                                    'width'=>'680px',
-                                ],
-                            ]
-                        ])->label("<font color='#FF0000'>*</font>Nome Aluno:");
-
-                    ?>
-                </div>
+                <?= $form->field($model, 'nome_aluno')->textInput() ?>
                 
                 <div class="row">
 

@@ -96,20 +96,6 @@ class AgendarDefesaController extends Controller
         return $this->render('alunonaoencontrado');
     }
 
-    public function actionAutocompletaluno($term){
-        $listaAlunos = Aluno::find()->where(["like","upper(nome)",strtoupper($term)])->all();
-
-        $codigos = [];
-
-        foreach ($listaAlunos as $aluno)
-        {
-            $codigos[] = ['label'=>$aluno['nome'],'value'=>$aluno['nome'], 'id'=>$aluno['id']
-            ]; //build an array
-        }
-
-        echo json_encode($codigos);
-    }
-
     /**
      * Updates an existing AgendarDefesa model.
      * If update is successful, the browser will be redirected to the 'view' page.

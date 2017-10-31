@@ -28,7 +28,6 @@ class AgendarDefesa extends \yii\db\ActiveRecord
 
     public $nome_aluno;
     public $curso_aluno;
-     public $aluno_id;
     /**
      * @inheritdoc
      */
@@ -47,9 +46,9 @@ class AgendarDefesa extends \yii\db\ActiveRecord
             [['resumo', 'examinador', 'emailExaminador'], 'string'],
             [['numDefesa', 'reservas_id', 'banca_id', 'aluno_id'], 'integer'],
             [['titulo'], 'string', 'max' => 180],
-            [['tipoDefesa'], 'string', 'max' => 20],
+            [['tipoDefesa'], 'string', 'max' => 2],
             [['data', 'horario'], 'string', 'max' => 10],
-            [['conceito'], 'string', 'max' => 20],
+            [['conceito'], 'string', 'max' => 30],
             [['local'], 'string', 'max' => 100],
             [['previa'], 'string', 'max' => 45],
             [['nome_aluno'], 'string', 'max' => 255],
@@ -89,23 +88,15 @@ class AgendarDefesa extends \yii\db\ActiveRecord
 
     public function getNome(){
         #$aluno = $this->getModelAluno();
-        $aluno= Aluno::find()->where('id ='.$this->aluno_id)->all();
+        $aluno= Aluno::find()->where("id =".$this->aluno_id)->all();
         $nome= null;
         foreach($aluno as $key => $a){
             $nome= $a->nome;
         }
         #$aluno= Aluno::find()->one();
         return $nome;
-        
     }
 
-    public static function AlunoIdByAlunoId($Id){
-        $usuario = Aluno::findOne($Id);
-        //Aluno.ID TO Defesa.aluno_id
-        $aluno = AgendarDefesa::findOne(['aluno_id'=>$usuario->id]);
-
-        return $aluno->id;
-    }
     
     public function getCurso(){
         #$aluno = $this->getModelAluno();
