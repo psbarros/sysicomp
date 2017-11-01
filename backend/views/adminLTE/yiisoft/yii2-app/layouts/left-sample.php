@@ -100,7 +100,6 @@ use app\models\MembrosBanca;
                       ['label' => 'Membros de Banca', 'icon' => 'fa fa-users', 'url' => ['membros-banca/index'],],
                     ],
                 ],
-
                 ['label' => 'Secretaria', 'options' => ['class' => 'header'], 'visible' => Yii::$app->user->identity->checarAcesso('secretaria')],
                 [
                     'label' => 'Alunos',
