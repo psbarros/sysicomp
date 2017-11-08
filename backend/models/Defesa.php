@@ -38,9 +38,9 @@ class Defesa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['resumo', 'banca_id', 'aluno_id', 'titulo', 'data', 'horario','resumo', 'local'], 'required'],
+            [['resumo', 'titulo', 'data', 'horario'], 'required'],
             [['portariaID', 'portariaAno'], 'required', 'on' => 'gerar_portaria'],
-           [['membrosBancaInternos', 'membrosBancaExternos', 'membrosBancaSuplentes', 'presidente'] , 'required',
+           [['membrosBancaInternos', 'membrosBancaExternos', 'membrosBancaSuplentes', 'presidente','local'] , 'required',
 
 
             'when' => function ($model) {
@@ -51,7 +51,7 @@ class Defesa extends \yii\db\ActiveRecord
                 return $('#membrosObrigatorios').val() == 1;
             }"],
 
-           [ ['examinador', 'emailExaminador'] , 'required',
+           [ ['examinador', 'emailExaminador',] , 'required',
             'when' => function ($model) {
                      return $model->auxiliarTipoDefesa == 2;
                  },
@@ -176,6 +176,31 @@ class Defesa extends \yii\db\ActiveRecord
 
         return $defesa;
     }
+    public function tipoDef(){
+
+        if ($this->tipoDefesa == 1){
+            $this->tipoDefesa = "Q1";
+        }
+        else if ($this->tipoDefesa == 2){
+            $this->tipoDefesa = "D";
+        }
+        else if ($this->tipoDefesa == 3){
+            $this->tipoDefesa = "Q1";
+        }
+        else if ($this->tipoDefesa == 4){
+            $this->tipoDefesa = "Q2";
+        }
+        else if ($this->tipoDefesa == 5){
+            $this->tipoDefesa = "D";
+        }else{
+            
+        }
+
+
+    }
+
+
+
 
     public function salvaMembrosBanca(){
         $this->beforeDelete();

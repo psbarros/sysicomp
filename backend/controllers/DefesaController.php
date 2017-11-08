@@ -284,7 +284,7 @@ class DefesaController extends Controller
             $model->auxiliarTipoDefesa = $model->tipodefesa;
             $model_ControleDefesas = new BancaControleDefesas();
 
-            if($model->tipoDefesa == "Q1" && $aluno->curso == 2) {
+            if($model->tipoDefesa == 3) {
                 $model_ControleDefesas->status_banca = 1;
                 $model_ControleDefesas->justificativa = 'Sem justificativa';
             } else {
@@ -301,8 +301,11 @@ class DefesaController extends Controller
             }
 
             try{
+                 
+                $model->tipoDef();
 
-                if($model->tipoDefesa == "Q1" && $model->curso == "Doutorado"){
+                if($model->tipoDefesa == "Q1" && $aluno->curso == 2){
+
 
                     if($model->save(false)){
                         $this->mensagens('success', 'Defesa salva', 'A defesa foi salva com sucesso.');
