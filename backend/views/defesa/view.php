@@ -161,7 +161,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             ['class' => 'yii\grid\ActionColumn',
-              'template'=>'{carta} {folha}',
+              'template'=>'{carta} {folha} {lapis}',
                 'buttons'=>[
                   'carta' => function ($url, $model) {
                     return Html::a('<span class="glyphicon glyphicon-envelope"></span>', ['agradecimentopdf', 'idDefesa' => $_GET['idDefesa'], 'aluno_id' => $_GET['aluno_id'], 'membrosbanca_id' => $model->membrosbanca_id ], [
@@ -180,7 +180,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             'title' => Yii::t('yii', 'Declaração'),
                             'target'=>'_blank',
                     ]);
-                  }
+                  },
+                  'lapis' => function ($url, $model) {
+                        return  Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['email', 'idDefesa' => $_GET['idDefesa'] , 'aluno_id' => $_GET['aluno_id']], [
+                                'title' => Yii::t('yii', 'Enviar Notificação'),
+                        ]);
+                    },
               ]
             ],
         ],

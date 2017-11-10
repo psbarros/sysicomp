@@ -13,6 +13,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['create']];
 $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['indexsemdefesa']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$arrayStatusBanca = array(null => "Não Avaliada", 0 => "Reprovada", 1 => "Aprovada");
+
 ?>
 <div class="banca-view">
 
@@ -20,7 +23,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['banca/index',], ['class' => 'btn btn-warning']) ?>
+       <?= Html::a('<span class="fa fa-check-circle"></span> Deferir Banca', ["aprovar", 'banca_id' => $model->banca_id], [
+            'class' => 'btn btn-primary',
+            'data' => [
+                'confirm' => 'Você tem certeza que deseja APROVAR essa banca?',
+                'method' => 'post',
+            ],
+        ]) ?>
+        <?= Html::a('<span class="fa fa-remove"></span> Indeferir Banca', ['update', 'banca_id' => $model->banca_id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Você tem certeza que deseja REPROVAR essa banca?',
+                'method' => 'post',
+            ],
+        ]) ?>
     </p>
+   
 
     <?= DetailView::widget([
         'model' => $model,
@@ -34,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                'value' => Defesa::findOne(['banca_id'=>$model->banca_id]) ? $model->defesa->nome : "não possui defesa",
 
             ],
+            
 
 
           /*  ['attribute' => 'funcao',

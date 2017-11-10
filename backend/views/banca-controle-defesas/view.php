@@ -33,7 +33,8 @@ $arrayStatusBanca = array(null => "Não Avaliada", 0 => "Reprovada", 1 => "Aprov
                 'confirm' => 'Você tem certeza que deseja REPROVAR essa banca?',
                 'method' => 'post',
             ],
-        ]) ?>
+            ]) 
+        ?>
     </p>
 
     <?= DetailView::widget([
