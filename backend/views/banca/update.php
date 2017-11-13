@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Editar Banca ';
 $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->banca_id, 'url' => ['view','banca_id' => $model->banca_id, 'membrosbanca_id' => $model->membrosbanca_id]];
+$this->params['breadcrumbs'][] = ['label' => $model->banca_id, 'url' => ['view','banca_id' => $model->banca_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="banca-update">

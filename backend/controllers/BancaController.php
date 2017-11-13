@@ -111,13 +111,7 @@ class BancaController extends Controller
                 ($model->membrosbanca_id_3!=$model->membrosbanca_id_4 || ($model->membrosbanca_id_3==NULL)) &&
                 ($model->membrosbanca_id_3!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_3==NULL)) &&
                 ($model->membrosbanca_id_4!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_4==NULL))){
-            $model1= new Banca();
-            $model1->funcao='P';
-            $model_status= new BancaControleDefesas();
-            $model_status->save(false);
-            $model1->banca_id=$model_status->id;
-            $model1->membrosbanca_id=$model->membrosbanca_id_1;
-            $model1->save();
+
 
             $count=0;
             if($model->membrosbanca_id_1){$count++;}
@@ -132,6 +126,14 @@ class BancaController extends Controller
                 'items' => $items,
             ]);
             }
+
+            $model1= new Banca();
+            $model1->funcao='P';
+            $model_status= new BancaControleDefesas();
+            $model_status->save(false);
+            $model1->banca_id=$model_status->id;
+            $model1->membrosbanca_id=$model->membrosbanca_id_1;
+            $model1->save();
 
             if($model->membrosbanca_id_2){
                    $model2= new Banca();
@@ -191,12 +193,145 @@ class BancaController extends Controller
      * @param integer $membrosbanca_id
      * @return mixed
      */
-    public function actionUpdate($banca_id, $membrosbanca_id)
+    public function actionUpdate($banca_id)
     {
-        $model = Banca::findOne($banca_id);
+        $modelsb = Banca::findAll($banca_id);
+        $model= new FormBancas();
         $items = ArrayHelper::map(MembrosBanca::find()->all(), 'id', 'nome');
-        if ($model->load(Yii::$app->request->post()) && $model->save()){
-            return $this->redirect(['view', 'banca_id' => $model->banca_id, 'membrosbanca_id' => $model->membrosbanca_id]);
+        
+        foreach($modelsb as $modelb){
+
+            if($modelb->funcao=='P'){
+                   $model->membrosbanca_id_1=$modelb->membrosbanca_id;
+                   $model->funcao1=$modelb->funcao;
+
+
+            }else{
+
+
+                   if(!$model->membrosbanca_id_2){
+                   $model->membrosbanca_id_2=$modelb->membrosbanca_id;
+                   $model->funcao2=$modelb->funcao;
+                   }else{
+                                       if(!$model->membrosbanca_id_3){
+                                       $model->membrosbanca_id_3=$modelb->membrosbanca_id;
+                                       $model->funcao3=$modelb->funcao;
+                                       }else{
+                                                           if(!$model->membrosbanca_id_4){
+                                                           $model->membrosbanca_id_4=$modelb->membrosbanca_id;
+                                                           $model->funcao4=$modelb->funcao;
+                                                           }else{
+                                                                               if(!$model->membrosbanca_id_5){
+                                                                                $model->membrosbanca_id_5=$modelb->membrosbanca_id;
+                                                                                $model->funcao5=$modelb->funcao;
+                                                                                }
+
+                                                           }
+
+                                       }
+
+                 }
+
+
+            }
+        }
+
+        if ($model->load(Yii::$app->request->post())){
+
+
+
+
+
+            if($model->membrosbanca_id_1!=$model->membrosbanca_id_2 && $model->membrosbanca_id_1!=$model->membrosbanca_id_3 && $model->membrosbanca_id_1!=$model->membrosbanca_id_4 && $model->membrosbanca_id_1!=$model->membrosbanca_id_5 &&
+                ($model->membrosbanca_id_2!=$model->membrosbanca_id_3 || ($model->membrosbanca_id_2==NULL)) &&
+                ($model->membrosbanca_id_2!=$model->membrosbanca_id_4 || ($model->membrosbanca_id_2==NULL)) &&
+                ($model->membrosbanca_id_2!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_2==NULL)) &&
+                ($model->membrosbanca_id_3!=$model->membrosbanca_id_4 || ($model->membrosbanca_id_3==NULL)) &&
+                ($model->membrosbanca_id_3!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_3==NULL)) &&
+                ($model->membrosbanca_id_4!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_4==NULL))){
+
+            $count=0;
+            if($model->membrosbanca_id_1){$count++;}
+            if($model->membrosbanca_id_2){$count++;}
+            if($model->membrosbanca_id_3){$count++;}
+            if($model->membrosbanca_id_4){$count++;}
+            if($model->membrosbanca_id_5){$count++;}
+           if((($model->tipobanca==1 || $model->tipobanca==2 || $model->tipobanca==3 )&& $count<3) || ($model->tipobanca==4 && $count<5)){
+                $this->mensagens('danger', 'Banca não Criada!', 'numero de membros inválido!! Mestrado no minimo 3 membros , Doutorado Q1 e Q2  no minimo 3 membros e Defesa de Doutorado  No minimo 5 Membros');
+                return $this->render('create', [
+                'model' => $model,
+                'items' => $items,
+            ]);
+            }
+
+            $model_statusDelete=  new BancaControleDefesas();
+            $model_statusDelete = BancaControleDefesas::deleteAll(['id' => $banca_id]);
+            $modelDelete = Banca::deleteAll(['banca_id' => $banca_id]);
+
+
+            $model1= new Banca();
+            $model1->funcao='P';
+            $model_status= new BancaControleDefesas();
+            $model_status->save(false);
+            $model1->banca_id=$model_status->id;
+            $model1->membrosbanca_id=$model->membrosbanca_id_1;
+            $model1->save();
+
+
+            if($model->membrosbanca_id_2){
+                   $model2= new Banca();
+                   $model2->funcao=$model->funcao2;
+                   $model2->banca_id=$model_status->id;
+                   $model2->membrosbanca_id=$model->membrosbanca_id_2;
+                   $model2->save();
+            }
+            if($model->membrosbanca_id_3){
+                   $model3= new Banca();
+
+                   $model3->funcao=$model->funcao3;
+                   $model3->banca_id=$model_status->id;
+                   $model3->membrosbanca_id=$model->membrosbanca_id_3;
+                   $model3->save();
+            }
+            if($model->membrosbanca_id_4){
+                   $model4= new Banca();
+                   $model4->funcao=$model->funcao4;
+                   $model4->banca_id=$model_status->id;
+                   $model4->membrosbanca_id=$model->membrosbanca_id_4;
+                   $model4->save();
+            }
+            if($model->membrosbanca_id_5){
+                   $model5= new Banca();
+
+                   $model5->funcao=$model->funcao5;
+                   $model5->banca_id=$model_status->id;
+                   $model5->membrosbanca_id=$model->membrosbanca_id_5;
+                   $model5->save();
+            }
+
+            $model_banca = new BancaSearch();
+            $dataProvider = $model_banca->searchMembros(Yii::$app->request->queryParams,$model1->banca_id);
+             return $this->render('view', [
+            'model' => $model1,
+            'dataProvider'=> $dataProvider,
+        ]);
+      }else{
+
+                $this->mensagens('danger', 'Banca não Atualizada!', 'Os membros devem ser diferentes um do outro!!');
+                return $this->render('update', [
+                'model' => $model,
+                'items' => $items,
+            ]);
+
+
+      }
+
+
+
+
+
+
+
         } else {
             return $this->render('update',['model' => $model, 'items'=> $items]);
         }

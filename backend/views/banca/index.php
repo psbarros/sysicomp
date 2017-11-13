@@ -58,6 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                    'title' => Yii::t('yii', 'Visualizar Detalhes'),
                                     ]);
                               },
+                              'update' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'banca_id' => $model->banca_id], [
+                                   'title' => Yii::t('yii', 'Editar Banca'),
+                                    ]);
+                              },
 
 
 
