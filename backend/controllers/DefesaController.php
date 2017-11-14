@@ -127,15 +127,6 @@ class DefesaController extends Controller
         $this->redirect(['defesa/view', 'idDefesa' => $idDefesa, 'aluno_id' => $aluno_id]);
     }
 
-    public function actionEmail($idDefesa, $aluno_id){
-
-        $model = $this->findModel($idDefesa, $aluno_id);
-        if($this->testeEmail($model))
-            $this->mensagens('success', 'Status de envio:','Email enviado com sucesso');
-
-        $this->redirect(['defesa/view', 'idDefesa' => $idDefesa, 'aluno_id' => $aluno_id]);
-    }
-
     public function actionGerarrelatoriobanca()
     {
         try{
@@ -1585,33 +1576,6 @@ class DefesaController extends Controller
         } else {
             throw new NotFoundHttpException('A Página solicitada não foi encontrada');
         }
-    }
-
-    function testeEmail($model){//Apesar do Nome TESTE esta funcionando PAPS2017/2
-        $message = "";
-
-        // subject
-        $subject  = "Teste";
-
-        // message
-        $message .= "Teste Email no yii2 \r\n\n";
-
-        //$emailBanca = $model->modelUser->email;
-        
-       try{
-           Yii::$app->mailer->compose()
-            ->setFrom('gerenciar.defesa@gmail.com')
-            ->setTo('gdinhoniel@outlook.com')
-            ->setSubject($subject)
-            ->setTextBody($message)
-            ->send();
-        }catch(Exception $e){
-            $this->mensagens('warning', 'Erro ao enviar Email(s)', 'Ocorreu um Erro ao Enviar o email.
-                Tente novamente ou contate o adminstrador do sistema');
-            return false;
-        }
-
-        return true;
     }
 
     function enviaNotificacaoPendenciaDefesa($model){
