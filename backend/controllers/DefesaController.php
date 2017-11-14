@@ -127,6 +127,7 @@ class DefesaController extends Controller
         $this->redirect(['defesa/view', 'idDefesa' => $idDefesa, 'aluno_id' => $aluno_id]);
     }
 
+
     public function actionEmail($idDefesa, $aluno_id,$membrosbanca_id){
 
         $model = $this->findModel($idDefesa, $aluno_id);
@@ -135,6 +136,7 @@ class DefesaController extends Controller
 
         $this->redirect(['defesa/view', 'idDefesa' => $idDefesa, 'aluno_id' => $aluno_id]);
     }
+
 
     public function actionGerarrelatoriobanca()
     {
@@ -1587,6 +1589,7 @@ class DefesaController extends Controller
         }
     }
 
+
     function testeEmail($model,$membrosbanca_id){//Apesar do Nome TESTE esta funcionando PAPS2017/2
         $message = "";
 
@@ -1615,6 +1618,7 @@ class DefesaController extends Controller
 
         return true;
     }
+
 
     function enviaNotificacaoPendenciaDefesa($model){
 

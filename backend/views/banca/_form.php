@@ -35,7 +35,7 @@ $tipoCurso = ['1' => 'Mestrado' , '2' => 'Doutorado-Qualificação-1','3' => 'Do
                 <div class="panel-body">
                   <div class="panel-heading">
                   </div>
-                  <?= $form->field($model, 'funcao',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoCurso, ['prompt' => 'Selecione o tipo...'])->label("<b>Curso</b>") ?>
+                  <?= $form->field($model, 'tipobanca',['options' => ['class' => 'col-md-6 col-right']])->dropDownList($tipoCurso, ['prompt' => 'Selecione o tipo...'])->label("<b>Curso</b>") ?>
                 </div>
 
                 <div class="panel-body">
