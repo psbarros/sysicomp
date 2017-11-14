@@ -159,10 +159,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 "attribute" => 'funcaomembro',
                 "label" => "Função",
             ],
-             [
-                "attribute" => 'email',
-                "label" => "Função",
-            ],
+            
 
             ['class' => 'yii\grid\ActionColumn',
 
