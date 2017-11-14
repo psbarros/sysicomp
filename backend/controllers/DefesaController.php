@@ -127,10 +127,10 @@ class DefesaController extends Controller
         $this->redirect(['defesa/view', 'idDefesa' => $idDefesa, 'aluno_id' => $aluno_id]);
     }
 
-    public function actionEmail($idDefesa, $aluno_id){
+    public function actionEmail($idDefesa, $aluno_id,$membrosbanca_id){
 
         $model = $this->findModel($idDefesa, $aluno_id);
-        if($this->testeEmail($model))
+        if($this->testeEmail($model,$membrosbanca_id))
             $this->mensagens('success', 'Status de envio:','Email enviado com sucesso');
 
         $this->redirect(['defesa/view', 'idDefesa' => $idDefesa, 'aluno_id' => $aluno_id]);
@@ -1587,21 +1587,23 @@ class DefesaController extends Controller
         }
     }
 
-    function testeEmail($model){//Apesar do Nome TESTE esta funcionando PAPS2017/2
+    function testeEmail($model,$membrosbanca_id){//Apesar do Nome TESTE esta funcionando PAPS2017/2
         $message = "";
+
+        $modelMembros = MembrosBanca::findOne(['id' => $membrosbanca_id]);
 
         // subject
         $subject  = "Teste";
 
         // message
-        $message .= "Teste Email no yii2 \r\n\n";
+        $message .= "Teste Email dinâmico no yii2 \r\n\n";
 
         //$emailBanca = $model->modelUser->email;
         
        try{
            Yii::$app->mailer->compose()
             ->setFrom('gerenciar.defesa@gmail.com')
-            ->setTo('gdinhoniel@outlook.com')
+            ->setTo($modelMembros->email)
             ->setSubject($subject)
             ->setTextBody($message)
             ->send();
