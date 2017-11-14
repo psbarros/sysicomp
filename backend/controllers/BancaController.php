@@ -103,6 +103,7 @@ class BancaController extends Controller
     {
         $model = new FormBancas();
         $items = ArrayHelper::map(MembrosBanca::find()->all(), 'id', 'nome');
+        $count=0;
         if ($model->load(Yii::$app->request->post())) {
             if($model->membrosbanca_id_1!=$model->membrosbanca_id_2 && $model->membrosbanca_id_1!=$model->membrosbanca_id_3 && $model->membrosbanca_id_1!=$model->membrosbanca_id_4 && $model->membrosbanca_id_1!=$model->membrosbanca_id_5 &&
                 ($model->membrosbanca_id_2!=$model->membrosbanca_id_3 || ($model->membrosbanca_id_2==NULL)) &&
@@ -113,7 +114,7 @@ class BancaController extends Controller
                 ($model->membrosbanca_id_4!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_4==NULL))){
 
 
-            $count=0;
+            
             if($model->membrosbanca_id_1){$count++;}
             if($model->membrosbanca_id_2){$count++;}
             if($model->membrosbanca_id_3){$count++;}
@@ -125,7 +126,7 @@ class BancaController extends Controller
                 'model' => $model,
                 'items' => $items,
             ]);
-            }
+            }else{
 
             $model1= new Banca();
             $model1->funcao='P';
@@ -168,10 +169,12 @@ class BancaController extends Controller
 
             $model_banca = new BancaSearch();
             $dataProvider = $model_banca->searchMembros(Yii::$app->request->queryParams,$model1->banca_id);
+            $this->mensagens('danger', 'Banca não Criada!', $count.'+'.$model->tipobanca);
              return $this->render('view', [
             'model' => $model1,
             'dataProvider'=> $dataProvider,
         ]);
+       }
         }else{
                                         $this->mensagens('danger', 'Banca não Criada!', 'Os membros devem ser diferentes um do outro!!');
                 return $this->render('create', [
@@ -180,11 +183,13 @@ class BancaController extends Controller
             ]);
         }
         } else {
+             
             return $this->render('create', [
                 'model' => $model,
                 'items' => $items,
             ]);
         }
+
     }
     /**
      * Updates an existing Banca model.

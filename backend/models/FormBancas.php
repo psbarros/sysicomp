@@ -51,7 +51,29 @@ public $tipobanca;
     {
         return [
             [['membrosbanca_id_1', 'membrosbanca_id_2', 'membrosbanca_id_3', 'membrosbanca_id_4', 'membrosbanca_id_5'], 'integer'],
-            [['membrosbanca_id_1'], 'required'],
+
+            [['membrosbanca_id_1', 'membrosbanca_id_2', 'membrosbanca_id_3'],'required',
+
+            'when' => function($model){
+                return $model->tipobanca!=4;
+            },
+            'whenClient' => "function (attribute, value) {
+
+                return $('#membrosObrigatorios').val() == 1;
+            }"],
+
+            [['membrosbanca_id_1', 'membrosbanca_id_2', 'membrosbanca_id_3', 'membrosbanca_id_4', 'membrosbanca_id_5'], 'required',
+            'when' => function($model){
+                return $model->tipobanca==4;
+            },
+            'whenClient' => "function (attribute, value) {
+
+                return $('#membrosObrigatorios').val() == 0;
+            }"],
+
+
+
+
             [['funcao1', 'funcao2', 'funcao3', 'funcao4', 'funcao5','tipobanca'], 'string'],
 
         ];
