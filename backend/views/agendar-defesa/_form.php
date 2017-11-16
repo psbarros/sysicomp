@@ -14,6 +14,9 @@ use app\models\MembrosBanca;
 use yii\jui\AutoComplete;
 use yii\helpers\Url;
 use xj\bootbox\BootboxAsset;
+use kartik\select2\Select2;
+use kartik\datecontrol\Module;
+
 
 BootboxAsset::register($this);
 BootboxAsset::registerWithOverride($this);
@@ -42,6 +45,7 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
 
                 <?php $form = ActiveForm::begin(); ?>
 
+               
                 <?php $mAluno  = new Aluno();
                       $mMembro = new Membrosbanca();
 
@@ -49,7 +53,27 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
                 <div>
                     <?= $form->field($model, 'numDefesa')->textInput() ?>
                 </div>
-                <?= $form->field($model, 'nome_aluno')->textInput() ?>
+        <?php 
+        echo $form->field($mAluno, 'nome',['options'=>['class'=>'col-md-3']])->widget(AutoComplete::classname(), [
+                'clientOptions' => [
+                        'source' => URL::to(['agendar-defesa/autocompletealuno']),
+                        'minLength'=>3,
+                        'select' => new JsExpression("function( event, ui ) {
+                                        
+                                        $('[name=\"idAluno\"]').val(ui.item.id);                                
+                                      }")
+                ],
+                'options'=>[
+                        'maxLength'=>100,
+                        'style'=>[
+                                'width'=>'346px',
+                        ],
+                ]
+        ])->label("<font color='#FF0000'>*</font> <b>Nome Aluno:</b>"); ?>
+        
+        </div>
+
+
                 
                 <div class="row">
 
@@ -106,6 +130,8 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
 
 
                 <div class="form-group">
+                    <?php echo Html::hiddenInput("idAluno", $idAluno)?>
+                    <?php echo Html::hiddenInput("listall", "listall")?>
                     <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
                     <?= Html::a('Cancelar', ['defesa/index',], ['class' => 'btn btn-danger']) ?> 
                 </div>

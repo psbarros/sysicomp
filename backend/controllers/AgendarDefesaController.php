@@ -5,8 +5,10 @@ namespace backend\controllers;
 use Yii;
 use app\models\AgendarDefesa;
 use app\models\Aluno;
+use app\models\AlunoSearch;
 use app\models\AgendarDefesasSearch;
 use yii\web\Controller;
+use yii\db\IntegrityException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\helpers\ArrayHelper;
@@ -70,11 +72,12 @@ class AgendarDefesaController extends Controller
 
         if ($model->load(Yii::$app->request->post())  )
         {
-            $id_aluno = Aluno::find()->where(['nome'=>$model->nome_aluno])->one();
+            $idAluno = Yii::$app->request->Post('idAluno');
 
-            if($id_aluno!=null) 
+
+            if($idAluno!=null) 
             {
-                $model->aluno_id=$id_aluno->id;
+                $model->aluno_id=$idAluno;
                 $model->save();
                 return $this->redirect(['view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
             }
@@ -87,6 +90,7 @@ class AgendarDefesaController extends Controller
         {
             return $this->render('create', [
                 'model' => $model,
+                'idAluno' => "",
             ]);
         }
     }
@@ -107,11 +111,16 @@ class AgendarDefesaController extends Controller
     {
         $model = $this->findModel($idDefesa, $aluno_id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        if ($model->load(Yii::$app->request->post())) {
+            $idAluno = Yii::$app->request->Post('idAluno');
+            $model->aluno_id=$idAluno;
+            $model->save();
             return $this->redirect(['view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'idAluno' =>"",
             ]);
         }
     }
@@ -145,5 +154,19 @@ class AgendarDefesaController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionAutocompletealuno($term){
+        $listaAlunos = Aluno::find()->where(["like","upper(nome)",strtoupper($term)])->all();
+
+        $codigos = [];
+
+        foreach ($listaAlunos as $alunos)
+        {
+            $codigos[] = ['label'=>$alunos['nome'],'value'=>$alunos['nome'], 'id'=>$alunos['id']
+            ]; //build an array
+        }
+
+        echo json_encode($codigos);
     }
 }

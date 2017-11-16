@@ -245,6 +245,7 @@ class DefesaController extends Controller
 
         echo json_encode($codigos);
     }
+
     /**
      * Creates a new Defesa model.
      * If creation is successful, the browser will be redirected to the 'view' page.
