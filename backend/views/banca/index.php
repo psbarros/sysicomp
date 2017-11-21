@@ -1,12 +1,9 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BancaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Banca';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -22,14 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'banca_id',
             'titulo',
             'nome',
-
-
           /*  [
             'attribute' => 'funcao',
             'label' => "Funcao",
@@ -48,9 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             },
           ], */
-
             ['class' => 'yii\grid\ActionColumn',
-
             'template' => '{View} {update} {delete}',
             'buttons'  => [
                              'View'   => function ($url, $model) {
@@ -63,11 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                    'title' => Yii::t('yii', 'Editar Banca'),
                                     ]);
                               },
-
-
-
-
-
             ],
         ]
         ],
