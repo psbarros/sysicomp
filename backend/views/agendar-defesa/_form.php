@@ -45,46 +45,49 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
 
                 <?php $form = ActiveForm::begin(); ?>
 
+               <?= $form->field($model, 'numDefesa')->textInput() ?>
                
-                <?php $mAluno  = new Aluno();
-                      $mMembro = new Membrosbanca();
-
-                ?>
-                <div>
-                    <?= $form->field($model, 'numDefesa')->textInput() ?>
-                </div>
-        <?php 
-        echo $form->field($mAluno, 'nome',['options'=>['class'=>'col-md-3']])->widget(AutoComplete::classname(), [
-                'clientOptions' => [
-                        'source' => URL::to(['agendar-defesa/autocompletealuno']),
-                        'minLength'=>3,
-                        'select' => new JsExpression("function( event, ui ) {
-                                        
-                                        $('[name=\"idAluno\"]').val(ui.item.id);                                
-                                      }")
-                ],
-                'options'=>[
-                        'maxLength'=>100,
-                        'style'=>[
-                                'width'=>'346px',
-                        ],
-                ]
-        ])->label("<font color='#FF0000'>*</font> <b>Nome Aluno:</b>"); ?>
-        
-        </div>
-
-
+               <?php $mAluno  = new Aluno();
+                      //$mMembro = new Membrosbanca();
+                ?>           
                 
+        
                 <div class="row">
+
+                 <?php 
+                echo $form->field($mAluno, 'nome',['options'=>['class'=>'col-md-8']])->widget(AutoComplete::classname(), [
+                        'clientOptions' => [
+                                'source' => URL::to(['agendar-defesa/autocompletealuno']),
+                                'minLength'=>3,
+                                'select' => new JsExpression("function( event, ui ) {
+                                                
+                                                $('[name=\"idAluno\"]').val(ui.item.id);                                
+                                              }")
+                        ],
+                        'options'=>[
+                                'maxLength'=>100,
+                                'style'=>[
+                                        'width'=>'700px',
+                                ],
+                        ]
+                ]); 
+                ?>
+               
+               </div>
+
+               <div>
 
                 <?= $form->field($model, 'curso_aluno', ['options' => ['class' => 'col-md-4']])->dropDownList($tipoCurso, ['prompt' => 'Selecione um curso'])->label("<font color='#FF0000'>*</font> <b>Curso:</b>") ?>
 
                 <?= $form->field($model, 'tipoDefesa', ['options' => ['class' => 'col-md-5']])->dropDownList($tipoDef, ['prompt' => 'Selecione um tipo de defesa'])->label("<font color='#FF0000'>*</font> <b>Tipo:</b>") ?>                
-               
-               </div>
 
-                <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
-                                              
+               </div>
+            
+                <div class = "col-lg-8">
+
+                    <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
+
+                </div>
 
                 <div class="row">
 
@@ -137,8 +140,9 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
                 </div>
 
                 <?php ActiveForm::end(); ?>
-        </div>
-    </div>
 
+            </div>
+        </div>
 </div>
+
 
