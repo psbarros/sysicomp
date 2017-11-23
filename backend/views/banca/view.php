@@ -1,13 +1,10 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
 use app\models\Defesa;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Banca */
-
 $this->title = 'Informações da Banca';
 $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => 'Bancas', 'url' => ['create']];
@@ -20,14 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['banca/index',], ['class' => 'btn btn-warning']) ?>
-       <?= Html::a('<span class="fa fa-check-circle"></span> Deferir Banca', ["aprovar", 'banca_id' => $model->banca_id], [
+       <?= Html::a('<span class="fa fa-check-circle"></span> Deferir Banca', ['aprovar', "banca_id"=>$model->banca_id], [
             'class' => 'btn btn-primary',
             'data' => [
                 'confirm' => 'Você tem certeza que deseja APROVAR essa banca?',
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('<span class="fa fa-remove"></span> Indeferir Banca', ['update', 'banca_id' => $model->banca_id], [
+        <?= Html::a('<span class="fa fa-remove"></span> Indeferir Banca',['indeferir', "banca_id"=>$model->banca_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Você tem certeza que deseja REPROVAR essa banca?',
@@ -42,14 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'banca_id',
             [ 'attribute' => 'Titulo da Defesa',
                'value' => Defesa::findOne(['banca_id'=>$model->banca_id]) ? $model->defesa->titulo : "não possui defesa" ,
-
             ],
             [ 'attribute' => 'Aluno',
                'value' => Defesa::findOne(['banca_id'=>$model->banca_id]) ? $model->defesa->nome : "não possui defesa",
-
             ],
-
-
           /*  ['attribute' => 'funcao',
             'label' => "Funcao",
             'format' => "html",
@@ -78,7 +71,6 @@ $this->params['breadcrumbs'][] = $this->title;
             "summary" => "",
             'columns' => [
                // ['class' => 'yii\grid\SerialColumn'],
-
                 //'banca_id',
                 //'membrosbanca_id',
                 [
@@ -93,7 +85,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     "attribute" => 'funcaomembro',
                     "label" => "Função",
                 ],
-
             ],
         ]); ?>
 

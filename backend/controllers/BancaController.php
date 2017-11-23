@@ -14,6 +14,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\MembrosBancaSearch;
+use app\models\BancaControleDefesasSearch;
 /**
  * BancaController implements the CRUD actions for Banca model.
  */
@@ -113,8 +114,6 @@ class BancaController extends Controller
                 ($model->membrosbanca_id_3!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_3==NULL)) &&
                 ($model->membrosbanca_id_4!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_4==NULL))){
 
-
-            
             if($model->membrosbanca_id_1){$count++;}
             if($model->membrosbanca_id_2){$count++;}
             if($model->membrosbanca_id_3){$count++;}
@@ -127,7 +126,6 @@ class BancaController extends Controller
                 'items' => $items,
             ]);
             }else{
-
             $model1= new Banca();
             $model1->funcao='P';
             $model_status= new BancaControleDefesas();
@@ -135,7 +133,6 @@ class BancaController extends Controller
             $model1->banca_id=$model_status->id;
             $model1->membrosbanca_id=$model->membrosbanca_id_1;
             $model1->save();
-
             if($model->membrosbanca_id_2){
                    $model2= new Banca();
                    $model2->funcao=$model->funcao2;
@@ -145,7 +142,6 @@ class BancaController extends Controller
             }
             if($model->membrosbanca_id_3){
                    $model3= new Banca();
-
                    $model3->funcao=$model->funcao3;
                    $model3->banca_id=$model_status->id;
                    $model3->membrosbanca_id=$model->membrosbanca_id_3;
@@ -160,13 +156,11 @@ class BancaController extends Controller
             }
             if($model->membrosbanca_id_5){
                    $model5= new Banca();
-
                    $model5->funcao=$model->funcao5;
                    $model5->banca_id=$model_status->id;
                    $model5->membrosbanca_id=$model->membrosbanca_id_5;
                    $model5->save();
             }
-
             $model_banca = new BancaSearch();
             $dataProvider = $model_banca->searchMembros(Yii::$app->request->queryParams,$model1->banca_id);
             $this->mensagens('danger', 'Banca não Criada!', $count.'+'.$model->tipobanca);
@@ -183,13 +177,12 @@ class BancaController extends Controller
             ]);
         }
         } else {
-             
+
             return $this->render('create', [
                 'model' => $model,
                 'items' => $items,
             ]);
         }
-
     }
     /**
      * Updates an existing Banca model.
@@ -203,17 +196,12 @@ class BancaController extends Controller
         $modelsb = Banca::findAll($banca_id);
         $model= new FormBancas();
         $items = ArrayHelper::map(MembrosBanca::find()->all(), 'id', 'nome');
-        
-        foreach($modelsb as $modelb){
 
+        foreach($modelsb as $modelb){
             if($modelb->funcao=='P'){
                    $model->membrosbanca_id_1=$modelb->membrosbanca_id;
                    $model->funcao1=$modelb->funcao;
-
-
             }else{
-
-
                    if(!$model->membrosbanca_id_2){
                    $model->membrosbanca_id_2=$modelb->membrosbanca_id;
                    $model->funcao2=$modelb->funcao;
@@ -230,23 +218,12 @@ class BancaController extends Controller
                                                                                 $model->membrosbanca_id_5=$modelb->membrosbanca_id;
                                                                                 $model->funcao5=$modelb->funcao;
                                                                                 }
-
                                                            }
-
                                        }
-
                  }
-
-
             }
         }
-
         if ($model->load(Yii::$app->request->post())){
-
-
-
-
-
             if($model->membrosbanca_id_1!=$model->membrosbanca_id_2 && $model->membrosbanca_id_1!=$model->membrosbanca_id_3 && $model->membrosbanca_id_1!=$model->membrosbanca_id_4 && $model->membrosbanca_id_1!=$model->membrosbanca_id_5 &&
                 ($model->membrosbanca_id_2!=$model->membrosbanca_id_3 || ($model->membrosbanca_id_2==NULL)) &&
                 ($model->membrosbanca_id_2!=$model->membrosbanca_id_4 || ($model->membrosbanca_id_2==NULL)) &&
@@ -254,7 +231,6 @@ class BancaController extends Controller
                 ($model->membrosbanca_id_3!=$model->membrosbanca_id_4 || ($model->membrosbanca_id_3==NULL)) &&
                 ($model->membrosbanca_id_3!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_3==NULL)) &&
                 ($model->membrosbanca_id_4!=$model->membrosbanca_id_5 || ($model->membrosbanca_id_4==NULL))){
-
             $count=0;
             if($model->membrosbanca_id_1){$count++;}
             if($model->membrosbanca_id_2){$count++;}
@@ -268,12 +244,9 @@ class BancaController extends Controller
                 'items' => $items,
             ]);
             }
-
             $model_statusDelete=  new BancaControleDefesas();
             $model_statusDelete = BancaControleDefesas::deleteAll(['id' => $banca_id]);
             $modelDelete = Banca::deleteAll(['banca_id' => $banca_id]);
-
-
             $model1= new Banca();
             $model1->funcao='P';
             $model_status= new BancaControleDefesas();
@@ -281,8 +254,6 @@ class BancaController extends Controller
             $model1->banca_id=$model_status->id;
             $model1->membrosbanca_id=$model->membrosbanca_id_1;
             $model1->save();
-
-
             if($model->membrosbanca_id_2){
                    $model2= new Banca();
                    $model2->funcao=$model->funcao2;
@@ -292,7 +263,6 @@ class BancaController extends Controller
             }
             if($model->membrosbanca_id_3){
                    $model3= new Banca();
-
                    $model3->funcao=$model->funcao3;
                    $model3->banca_id=$model_status->id;
                    $model3->membrosbanca_id=$model->membrosbanca_id_3;
@@ -307,13 +277,11 @@ class BancaController extends Controller
             }
             if($model->membrosbanca_id_5){
                    $model5= new Banca();
-
                    $model5->funcao=$model->funcao5;
                    $model5->banca_id=$model_status->id;
                    $model5->membrosbanca_id=$model->membrosbanca_id_5;
                    $model5->save();
             }
-
             $model_banca = new BancaSearch();
             $dataProvider = $model_banca->searchMembros(Yii::$app->request->queryParams,$model1->banca_id);
              return $this->render('view', [
@@ -321,22 +289,12 @@ class BancaController extends Controller
             'dataProvider'=> $dataProvider,
         ]);
       }else{
-
                 $this->mensagens('danger', 'Banca não Atualizada!', 'Os membros devem ser diferentes um do outro!!');
                 return $this->render('update', [
                 'model' => $model,
                 'items' => $items,
             ]);
-
-
       }
-
-
-
-
-
-
-
         } else {
             return $this->render('update',['model' => $model, 'items'=> $items]);
         }
@@ -371,8 +329,48 @@ class BancaController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    /* Envio de mensagens para views
-       Tipo: success, danger, warning*/
+    public function actionAprovar($banca_id){
+
+
+
+        $model = BancaControleDefesas::findOne($banca_id);
+        $model->status_banca = 1;
+
+        $model->save(false);
+
+        $this->mensagens('success', 'Avaliação de Banca',  'A banca escolhida foi deferida com sucesso');
+
+        return $this->redirect(['index']);
+
+    }
+    public function actionIndeferir($banca_id)
+    {
+      $model = BancaControleDefesas::findOne($banca_id);
+
+      $model->status_banca = 0;
+
+        if ($model->load(Yii::$app->request->post())) {
+
+
+            $model->save(false);
+            $this->mensagens('success', 'Avaliação de Banca',  'A banca escolhida foi indeferida com sucesso');
+
+
+            return $this->redirect(['index']);
+
+        } else {
+            return $this->render('justificativa',[
+                'model' => $model,
+            ]);
+        }
+    }
+
+
+    /**
+     * Creates a new BancaControleDefesas model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
     protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,

@@ -15,7 +15,7 @@ use Yii;
  */
 class BancaControledefesas extends \yii\db\ActiveRecord
 {
-    public $aluno_nome;
+  public $aluno_nome;
 	public $cursoAluno;
 	public $linhaSigla;
 	public $titulo;
@@ -48,7 +48,7 @@ class BancaControledefesas extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'banca_id',
             'status_banca' => 'Status Banca',
             'justificativa' => 'Justificativa',
         ];

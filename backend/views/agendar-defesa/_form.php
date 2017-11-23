@@ -51,8 +51,10 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
 
                 ?>
                 <div>
+                    <?= $form->field($model, 'numDefesa')->textInput() ?>
+                </div>
         <?php 
-        echo $form->field($mAluno, 'nome')->widget(AutoComplete::classname(), [
+        echo $form->field($mAluno, 'nome',['options'=>['class'=>'col-md-3']])->widget(AutoComplete::classname(), [
                 'clientOptions' => [
                         'source' => URL::to(['agendar-defesa/autocompletealuno']),
                         'minLength'=>3,
@@ -62,19 +64,14 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
                                       }")
                 ],
                 'options'=>[
-                        'maxLength'=>true,
+                        'maxLength'=>100,
                         'style'=>[
-                                'width'=>'1070px',
-                                ''
+                                'width'=>'346px',
                         ],
                 ]
-        ]);?> 
-                </div>
-               
-
+        ])->label("<font color='#FF0000'>*</font> <b>Nome Aluno:</b>"); ?>
         
         </div>
-    </div>
 
 
                 
@@ -140,6 +137,7 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
                 </div>
 
                 <?php ActiveForm::end(); ?>
+        </div>
     </div>
 
 </div>

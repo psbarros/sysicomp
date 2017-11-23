@@ -119,7 +119,7 @@ class BancaControleDefesasController extends Controller
 
 
             return $this->redirect(['index']);
-            
+
         } else {
             return $this->render('update', [
                 'model' => $model,
