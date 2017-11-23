@@ -79,7 +79,7 @@ class AgendarDefesaController extends Controller
             {
                 $model->aluno_id=$idAluno;
                 $model->save();
-                return $this->redirect(['view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
+                return $this->redirect(['defesa/view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
             }
             else
             {
@@ -110,6 +110,8 @@ class AgendarDefesaController extends Controller
     public function actionUpdate($idDefesa, $aluno_id)
     {
         $model = $this->findModel($idDefesa, $aluno_id);
+        $alunoModel= Aluno::find('nome')->where(['id' => $aluno_id]);
+        $model->aluno_id=$alunoModel;
 
 
         if ($model->load(Yii::$app->request->post())) {

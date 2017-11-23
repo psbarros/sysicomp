@@ -9,6 +9,8 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 
+
+
 $tipoFuncao = ['I' => 'Membro Interno', 'E' => 'Membro Externo', 'S' => 'Suplente'];
 $tipoCurso = ['1' => 'Mestrado' , '2' => 'Doutorado-Qualificação-1','3' => 'Doutorado-Qualificação-2','4' => 'Doutorado-Defesa'];
 
