@@ -163,7 +163,7 @@ class BancaController extends Controller
             }
             $model_banca = new BancaSearch();
             $dataProvider = $model_banca->searchMembros(Yii::$app->request->queryParams,$model1->banca_id);
-            $this->mensagens('danger', 'Banca não Criada!', $count.'+'.$model->tipobanca);
+            $this->mensagens('success', 'Banca Criada com sucesso!','Cadastro da banca realizado com sucesso!');
              return $this->render('view', [
             'model' => $model1,
             'dataProvider'=> $dataProvider,
@@ -340,7 +340,7 @@ class BancaController extends Controller
 
         $this->mensagens('success', 'Avaliação de Banca',  'A banca escolhida foi deferida com sucesso');
 
-        return $this->redirect(['index']);
+        return $this->redirect(['bancasemavaliacao']);
 
     }
     public function actionIndeferir($banca_id)
@@ -356,13 +356,24 @@ class BancaController extends Controller
             $this->mensagens('success', 'Avaliação de Banca',  'A banca escolhida foi indeferida com sucesso');
 
 
-            return $this->redirect(['index']);
+            return $this->redirect(['bancasemavaliacao']);
 
         } else {
             return $this->render('justificativa',[
                 'model' => $model,
             ]);
         }
+    }
+
+
+    public function actionBancasemavaliacao()
+    {
+        $searchModel = new BancaSearch();
+        $dataProvider = $searchModel->searchSemAvaliacao(Yii::$app->request->queryParams);
+        return $this->render('bancasemavaliacao', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
 

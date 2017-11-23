@@ -36,7 +36,8 @@ class BancaControledefesas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['status_banca'], 'integer'],
+
+            [['status_banca','id'], 'integer'],
             [['justificativa'], 'required'],
             [['justificativa'], 'string'],
         ];

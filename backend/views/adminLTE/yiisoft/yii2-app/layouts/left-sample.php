@@ -57,6 +57,7 @@ use app\models\MembrosBanca;
                         ['label' => 'Listar todas as defesas', 'icon' => 'fa fa-list', 'url' => ['defesa/index'],],
                         ['label' => 'Agendar Defesas', 'icon' => 'fa fa-list', 'url' => ['agendar-defesa/create'],],
                         ['label' => 'Gerenciar Bancas', 'icon' => 'fa fa-list', 'url' => ['banca/index'],],
+                        ['label' => 'Bancas a serem avaliadas', 'icon' => 'fa fa-list', 'url' => ['banca/bancasemavaliacao'],],
                         ['label' => 'Membros de Banca', 'icon' => 'fa fa-users', 'url' => ['membros-banca/index'],],
                     ],
                 ],

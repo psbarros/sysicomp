@@ -9,10 +9,14 @@ use app\models\AlunoSearch;
 use app\models\AgendarDefesasSearch;
 use yii\web\Controller;
 use yii\db\IntegrityException;
-use yii\web\NotFoundHttpException;
+use app\models\BancaControleDefesas;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 use \yii\helpers\ArrayHelper;
+use app\models\BancaSearch;
+use app\models\BancaControleDefesasSearch;
 /**
+use yii\filters\VerbFilter;
  * AgendarDefesaController implements the CRUD actions for AgendarDefesa model.
  */
 class AgendarDefesaController extends Controller
@@ -68,6 +72,7 @@ class AgendarDefesaController extends Controller
     public function actionCreate()
     {
         $model = new AgendarDefesa();
+        $bancas =  ArrayHelper::getColumn(BancaControleDefesas::find()->where('status_banca=1')->all(), 'id');
         
 
         if ($model->load(Yii::$app->request->post())  )
@@ -79,7 +84,7 @@ class AgendarDefesaController extends Controller
             {
                 $model->aluno_id=$idAluno;
                 $model->save();
-                return $this->redirect(['defesa/view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
+                return $this->redirect(['view', 'idDefesa' => $model->idDefesa, 'aluno_id' => $model->aluno_id]);
             }
             else
             {
@@ -91,6 +96,7 @@ class AgendarDefesaController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'idAluno' => "",
+                'bancas' => $bancas,
             ]);
         }
     }

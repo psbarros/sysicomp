@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\Aluno;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AgendarDefesa */
@@ -29,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idDefesa',
             'titulo',
             'tipoDefesa',
             'data',
@@ -37,13 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'horario',
             'local',
             'resumo:ntext',
-            'numDefesa',
             'examinador:ntext',
             'emailExaminador:ntext',
-            'reservas_id',
             'banca_id',
-            'aluno_id',
-            'previa',
+             [ 'attribute' => 'Aluno',
+               'value' => $model->getNome(),
+            ],
         ],
     ]) ?>
 

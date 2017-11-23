@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Banca;
+use yii\helpers\ArrayHelper;
 
 /**
  * BancaSearch represents the model behind the search form about `app\models\Banca`.
@@ -149,5 +150,75 @@ class BancaSearch extends Banca
 
         return $dataProvider;
     }
+
+    public function searchSemAvaliacao($params)
+    {
+
+
+
+            $subquery = Defesa::find()->select("j17_defesa.banca_id");
+
+             $query = Banca::find()->select("j17_banca_has_membrosbanca.banca_id as banca_id , j17_banca_has_membrosbanca.membrosbanca_id as membrosbanca_id, j17_membrosbanca.nome as nome, j17_banca_has_membrosbanca.funcao as funcao, j17_banca_has_membrosbanca.passagem as passagem")->where("j17_banca_has_membrosbanca.funcao = 'P' and j17_banca_controledefesas.status_banca IS NULL")
+            ->innerJoin("j17_membrosbanca","j17_membrosbanca.id = j17_banca_has_membrosbanca.membrosbanca_id")->innerJoin("j17_banca_controledefesas","j17_banca_has_membrosbanca.banca_id = j17_banca_controledefesas.id")->orderBy(['banca_id'=>SORT_DESC]); 
+
+
+            $query->andWhere(['not in','j17_banca_has_membrosbanca.banca_id',$subquery]);
+
+             
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+            $query->andFilterWhere([
+            'j17_banca_has_membrosbanca.banca_id' => $this->banca_id,
+            'membrosbanca_id' => $this->membrosbanca_id,
+            'j17_defesa.titulo' => $this->titulo,
+
+        ]);
+
+        $query->andFilterWhere(['like', 'nome', $this->nome])
+        ->andFilterWhere(['like', 'funcao', $this->funcao])
+        ->andFilterWhere(['like', 'passagem', $this->passagem]);
+
+
+        return $dataProvider;
+
+}
+
+
+    public function searchSemAvaliacaohelper($params)
+    {
+
+
+
+            $subquery = Defesa::find()->select("j17_defesa.banca_id");
+
+             $query = Banca::find()->select("j17_banca_has_membrosbanca.banca_id as banca_id")->where("j17_banca_has_membrosbanca.funcao = 'P' and j17_banca_controledefesas.status_banca IS NULL")
+            ->innerJoin("j17_membrosbanca","j17_membrosbanca.id = j17_banca_has_membrosbanca.membrosbanca_id")->innerJoin("j17_banca_controledefesas","j17_banca_has_membrosbanca.banca_id = j17_banca_controledefesas.id")->orderBy(['banca_id'=>SORT_DESC]); 
+
+
+
+
+
+            $bancas= ArrayHelper::getColumn($query, 'banca_id');
+
+             
+
+
+
+
+        return $bancas;
+
+}
 
 }

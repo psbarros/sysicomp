@@ -84,7 +84,7 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
                
                </div>
 
-                <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'titulo')->textInput(['maxlength' => true])->label("<font color='#FF0000'>*</font> <b>Título</b>") ?>
                                               
 
                 <div class="row">
@@ -119,7 +119,7 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
 
                 <div class="row">      
 
-                <?= $form->field($model, 'banca_id', ['options' => ['class' => 'col-md-3']])->textInput() ?>  
+                <?= $form->field($model, 'banca_id', ['options' => ['class' => 'col-md-3']])->dropDownList($bancas, ['prompt' => 'Selecione uma banca'])->label("<font color='#FF0000'>*</font> <b>banca:</b>") ?>
 
                 <?= $form->field($model, 'conceito', ['options' => ['class' => 'col-md-5']])->dropDownList($tipoConceito, ['prompt' => 'Selecione um conceito'])?> 
 
@@ -127,7 +127,7 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
 
                 <?= $form->field($model, 'local')->textInput(['maxlength' => true]) ?>
 
-                <?= $form->field($model, 'resumo')->textarea(['rows' => 6]) ?>   
+                <?= $form->field($model, 'resumo')->textarea(['rows' => 6])->label("<font color='#FF0000'>*</font> <b>Resumo</b>") ?>   
 
 
                 <div class="form-group">

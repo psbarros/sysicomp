@@ -42,7 +42,7 @@ class AgendarDefesa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['resumo', 'banca_id', 'aluno_id'], 'required'],
+            [['resumo', 'banca_id', 'aluno_id','horario','curso_aluno','titulo','data','tipoDefesa'], 'required'],
             [['resumo', 'examinador', 'emailExaminador'], 'string'],
             [['numDefesa', 'reservas_id', 'banca_id', 'aluno_id'], 'integer'],
             [['titulo'], 'string', 'max' => 180],
