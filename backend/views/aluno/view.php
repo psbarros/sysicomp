@@ -38,7 +38,8 @@ $this->registerCss("
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('<span class="fa fa-graduation-cap"></span> Cadastrar Defesa', ['defesa/create', 'aluno_id' => $model->id], ['class' => 'btn btn-success']) ?>
+        
+        <?= Html::a('<span class="fa fa-graduation-cap"></span> Cadastrar Defesa', ['agendar-defesa/create', 'aluno_id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('<span class="fa fa-comments"></span> Exame de Proeficiência', ['aluno/exame', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
 		<?= Html::a('<span class="fa fa-lock"></span> Registrar Trancamento', ['trancamento/create', 'idAluno' => $model->id], ['class' => 'btn btn-danger']) ?>
 		<?= Html::a('<span class="fa fa-clock-o"></span> Registrar Prorrogação', ['prorrogacao/create', 'idAluno' => $model->id], ['class' => 'btn btn-warning']) ?>

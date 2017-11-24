@@ -41,7 +41,7 @@ else if( Yii::$app->user->identity->checarAcesso('secretaria') == 1){
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
             //'idDefesa',
             'nome_aluno',

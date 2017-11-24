@@ -28,9 +28,9 @@ else {
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model_aluno, 'nome')->textInput(['readonly' => false]) ?>
+    <?= $form->field($model_aluno, 'nome')->textInput(['readonly' => true]) ?>
 
-    <?= $form->field($model_aluno, 'curso')->dropDownList($arrayCurso,['readonly' => false]) ?>
+    <?= $form->field($model_aluno, 'curso')->dropDownList($arrayCurso,['readonly' => true]) ?>
 
     <?= $form->field($model, 'numDefesa')->textInput() ?>
 
@@ -56,7 +56,7 @@ else {
 		    ?>
     <?php if ($aparecer_form){ ?>
 
-    <?= $form->field($model, 'emailExaminador')->textInput() ?>
+    
 
     <?= $form->field($model, 'banca_id')->textInput() ?>
 

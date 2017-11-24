@@ -15,11 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="banca-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    
 
     <p>
-       <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['banca/index',], ['class' => 'btn btn-warning']) ?>
-       <?= Html::a('<span class="fa fa-check-circle"></span> Deferir Banca', ['aprovar', "banca_id"=>$model->banca_id], [
+       <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar  ', ['banca/bancasemavaliacao',], ['class' => 'btn btn-warning']) ?>
+       
+       <div>
+             <?= Html::a('<span class="fa fa-check-circle"></span> Deferir Banca', ['aprovar', "banca_id"=>$model->banca_id], [
             'class' => 'btn btn-primary',
             'data' => [
                 'confirm' => 'Você tem certeza que deseja APROVAR essa banca?',
@@ -34,6 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
 
+       </div>
+      
 
     </p>
 
