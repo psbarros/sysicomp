@@ -60,9 +60,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'Delete' => function ($url, $model){
                       return  Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'banca_id' => $model->banca_id , 'membrosbanca_id' => $model->membrosbanca_id], [
                                 'data' => [
-                                    'confirm' => 'Remover a defesa \''.$model->titulo.'\'?',
+                                    'confirm' => 'Remover a Banca \''.$model->titulo.'\'?',
                                     'method' => 'post',
-                                ], 'title' => Yii::t('yii', 'Remover Defesa'),
+                                ], 'title' => Yii::t('yii', 'Remover Banca'),
                         ]);
                     },
 

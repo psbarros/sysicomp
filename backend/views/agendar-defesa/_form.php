@@ -66,7 +66,7 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
                 'options'=>[
                         'maxLength'=>100,
                         'style'=>[
-                                'width'=>'631px',
+                                'width'=>'713px',
                                 'height' => '32px'
                         ],
                 ]
@@ -79,9 +79,9 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
                 
                 <div class="row">
 
-                <?= $form->field($model, 'curso_aluno', ['options' => ['class' => 'col-md-4']])->dropDownList($tipoCurso, ['prompt' => 'Selecione um curso'])->label("<font color='#FF0000'>*</font> <b>Curso:</b>") ?>
+                <?= $form->field($model, 'curso_aluno', ['options' => ['class' => 'col-md-5']])->dropDownList($tipoCurso, ['prompt' => 'Selecione um curso'])->label("<font color='#FF0000'>*</font> <b>Curso:</b>") ?>
 
-                <?= $form->field($model, 'tipoDefesa', ['options' => ['class' => 'col-md-5']])->dropDownList($tipoDef, ['prompt' => 'Selecione um tipo de defesa'])->label("<font color='#FF0000'>*</font> <b>Tipo:</b>") ?>                
+                <?= $form->field($model, 'tipoDefesa', ['options' => ['class' => 'col-md-7']])->dropDownList($tipoDef, ['prompt' => 'Selecione um tipo de defesa'])->label("<font color='#FF0000'>*</font> <b>Tipo:</b>") ?>                
                
                </div>
 
@@ -90,7 +90,7 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
 
                 <div class="row">
 
-                    <?= $form->field($model, 'data', ['options' => ['class' => 'col-md-6']])->widget(DatePicker::classname(), [
+                    <?= $form->field($model, 'data', ['options' => ['class' => 'col-md-5']])->widget(DatePicker::classname(), [
                                 'language' => Yii::$app->language,
                                 'options' => ['placeholder' => 'Selecione a Data de Início ...',],
                                 'pluginOptions' => [
@@ -101,7 +101,7 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
                     ?>
 
 
-                    <?= $form->field($model, 'horario', ['options' => ['class' => 'col-md-3']])->widget(DateControl::classname(), [
+                    <?= $form->field($model, 'horario', ['options' => ['class' => 'col-md-7']])->widget(DateControl::classname(), [
                         'language' => 'pt-BR',
                         'name'=>'kartik-date',
                         'options' => [
@@ -120,9 +120,9 @@ $tipoConceito = ['Aprovado' => ' Aprovado', 'Reprovado' => 'Reprovado', 'Não Ju
 
                 <div class="row">      
 
-                <?= $form->field($model, 'banca_id', ['options' => ['class' => 'col-md-3']])->dropDownList($bancas, ['prompt' => 'Selecione uma banca'])->label("<font color='#FF0000'></font> <b>banca:</b>") ?>
+                <?= $form->field($model, 'banca_id', ['options' => ['class' => 'col-md-5']])->dropDownList($bancas, ['prompt' => 'Selecione uma banca'])->label("<font color='#FF0000'></font> <b>banca:</b>") ?>
 
-                <?= $form->field($model, 'conceito', ['options' => ['class' => 'col-md-5']])->dropDownList($tipoConceito, ['prompt' => 'Selecione um conceito'])?> 
+                <?= $form->field($model, 'conceito', ['options' => ['class' => 'col-md-7']])->dropDownList($tipoConceito, ['prompt' => 'Selecione um conceito'])?> 
 
                 </div>             
 

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\Aluno;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AgendarDefesa */
@@ -45,5 +46,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+
+        <h3> Detalhes da Banca </h3>
+
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            //'filterModel' => $searchModel,
+            "summary" => "",
+            'columns' => [
+                //['class' => 'yii\grid\SerialColumn'],
+
+                //'banca_id',
+                //'membrosbanca_id',
+                [
+                    'attribute'=>'nome_membro',
+                    'label' => "Nome do Membro",
+                ],
+                [
+                    'attribute'=>'membro_filiacao',
+                    'label' => "Filiação do Membro",
+                ],
+                [
+                    "attribute" => 'funcaomembro',
+                    "label" => "Função",
+                ],
+
+            ],
+        ]); ?>
+
 
 </div>

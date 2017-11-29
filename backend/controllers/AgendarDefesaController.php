@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\base\Model;
 use app\models\AgendarDefesa;
 use app\models\Aluno;
 use app\models\AlunoSearch;
@@ -14,6 +15,7 @@ use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use \yii\helpers\ArrayHelper;
 use app\models\BancaSearch;
+use app\models\Defesa;
 use app\models\BancaControleDefesasSearch;
 /**
 use yii\filters\VerbFilter;
@@ -59,8 +61,12 @@ class AgendarDefesaController extends Controller
      */
     public function actionView($idDefesa, $aluno_id)
     {
+        $model=$this->findModel($idDefesa, $aluno_id);
+        $model_banca = new BancaSearch();
+        $dataProvider = $model_banca->search(Yii::$app->request->queryParams,$model->banca_id);
         return $this->render('view', [
-            'model' => $this->findModel($idDefesa, $aluno_id),
+            'model' => $model,
+            'dataProvider'=>$dataProvider,
         ]);
     }
 
@@ -72,7 +78,10 @@ class AgendarDefesaController extends Controller
     public function actionCreate()
     {
         $model = new AgendarDefesa();
-        $bancas =  ArrayHelper::getColumn(BancaControleDefesas::find()->where('status_banca=1')->all(), 'id');
+         $model_banca = new BancaSearch();
+        $query = BancaControleDefesas::find()->leftJoin('j17_defesa', 'j17_defesa.banca_id=j17_banca_controledefesas.id')->where('status_banca=1 AND banca_id Is NULL')->all();
+
+        $bancas =  ArrayHelper::map($query, 'id','id');
         
 
         if ($model->load(Yii::$app->request->post())  )
@@ -115,6 +124,16 @@ class AgendarDefesaController extends Controller
      */
     public function actionUpdate($idDefesa, $aluno_id)
     {
+
+
+         $model_banca = new BancaSearch();
+        $query = BancaControleDefesas::find()->leftJoin('j17_defesa', 'j17_defesa.banca_id=j17_banca_controledefesas.id')->where('status_banca=1 AND (banca_id Is NULL OR j17_defesa.idDefesa='.$idDefesa.')')->all();
+
+        $bancas =  ArrayHelper::map($query, 'id','id');
+
+
+
+
         $model = $this->findModel($idDefesa, $aluno_id);
         $alunoModel= Aluno::find('nome')->where(['id' => $aluno_id]);
         $model->aluno_id=$alunoModel;
@@ -129,6 +148,7 @@ class AgendarDefesaController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'idAluno' =>"",
+                'bancas'=>$bancas,
             ]);
         }
     }
